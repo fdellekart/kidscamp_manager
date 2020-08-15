@@ -25,4 +25,4 @@ async def root():
 
 @app.post("/newapplication/")
 async def root(item: Item):
-    print(item)
+    print(item.Erziehungsberechtigter)
