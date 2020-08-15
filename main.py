@@ -1,7 +1,7 @@
-from typing import Optional, Request
+from typing import Optional
 
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from datetime import date
 
