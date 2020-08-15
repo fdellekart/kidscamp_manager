@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Request
 
 
 from fastapi import FastAPI
@@ -10,6 +10,7 @@ app = FastAPI()
 
 
 class Item(BaseModel):
+    Submission
     Erziehungsberechtigter: str
     mail_addr: str
     telephone: str
@@ -28,5 +29,5 @@ async def root():
     return {"message" : "Succesfully connected."}
 
 @app.post("/newapplication/")
-async def root(item: Item):
-    print(item.Erziehungsberechtigter)
+async def root(request: Request):
+    print(request.json())
