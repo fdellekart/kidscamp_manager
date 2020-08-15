@@ -7,7 +7,7 @@ app = FastAPI()
 
 class Item(BaseModel):
     Name: str
-    E-Mail-Adresse: str
+    Mail: str
     Nachricht: str
 
 
