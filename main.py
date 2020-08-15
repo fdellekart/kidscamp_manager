@@ -1,3 +1,6 @@
+from typing import Optional
+
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 from datetime import date
@@ -9,15 +12,15 @@ app = FastAPI()
 class Item(BaseModel):
     Erziehungsberechtigter: str
     mail_addr: str
-    telephone: int
+    telephone: str
     Kind1: str
     kid1_bday: date
-    Kind2: str
-    kid2_bday: date
-    Kind3: str
-    kid3_bday: date
-    Kind4: str
-    kid4_bday: date
+    Kind2: Optional[str]
+    kid2_bday: Optional[str]
+    Kind3: Optional[str]
+    kid3_bday: Optional[str]
+    Kind4: Optional[str]
+    kid4_bday: Optional[str]
 
 
 @app.get("/")
