@@ -29,4 +29,4 @@ async def root():
 
 @app.post("/newapplication/")
 async def root(request: Request):
-    print(request.json())
+    print(await request.json())
