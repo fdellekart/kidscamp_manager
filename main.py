@@ -10,4 +10,4 @@ async def root():
 
 @app.post("/newapplication/")
 async def root(item):
-    return item
+    print(item)
