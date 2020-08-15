@@ -6,9 +6,17 @@ app = FastAPI()
 
 
 class Item(BaseModel):
-    Name: str
-    Mail: str
-    Nachricht: str
+    Erziehungsberechtigter: str
+    mail_addr: str
+    telephone: str
+    Kind1: str
+    kid1_bday: str
+    Kind2: str
+    kid2_bday: str
+    Kind3: str
+    kid3_bday: str
+    Kind4: str
+    kid4_bday: str
 
 
 @app.get("/")
