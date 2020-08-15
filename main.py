@@ -14,7 +14,7 @@ class Item(BaseModel):
     mail_addr: str
     telephone: str
     Kind1: str
-    kid1_bday: date
+    kid1_bday: str
     Kind2: Optional[str]
     kid2_bday: Optional[str]
     Kind3: Optional[str]
