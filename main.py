@@ -10,7 +10,6 @@ app = FastAPI()
 
 
 class Item(BaseModel):
-    Submission
     Erziehungsberechtigter: str
     mail_addr: str
     telephone: str
