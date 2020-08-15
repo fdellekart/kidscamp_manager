@@ -8,6 +8,6 @@ app = FastAPI()
 async def root():
     return {"message" : "Succesfully connected."}
 
-@app.post("/newapplication/")
+@app.get("/newapplication/{item}")
 async def root(item):
     print(item)
