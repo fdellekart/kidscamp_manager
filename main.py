@@ -24,9 +24,9 @@ class Item(BaseModel):
 
 
 @app.get("/")
-def root():
+async def root():
     return {"message" : "Succesfully connected."}
 
 @app.post("/newapplication/")
-def new_application(request: Request):
-    print(request.json())
+async def new_application(request: Request):
+    print(await request.json())
