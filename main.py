@@ -29,4 +29,6 @@ async def root():
 
 @app.post("/newapplication/")
 async def new_application(request: Request):
-    print(await request.json())
+    request_body = await request.json()
+    print(request_body)
+    print(type(request_body))
