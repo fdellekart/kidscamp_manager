@@ -1,8 +1,8 @@
 from typing import Optional
 
 
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Request, Response
+from fastapi.responses import HTMLResponse, FileResponse
 from pydantic import BaseModel
 from datetime import date
 
@@ -19,10 +19,15 @@ async def root():
 
 
 @app.get("/login/", response_class=HTMLResponse)
-async def read_items():
+async def login():
     with open("index.html", 'r') as f:
         html_page = f.read()
     return html_page
+
+
+@app.get("/login/{path}")
+async def login():
+    return FileResponse(path)
 
 
 @app.post("/newapplication/")
