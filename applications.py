@@ -40,7 +40,7 @@ def add_applications(parent: dict, kids: List[dict]):
     if os.path.isfile(path):
         data = pd.read_csv(path)
     else:
-        data = pd.DataFrame(df_columns)
+        data = pd.DataFrame(columns=df_columns)
     for kid in kids:
         data = data.append({
             "name" : kid["name"],
