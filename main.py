@@ -25,9 +25,19 @@ async def login():
     return html_page
 
 
-@app.get("/login/{path}")
-async def login(path : str):
-    return FileResponse(path)
+@app.get("/login/frontend/style/style.css")
+async def login_style():
+    return FileResponse("frontend/style/style.css")
+
+
+@app.get("/login/frontend/scripts/script.js")
+async def login_script():
+    return FileResponse("frontend/scripts/script.js")
+
+
+@app.get("/login/frontend/pictures/Logo_farb.gif")
+async def login_script():
+    return FileResponse("frontend/pictures/Logo_farb.gif")
 
 
 @app.post("/newapplication/")
