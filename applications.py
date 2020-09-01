@@ -48,5 +48,6 @@ def add_applications(parent: dict, kids: List[dict]):
             "parent_name" : parent["name"],
             "mail" : parent["mail"],
             "telephone" : parent["telephone"]
-            })
+            },
+            ignore_index=True)
     data.to_csv(path)
