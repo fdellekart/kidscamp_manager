@@ -3,6 +3,7 @@ from typing import Optional
 
 from fastapi import FastAPI, Request, Response
 from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from datetime import date
 
@@ -12,6 +13,10 @@ from applications import resolve_application, add_applications
 
 app = FastAPI()
 
+app.mount("/pictures", StaticFiles(directory="frontend/pictures"), name="pictures")
+app.mount("/scripts", StaticFiles(directory="frontend/scripts"), name="scripts")
+app.mount("/style", StaticFiles(directory="frontend/style"), name="style")
+
 
 @app.get("/")
 async def root():
@@ -20,24 +25,9 @@ async def root():
 
 @app.get("/login/", response_class=HTMLResponse)
 async def login():
-    with open("index.html", 'r') as f:
+    with open("frontend/index.html", 'r') as f:
         html_page = f.read()
     return html_page
-
-
-@app.get("/login/frontend/style/style.css")
-async def login_style():
-    return FileResponse("frontend/style/style.css")
-
-
-@app.get("/login/frontend/scripts/script.js")
-async def login_script():
-    return FileResponse("frontend/scripts/script.js")
-
-
-@app.get("/login/frontend/pictures/Logo_farb.gif")
-async def login_script():
-    return FileResponse("frontend/pictures/Logo_farb.gif")
 
 
 @app.post("/newapplication/")
