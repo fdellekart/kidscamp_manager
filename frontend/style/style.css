@@ -1,0 +1,13 @@
+main{
+    text-align: center;
+}
+
+#name{
+    padding: 5pt 10pt 5pt 10pt;
+    margin-bottom: 3pt;
+}
+
+#pwd{
+    padding: 5pt 10pt 5pt 10pt;
+    margin-bottom: 10pt;
+}
