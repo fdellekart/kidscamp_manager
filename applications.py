@@ -49,7 +49,8 @@ def add_applications(parent: dict, kids: List[dict]):
             "mail" : parent["mail"],
             "telephone" : parent["telephone"]
             },
-            columns=df_columns
+            columns=df_columns,
+            index=[1,]
             )
         data = data.append(application, ignore_index=True)
     data.to_csv(path)
