@@ -25,9 +25,9 @@ async def login():
     return html_page
 
 
-@app.get("/login/{path}")
+@app.get("/login/frontend/scripts/scripts.js")
 async def login():
-    return FileResponse(path)
+    return FileResponse("frontend/scripts/scripts.js")
 
 
 @app.post("/newapplication/")
