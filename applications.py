@@ -53,4 +53,5 @@ def add_applications(parent: dict, kids: List[dict]):
             index=[1,]
             )
         data = data.append(application, ignore_index=True)
+    print(data)
     data.to_csv(path)
