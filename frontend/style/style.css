@@ -1,4 +1,9 @@
 
+body{
+    font-family: 'Amiko';
+    color: #5c5c5c;
+}
+
 header{
     margin-bottom: 5%;
     box-shadow: 0px 5px 20px gainsboro;
@@ -46,9 +51,14 @@ main{
     border: none;
     transition-duration: 0.4s;
     color: white;
+    font-weight: bold;
 }
 #login:hover {
     color: #FDCC2D;
+}
+
+input{
+    border: 1px solid #888888;
 }
 
 @media screen and (max-width: 950px) {
