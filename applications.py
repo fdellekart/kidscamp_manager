@@ -7,7 +7,7 @@ from envyaml import EnvYAML
 env = EnvYAML()
 
 
-def resolve_apllicaton(data: dict):
+def resolve_applicaton(data: dict):
     """Extracts parent and kids from dict as it comes from Domainfactory POST
     Keys of data in dict from DF are specified in env.yaml
     Only appends kid to list of kids if name is not empty
