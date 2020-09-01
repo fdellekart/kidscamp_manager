@@ -42,12 +42,11 @@ def add_applications(parent: dict, kids: List[dict]):
     else:
         data = pd.DataFrame(df_columns)
     for kid in kids:
-        application = pd.DataFrame(data=[kid["name"],
-                                        kid["birthday"],
-                                        parent["name"],
-                                        parent["mail"],
-                                        parent["telephone"]
-                                        ],
-                                    columns=df_columns)
+        application = pd.DataFrame(data={"name" : kid["name"],
+                                        "birthday" : kid["birthday"],
+                                        "parent_name" : parent["name"],
+                                        "mail" : parent["mail"],
+                                        "telephone" : parent["telephone"]
+        })
         data = data.append(application)
     data.to_csv(path)
