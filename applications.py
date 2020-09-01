@@ -35,7 +35,7 @@ def resolve_application(data: dict):
 
 
 def add_applications(parent: dict, kids: List[dict]):
-    path = f"{env["data_directory"]}/{env["data_file"]}"
+    path = f"{env['data_directory']}/{env['data_file']}"
     df_columns = ["name", "birthday", "parent_name", "mail", "telephone"]
     if os.isfile(path):
         data = pd.read_csv(path)
