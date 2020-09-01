@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from datetime import date
 
 
-from applications import resolve_application
+from applications import resolve_application, add_applications
 
 
 app = FastAPI()
@@ -21,5 +21,4 @@ async def root():
 async def new_application(request: Request):
     request_body = await request.json()
     parent, kids = resolve_application(request_body)
-    print(parent)
-    print(kids)
+    add_applications(parent, kids)
