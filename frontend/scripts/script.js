@@ -18,7 +18,7 @@ xhttp.onreadystatechange = function () {
     if (this.readyState == 1 && this.status == 200){
         alert(this.responseText);
     } else if (this.readyState == 1) {
-        alert("Log in fehlgeschlagen "+ this.readyState);
+        alert("Log in fehlgeschlagen "+ this.status);
     }
 }
 function sendRequest(){
