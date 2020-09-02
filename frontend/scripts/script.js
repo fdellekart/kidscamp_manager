@@ -18,7 +18,7 @@ function validate(){
     var password = document.getElementById("pwd").value;
 
     if (benutzername === "flotschi" && password === "12345"){
-        window.location = "./overview.html";
+        window.location = "http://142.93.98.32:80/overview/";
         return false;
     } else {
         alert("Login fehlgeschlagen");
