@@ -13,21 +13,22 @@ login_btn.addEventListener("click", () => {
 
 
 
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function () {
-    if (this.readyState == 1 && this.status == 200){
-        alert(this.responseText);
-    } else if (this.readyState == 1) {
-        alert("Log in fehlgeschlagen "+ this.status);
-    }
-}
+// xhttp.onreadystatechange = function () {
+//     if (this.readyState == 1 && this.status == 200){
+//         alert(this.responseText);
+//     } else if (this.readyState == 1) {
+//         alert("Log in fehlgeschlagen "+ this.status);
+//     }
+// }
 function sendRequest(){
     var benutzername = document.getElementById("name").value;
     var password = document.getElementById("pwd").value;
+    var xhttp = new XMLHttpRequest();
 
-    xhttp.open("POST", "http://142.93.98.32:80/auth/token",  true);
+    xhttp.open("POST", "http://142.93.98.32:80/auth/token",  false);
     xhttp.setRequestHeader("Content-type", application/x-www-form-urlencoded);
     xhttp.send(benutzername & password);
+    alert(xhttp.responseText)
 }
 
 
