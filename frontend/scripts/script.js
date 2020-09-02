@@ -7,7 +7,6 @@ function clearForm(){
 var login_btn = document.getElementById("login");
 
 login_btn.addEventListener("click", () => {
-    sendRequest();
     clearForm();
 });
 
