@@ -7,23 +7,28 @@ function clearForm(){
 var login_btn = document.getElementById("login");
 
 login_btn.addEventListener("click", () => {
-
+    sendRequest();
     clearForm();
 });
 
 
-//login
-function validate(){
+
+
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200){
+        alert(this.responseText);
+    } else {
+        alert("Log in fehlgeschlagen"+ this.status);
+    }
+}
+function sendRequest(){
     var benutzername = document.getElementById("name").value;
     var password = document.getElementById("pwd").value;
 
-    if (benutzername === "flotschi" && password === "12345"){
-        window.location = "http://142.93.98.32:80/overview/";
-        return false;
-    } else {
-        alert("Login fehlgeschlagen");
-        return false;
-    }
+    xhttp.open("POST", "http://142.93.98.32:80/auth/token",  true);
+    xhttp.setRequestHeader("Content-type", application/x-www-form-urlencoded);
+    xhttp.send(benutzername & password);
 }
 
 
