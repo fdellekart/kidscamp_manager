@@ -50,7 +50,7 @@ async def new_application(request: Request):
     add_applications(parent, kids)
 
 
-@app.post('auth/token')
+@app.post('/auth/token')
 async def login(data: OAuth2PasswordRequestForm = Depends()):
     username = data.username
     password = data.password
