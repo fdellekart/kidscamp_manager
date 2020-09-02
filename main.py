@@ -1,14 +1,20 @@
 from typing import Optional
-
-
-from fastapi import FastAPI, Request, Response
-from fastapi.responses import HTMLResponse, FileResponse
-from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
 from datetime import date
 
 
+from fastapi import FastAPI, Request, Response, Depends
+from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.security import OAuth2PasswordRequestForm
+from fastapi_login.exceptions import InvalidCredentialsException
+from pydantic import BaseModel
+from envyaml import EnvYAML
+
+
 from applications import resolve_application, add_applications
+import user_management
+
+env = EnvYAML()
 
 
 app = FastAPI()
@@ -24,8 +30,15 @@ async def root():
 
 
 @app.get("/login/", response_class=HTMLResponse)
-async def login():
+async def login_page():
     with open("frontend/index.html", 'r') as f:
+        html_page = f.read()
+    return html_page
+
+
+@app.get("/overview/")
+def overview_page(user=Depends(user_management.manager)):
+    with open("frontend/overview.html", 'r') as f:
         html_page = f.read()
     return html_page
 
@@ -36,3 +49,19 @@ async def new_application(request: Request):
     parent, kids = resolve_application(request_body)
     add_applications(parent, kids)
 
+
+@app.post('auth/token')
+async def login(data: OAuth2PasswordRequestForm = Depends()):
+    username = data.username
+    password = data.password
+
+    user = user_management.load_user(username)
+    if not user:
+        raise InvalidCredentialsException
+    elif password != user["password"]:
+        raise InvalidCredentialsException
+
+    access_token = user_management.manager.create_access_token(
+        data=dict(sub=username)
+    )
+    return {"access_token" : access_token, "token_type" : "bearer"}
