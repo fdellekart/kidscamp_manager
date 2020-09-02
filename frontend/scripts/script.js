@@ -3,17 +3,6 @@ function clearForm(){
     document.getElementById("pwd").value="";
 }
 
-//Button
-var login_btn = document.getElementById("login");
-
-login_btn.addEventListener("click", () => {
-    clearForm();
-});
-
-
-
-
-
 function sendRequest(){
     var username = document.getElementById("name").value;
     var password = document.getElementById("pwd").value;
@@ -30,6 +19,14 @@ function sendRequest(){
     xhttp.setRequestHeader("Content-type", application/x-www-form-urlencoded);
     xhttp.send(JSON.stringify({"username" : username, "password" : password}));
 }
+
+//Button
+var login_btn = document.getElementById("login");
+
+login_btn.addEventListener("click", () => {
+    clearForm();
+    sendRequest();
+});
 
 
 
