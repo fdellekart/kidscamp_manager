@@ -53,6 +53,7 @@ main{
     color: white;
     font-weight: bold;
 }
+
 #login:hover {
     color: #FDCC2D;
 }
@@ -72,6 +73,7 @@ input{
         padding-top: 10%;
         padding-bottom: 10%;
     }
+
 
 
 }
