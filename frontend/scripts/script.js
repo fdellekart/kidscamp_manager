@@ -19,7 +19,7 @@ function sendRequest(){
     xhttp.open("POST", "http://142.93.98.32:80/auth/token",  true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.setRequestHeader("accept", "application/json");
-    xhttp.send("grant_type=&username=" + username + "&password=" + password + "scope=&client_id=&client_secret=");
+    xhttp.send(JSON.stringify({"username" : username, "password" : password}));
 }
 
 //Button
