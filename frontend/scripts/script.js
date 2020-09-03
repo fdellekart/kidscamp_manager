@@ -12,7 +12,7 @@ function sendRequest(){
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200){
             document.cookie = "access-token=Bearer " + JSON.parse(this.responseText).access_token;
-            window.location.href = "http://142.93.98.32:80/overview";
+            window.location.href = "http://142.93.98.32:80/overview/";
         } else if (this.readyState == 4){
             alert("Log in fehlgeschlagen "+ this.status);
         }
