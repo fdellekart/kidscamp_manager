@@ -2,7 +2,7 @@ from typing import Optional
 from datetime import date
 
 
-from fastapi import FastAPI, Request, Response, Depends
+from fastapi import FastAPI, Request, Response, Depends, Cookie
 from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.security import OAuth2PasswordRequestForm
@@ -42,8 +42,9 @@ async def login_page():
     return html_page
 
 
-@app.get("/overview/")
-def overview_page(user=Depends(manager)):
+@app.get("/overview/", response_class=HTMLResponse)
+def overview_page(access_token: Optional[str] = Cookie(None)):
+    print(access_token)
     with open("frontend/overview.html", 'r') as f:
         html_page = f.read()
     return html_page
