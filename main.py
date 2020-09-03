@@ -73,13 +73,13 @@ async def login(request: Request):
     username = body["username"]
     password = body["password"]
 
-    user = user_management.load_user(username)
+    user = load_user(username)
     if not user:
         raise InvalidCredentialsException
     elif password != user["password"]:
         raise InvalidCredentialsException
 
-    access_token = user_management.manager.create_access_token(
+    access_token = manager.create_access_token(
         data={"username" :  username}
     )
     return {"access_token" : access_token, "token_type" : "bearer"}
