@@ -7,8 +7,6 @@ function sendRequest(){
     var username = document.getElementById("name").value;
     var password = document.getElementById("pwd").value;
     console.log("sendRequest called")
-    console.log(username)
-    console.log(password)
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200){
@@ -28,8 +26,8 @@ function sendRequest(){
 var login_btn = document.getElementById("login");
 
 login_btn.addEventListener("click", () => {
-    clearForm();
     sendRequest();
+    clearForm();
 });
 
 
