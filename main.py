@@ -43,7 +43,7 @@ async def login_page():
 
 
 @app.get("/overview/")
-def overview_page(user=Depends(manager)):
+async def overview_page(user=Depends(manager)):
     with open("frontend/overview.html", 'r') as f:
         html_page = f.read()
     return html_page
