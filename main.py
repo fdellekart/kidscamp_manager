@@ -7,6 +7,7 @@ from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi_login.exceptions import InvalidCredentialsException
+from fastapi_login import LoginManager
 from pydantic import BaseModel
 from envyaml import EnvYAML
 
@@ -16,6 +17,10 @@ import user_management
 
 env = EnvYAML()
 
+SECRET = env["secret"]
+print(SECRET)
+
+manager = LoginManager(SECRET, tokenUrl="/auth/token")
 
 app = FastAPI()
 
@@ -48,6 +53,17 @@ async def new_application(request: Request):
     request_body = await request.json()
     parent, kids = resolve_application(request_body)
     add_applications(parent, kids)
+
+
+@manager.user_loader
+def load_user(username: str):
+    users = pd.read_csv(env["users_file"])
+    if username not in users["username"].values:
+        return False
+    else:
+        condition = users["username"] == username
+        password = users.loc[condition, "password"].values[0]
+        return {"username" : username, "password" : password}
 
 
 @app.post('/auth/token')
