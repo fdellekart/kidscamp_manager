@@ -10,6 +10,7 @@ from fastapi_login.exceptions import InvalidCredentialsException
 from fastapi_login import LoginManager
 from pydantic import BaseModel
 from envyaml import EnvYAML
+import pandas as pd
 
 
 from applications import resolve_application, add_applications
