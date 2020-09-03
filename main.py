@@ -64,6 +64,6 @@ async def login(request: Request):
         raise InvalidCredentialsException
 
     access_token = user_management.manager.create_access_token(
-        data=dict(sub=username)
+        data={"username" :  username}
     )
     return {"access_token" : access_token, "token_type" : "bearer"}
