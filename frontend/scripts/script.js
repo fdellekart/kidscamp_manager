@@ -11,7 +11,7 @@ function sendRequest(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200){
-            document.cookie = "access-token=Bearer" + JSON.parse(this.responseText).access_token;
+            document.cookie = "access-token=" + JSON.parse(this.responseText).access_token;
             window.location("http://142.93.98.32:80/overview");
         } else if (this.readyState == 4){
             alert("Log in fehlgeschlagen "+ this.status);
