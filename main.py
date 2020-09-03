@@ -42,9 +42,14 @@ async def login_page():
     return html_page
 
 
+<<<<<<< HEAD
 @app.get("/overview/", response_class=HTMLResponse)
 def overview_page(access_token: Optional[str] = Cookie(None)):
     print(access_token)
+=======
+@app.get("/overview/")
+async def overview_page(user=Depends(manager)):
+>>>>>>> new_branch
     with open("frontend/overview.html", 'r') as f:
         html_page = f.read()
     return html_page
