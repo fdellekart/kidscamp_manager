@@ -51,9 +51,11 @@ async def new_application(request: Request):
 
 
 @app.post('/auth/token')
-async def login(data: OAuth2PasswordRequestForm = Depends()):
-    username = data.username
-    password = data.password
+async def login(request: Request):
+    body = await request.json()
+    print(body)
+    username = body["username"]
+    password = body["password"]
 
     user = user_management.load_user(username)
     if not user:
