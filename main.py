@@ -21,7 +21,7 @@ env = EnvYAML()
 SECRET = env["secret"]
 print(SECRET)
 
-manager = LoginManager(SECRET, tokenUrl="/auth/token")
+manager = LoginManager(SECRET, tokenUrl="/auth/token", use_cookie=True)
 
 app = FastAPI()
 
