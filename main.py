@@ -69,7 +69,6 @@ def load_user(username: str):
 
 @app.post('/auth/token')
 async def login(request: Request):
-    print(request)
     body = await request.json()
     print(body)
     username = body["username"]
