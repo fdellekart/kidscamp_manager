@@ -12,13 +12,13 @@ function sendRequest(){
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200){
             document.cookie = "access-token=Bearer " + JSON.parse(this.responseText).access_token;
-            window.location.href = "http://142.93.98.32:80/overview/";
+            window.location.href = "http://0.0.0.0:8000/overview/";
         } else if (this.readyState == 4){
             alert("Log in fehlgeschlagen "+ this.status);
         }
     };
 
-    xhttp.open("POST", "http://142.93.98.32:80/auth/token",  true);
+    xhttp.open("POST", "http://0.0.0.0:8000/auth/token",  true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.setRequestHeader("accept", "application/json");
     xhttp.send(JSON.stringify({"username" : username, "password" : password}));
