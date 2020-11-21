@@ -20,7 +20,7 @@ function sendRequest(){
             response = JSON.parse(xhttp.response)
             // xhttp.response = {"access_token":"test","token_type":"bearer"}
             sessionStorage.setItem("kc_manager_token", response["access_token"])
-            window.location.assign("http://localhost:8000/overview")
+            window.location.assign("http://localhost:8000/overview/")
         }
     }
     xhttp.send(formData);

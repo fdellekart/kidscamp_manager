@@ -39,14 +39,16 @@ credentials_exception = HTTPException(
     headers={"WWW-Authenticate":"Bearer"},
 )
 
-@app.get("/")
+@app.get("/", response_class=HTMLResponse)
 async def root():
-    return {"message": "Succesfully connected."}
+    with open("frontend/index.html", "r") as f:
+        html_page = f.read()
+    return html_page
 
 
 @app.get("/login/", response_class=HTMLResponse)
 async def login_page():
-    with open("frontend/index.html", 'r') as f:
+    with open("frontend/login.html", 'r') as f:
         html_page = f.read()
     return html_page
 

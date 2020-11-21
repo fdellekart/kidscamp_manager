@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" defer>
+        if (sessionStorage.getItem("kc_manager_token") == null) {
+            window.location.assign("http://localhost:8000/login/")
+        } else {
+            window.location.assign("http://localhost:8000/overview/")
+        }
+    </script>
+</head>
+</html>
