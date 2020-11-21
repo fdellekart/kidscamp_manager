@@ -51,8 +51,8 @@ async def login_page():
     return html_page
 
 
-@app.get("/overview/")
-async def overview_page(token: str = Depends(oauth2_scheme)):
+@app.get("/overview/", response_class=HTMLResponse)
+async def overview_page():
     with open("frontend/overview.html", 'r') as f:
         html_page = f.read()
     return html_page
