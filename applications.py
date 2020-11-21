@@ -54,3 +54,8 @@ def add_applications(parent: dict, kids: List[dict]):
             )
         data = data.append(application, ignore_index=True)
     data.to_csv(path, index=False)
+
+def get_all_applications():
+    path = f"{env['data_directory']}/{env['data_file']}"
+    if os.path.isfile(path):
+        return pd.read_csv(path).to_dict("records")
