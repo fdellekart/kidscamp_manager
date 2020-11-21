@@ -14,7 +14,7 @@ import pandas as pd
 from jose import JWTError, jwt
 
 
-from applications import resolve_application, add_applications
+from applications import resolve_application, add_applications, get_all_applications
 from user_management import get_user, authenticate_user, create_access_token, User, UserInDB, TokenData, Token
 
 env = EnvYAML()
@@ -33,6 +33,11 @@ app.mount("/pictures", StaticFiles(directory="frontend/pictures"), name="picture
 app.mount("/scripts", StaticFiles(directory="frontend/scripts"), name="scripts")
 app.mount("/style", StaticFiles(directory="frontend/style"), name="style")
 
+credentials_exception = HTTPException(
+    status_code=status.HTTP_401_UNAUTHORIZED,
+    detail="Could not validate credentials",
+    headers={"WWW-Authenticate":"Bearer"},
+)
 
 @app.get("/")
 async def root():
@@ -59,16 +64,19 @@ async def new_application(request: Request):
     parent, kids = resolve_application(request_body)
     add_applications(parent, kids)
 
+@app.get("/allapplications/")
+async def all_applications(token: str = Depends(oauth2_scheme)):
+    try:
+        payload = jwt.decode(token, SECRET, algorithms=["HS256"])
+        return get_all_applications()
+    except JWTError:
+        raise credentials_exception
+
 def fake_decode_token(token):
     user = get_user(token)
     return user
 
 async def get_current_user(token: str = Depends(oauth2_scheme)):
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate":"Bearer"},
-    )
     try:
         payload = jwt.decode(token, SECRET, algorithms=["HS256"])
         username: str = payload.get("sub")
