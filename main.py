@@ -1,5 +1,5 @@
 from typing import Optional
-from datetime import date
+from datetime import date, timedelta
 
 
 from fastapi import FastAPI, Request, Response, Depends, Cookie, HTTPException, status
@@ -11,15 +11,16 @@ from fastapi_login import LoginManager
 from pydantic import BaseModel
 from envyaml import EnvYAML
 import pandas as pd
+from jose import JWTError, jwt
 
 
 from applications import resolve_application, add_applications
-from user_management import get_user, User, UserInDB, hash_password
+from user_management import get_user, authenticate_user, create_access_token, User, UserInDB, TokenData, Token
 
 env = EnvYAML()
 
 SECRET = env["secret"]
-print(SECRET)
+EXPIRE_MINUTES = 5
 
 def fake_hash_password(password: str):
     return "fakehashed" + password
@@ -63,31 +64,40 @@ def fake_decode_token(token):
     return user
 
 async def get_current_user(token: str = Depends(oauth2_scheme)):
-    user = fake_decode_token(token)
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid authentication credentials",
-            headers={"WWW-Authenticate": "Bearer"},
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate":"Bearer"},
     )
+    try:
+        payload = jwt.decode(token, SECRET, algorithms=["HS256"])
+        username: str = payload.get("sub")
+        if username is None:
+            raise credentials_exception
+        token_data = TokenData(username=username)
+    except JWTError:
+        raise credentials_exception
+    user = get_user(username=token_data.username)
+    if user is None:
+        raise credentials_exception
     return user
 
-async def get_current_active_user(current_user: User = Depends(get_current_user)):
-    if current_user.disabled:
-        raise HTTPException(status_code=400, detail="Inactive user")
-    return current_user
 
 @app.get("/users/me")
 async def read_users_me(current_user: User = Depends(get_current_user)):
     return current_user
 
-@app.post('/auth/token')
-async def login(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = get_user(form_data.username)
+@app.post('/auth/token', response_model=Token)
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+    user = authenticate_user(form_data.username, form_data.password)
     if not user:
-        raise HTTPException(status_code=400, detail="Incorrect username or password!")
-    hashed_password = hash_password(form_data.password)
-    if not hashed_password == user.hashed_password:
-        raise HTTPException(status_code=400, detail="Incorrect username or password!")
-
-    return {"access_token": user.username, "token_type": "bearer"}
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate":"Bearer"},
+    )
+    access_token_expires = timedelta(minutes=EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
