@@ -5,21 +5,29 @@ function checkAuth() {
     }
 }
 
-function getAllKidsData() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "http://anmeldung.kidscamp.at/allapplications/");
-    xhttp.onreadystatechange = function () {
-        if(xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
-            console.log(xhttp.response)
-            return JSON.parse(xhttp.response)
-        } else if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 401) {
-            console.log("Not authorized!")
-            window.location.assign("http://anmeldung.kidscamp.at/login/")
+const app = new Vue({
+    el: "#app",
+    data: {
+        kids: null
+    },
+    methods: {
+        getData () {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "http://anmeldung.kidscamp.at/allapplications/");
+            xhttp.onreadystatechange = function () {
+                if(xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
+                    console.log(xhttp.response)
+                    app.kids = JSON.parse(xhttp.response)
+                } else if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 401) {
+                    console.log("Not authorized!")
+                    window.location.assign("http://anmeldung.kidscamp.at/login/")
+                }
+            }
+            xhttp.setRequestHeader("authorization", "Bearer " + sessionStorage.getItem("kc_manager_token"))
+            xhttp.send()
         }
-    }
-    xhttp.setRequestHeader("authorization", "Bearer " + sessionStorage.getItem("kc_manager_token"))
-    xhttp.send()
-}
+    },
+})
 
 checkAuth()
-getAllKidsData()
+app.getData()
