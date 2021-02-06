@@ -41,10 +41,9 @@ def add_applications(parent: tuple, kids: List[Tuple], db_conn):
 
     cursor.execute(insert_parent_query, parent)
     cursor.executemany(insert_kid_query, kids)
-    
     db_conn.commit()
 
-def get_all_applications():
-    path = f"{env['data_directory']}/{env['data_file']}"
-    if os.path.isfile(path):
-        return pd.read_csv(path).to_dict("records")
+def get_all_kids(db_conn):
+    cursor = db_conn.cursor()
+    cursor.execute("SELECT * FROM kids")
+    return cursor.fetchall()
