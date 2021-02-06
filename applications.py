@@ -1,9 +1,11 @@
-from typing import List
+from typing import List, Tuple
 import os
 
 
 from envyaml import EnvYAML
 import pandas as pd
+
+from queries import create_kid_query, create_parent_query, insert_parent_query, insert_kid_query
 
 
 env = EnvYAML()
@@ -31,30 +33,16 @@ def resolve_application(data: dict):
     return parent, kids
 
 
-def add_applications(parent: dict, kids: List[dict]):
-    path = f"{env['data_directory']}/{env['data_file']}"
-    df_columns = ["name", "birthday", "parent_name", "mail", "telephone"]
-    if os.path.isfile(path):
-        data = pd.read_csv(path)
-    else:
-        data = pd.DataFrame(columns=df_columns)
-    for kid in kids:
-        application = pd.DataFrame(
-            {
-                "name": kid["name"],
-                "birthday": kid["birthday"],
-                "parent_name": parent["name"],
-                "mail": parent["mail"],
-                "telephone": parent["telephone"],
-            },
-            columns=df_columns,
-            index=[
-                1,
-            ],
-        )
-        data = data.append(application, ignore_index=True)
-    data.to_csv(path, index=False)
+def add_applications(parent: tuple, kids: List[Tuple], db_conn):
+    cursor = db_conn.cursor()
 
+    cursor.execute(create_parent_query)
+    cursor.execute(create_kid_query)
+
+    cursor.execute(insert_parent_query, parent)
+    cursor.executemany(insert_kid_query, kids)
+    
+    db_conn.commit()
 
 def get_all_applications():
     path = f"{env['data_directory']}/{env['data_file']}"
