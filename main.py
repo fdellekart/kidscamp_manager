@@ -15,15 +15,25 @@ from jose import JWTError, jwt
 
 
 from applications import resolve_application, add_applications, get_all_applications
-from user_management import get_user, authenticate_user, create_access_token, User, UserInDB, TokenData, Token
+from user_management import (
+    get_user,
+    authenticate_user,
+    create_access_token,
+    User,
+    UserInDB,
+    TokenData,
+    Token,
+)
 
 env = EnvYAML()
 
 SECRET = env["secret"]
 EXPIRE_MINUTES = 5
 
+
 def fake_hash_password(password: str):
     return "fakehashed" + password
+
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
 
@@ -36,8 +46,9 @@ app.mount("/style", StaticFiles(directory="frontend/style"), name="style")
 credentials_exception = HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
     detail="Could not validate credentials",
-    headers={"WWW-Authenticate":"Bearer"},
+    headers={"WWW-Authenticate": "Bearer"},
 )
+
 
 @app.get("/", response_class=HTMLResponse)
 async def root():
@@ -48,14 +59,14 @@ async def root():
 
 @app.get("/login/", response_class=HTMLResponse)
 async def login_page():
-    with open("frontend/login.html", 'r') as f:
+    with open("frontend/login.html", "r") as f:
         html_page = f.read()
     return html_page
 
 
 @app.get("/overview/", response_class=HTMLResponse)
 async def overview_page():
-    with open("frontend/overview.html", 'r') as f:
+    with open("frontend/overview.html", "r") as f:
         html_page = f.read()
     return html_page
 
@@ -66,6 +77,7 @@ async def new_application(request: Request):
     parent, kids = resolve_application(request_body)
     add_applications(parent, kids)
 
+
 @app.get("/allapplications/")
 async def all_applications(token: str = Depends(oauth2_scheme)):
     try:
@@ -74,9 +86,11 @@ async def all_applications(token: str = Depends(oauth2_scheme)):
     except JWTError:
         raise credentials_exception
 
+
 def fake_decode_token(token):
     user = get_user(token)
     return user
+
 
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     try:
@@ -97,15 +111,16 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
 async def read_users_me(current_user: User = Depends(get_current_user)):
     return current_user
 
-@app.post('/auth/token', response_model=Token)
+
+@app.post("/auth/token", response_model=Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
-            headers={"WWW-Authenticate":"Bearer"},
-    )
+            headers={"WWW-Authenticate": "Bearer"},
+        )
     access_token_expires = timedelta(minutes=EXPIRE_MINUTES)
     access_token = create_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
