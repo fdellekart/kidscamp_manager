@@ -25,10 +25,7 @@ def resolve_application(data: dict):
     }
     kids = []
     for i in range(env["nr_of_kids"]):
-        kid = {
-            "name": data[env[f"kid_{i}"]], 
-            "birthday": data[env[f"birthday_{i}"]]
-        }
+        kid = {"name": data[env[f"kid_{i}"]], "birthday": data[env[f"birthday_{i}"]]}
         if kid["name"]:
             kids.append(kid)
     return parent, kids
@@ -42,18 +39,22 @@ def add_applications(parent: dict, kids: List[dict]):
     else:
         data = pd.DataFrame(columns=df_columns)
     for kid in kids:
-        application = pd.DataFrame({
-            "name" : kid["name"],
-            "birthday" : kid["birthday"],
-            "parent_name" : parent["name"],
-            "mail" : parent["mail"],
-            "telephone" : parent["telephone"]
+        application = pd.DataFrame(
+            {
+                "name": kid["name"],
+                "birthday": kid["birthday"],
+                "parent_name": parent["name"],
+                "mail": parent["mail"],
+                "telephone": parent["telephone"],
             },
             columns=df_columns,
-            index=[1,]
-            )
+            index=[
+                1,
+            ],
+        )
         data = data.append(application, ignore_index=True)
     data.to_csv(path, index=False)
+
 
 def get_all_applications():
     path = f"{env['data_directory']}/{env['data_file']}"
