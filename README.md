@@ -2,4 +2,4 @@
 System to manage KidsCamp applications!
 
 
-[<img src="https://img.shields.io/docker/build/fdellekart/kidscamp-manager">]
+<img src="https://img.shields.io/docker/build/fdellekart/getting-started">
