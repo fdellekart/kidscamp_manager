@@ -1,26 +1,21 @@
-from typing import Optional
-from datetime import date, timedelta
+from datetime import timedelta
+import sqlite3
 
 
-from fastapi import FastAPI, Request, Response, Depends, Cookie, HTTPException, status
-from fastapi.responses import HTMLResponse, FileResponse
+from fastapi import FastAPI, Request, Depends, HTTPException, status
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from fastapi_login.exceptions import InvalidCredentialsException
-from fastapi_login import LoginManager
-from pydantic import BaseModel
 from envyaml import EnvYAML
-import pandas as pd
 from jose import JWTError, jwt
 
 
-from applications import resolve_application, add_applications, get_all_applications
+from applications import add_applications, get_all_kids
 from user_management import (
     get_user,
     authenticate_user,
     create_access_token,
     User,
-    UserInDB,
     TokenData,
     Token,
 )
@@ -30,6 +25,7 @@ env = EnvYAML()
 SECRET = env["secret"]
 EXPIRE_MINUTES = 5
 
+db_conn = sqlite3.connect("kidscamp.db")
 
 def fake_hash_password(password: str):
     return "fakehashed" + password
@@ -74,15 +70,17 @@ async def overview_page():
 @app.post("/newapplication/")
 async def new_application(request: Request):
     request_body = await request.json()
-    parent, kids = resolve_application(request_body)
-    add_applications(parent, kids)
+    print(request_body)
+    parent = request_body["parent"]
+    kids = request_body["kids"]
+    add_applications(parent, kids, db_conn)
 
 
-@app.get("/allapplications/")
-async def all_applications(token: str = Depends(oauth2_scheme)):
+@app.get("/allkids/")
+async def all_kids(token: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(token, SECRET, algorithms=["HS256"])
-        return get_all_applications()
+        return get_all_kids(db_conn)
     except JWTError:
         raise credentials_exception
 
