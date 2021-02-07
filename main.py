@@ -1,13 +1,15 @@
 from datetime import timedelta
+from typing import List
 import sqlite3
 
 
-from fastapi import FastAPI, Request, Depends, HTTPException, status
+from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from envyaml import EnvYAML
 from jose import JWTError, jwt
+from pydantic import BaseModel
 
 
 from applications import add_applications, get_all_kids
@@ -29,6 +31,11 @@ db_conn = sqlite3.connect("kidscamp.db")
 
 def fake_hash_password(password: str):
     return "fakehashed" + password
+
+
+class Application(BaseModel):
+    parent: list
+    kids: List[tuple]
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
@@ -68,11 +75,9 @@ async def overview_page():
 
 
 @app.post("/newapplication/")
-async def new_application(request: Request):
-    request_body = await request.json()
-    print(request_body)
-    parent = request_body["parent"]
-    kids = request_body["kids"]
+async def new_application(application: Application):
+    parent = application.parent
+    kids = application.kids
     add_applications(parent, kids, db_conn)
 
 
