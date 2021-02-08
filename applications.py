@@ -15,6 +15,18 @@ from queries import (
 env = EnvYAML()
 
 
+def get_parent_id(db_conn):
+    cursor = db_conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM parents;")
+    return cursor.fetchall()[0][0]
+
+
+def get_kid_id(db_conn):
+    cursor = db_conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM kids;")
+    return cursor.fetchall()[0][0]
+
+
 def add_applications(parent: tuple, kids: List[Tuple], db_conn):
     """Add parent to parents table and kids to kids table
 
@@ -34,6 +46,15 @@ def add_applications(parent: tuple, kids: List[Tuple], db_conn):
     cursor.execute(create_parent_query)
     cursor.execute(create_kid_query)
 
+    parent_id = get_parent_id(db_conn)
+    parent = (parent_id,) + parent
+
+    first_kid_id = get_kid_id(db_conn)
+    kids = [
+        (first_kid_id + offset, parent_id) + kid
+        for offset, kid in zip(range(len(kids)), kids)
+    ]
+
     cursor.execute(insert_parent_query, parent)
     cursor.executemany(insert_kid_query, kids)
     db_conn.commit()
@@ -50,4 +71,10 @@ def get_all_kids(db_conn):
     """
     cursor = db_conn.cursor()
     cursor.execute("SELECT * FROM kids")
+    return cursor.fetchall()
+
+
+def get_all_parents(db_conn):
+    cursor = db_conn.cursor()
+    cursor.execute("SELECT * FROM parents")
     return cursor.fetchall()
