@@ -16,8 +16,9 @@ create_kid_query = """
         parent INTEGER,
         first_name TEXT NOT NULL,
         last_name TEXT NOT NULL,
+        birthday TEXT NOT NULL,
         FOREIGN KEY(parent) REFERENCES parents(parent_id)
     )
     """
 
-insert_kid_query = "INSERT INTO kids VALUES(?,?,?,?)"
+insert_kid_query = "INSERT INTO kids VALUES(?,?,?,?,?)"
