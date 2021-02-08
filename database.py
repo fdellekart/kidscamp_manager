@@ -38,7 +38,8 @@ def add_applications(parent: tuple, kids: List[Tuple], db_conn):
     :param kids: list of tuples in form (kid_id: int,
                                          parent: int (id in parents table),
                                          first_name: str,
-                                         last_name: str)
+                                         last_name: str,
+                                         birthday: str)
     :param db_conn: sqlite db connection
     """
     cursor = db_conn.cursor()
