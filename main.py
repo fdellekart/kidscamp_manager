@@ -9,7 +9,6 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from envyaml import EnvYAML
 from jose import JWTError, jwt
-from pydantic import BaseModel
 
 
 from database import add_applications, get_all_kids, get_all_parents
@@ -21,7 +20,7 @@ from user_management import (
     TokenData,
     Token,
 )
-from models.applications import Application, Kid, Parent
+from models.applications import Kid, Parent
 
 env = EnvYAML()
 
