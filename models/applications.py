@@ -19,8 +19,3 @@ class Parent(BaseModel):
     last_name: str
     mail: str
     telephone: str
-
-
-class Application(BaseModel):
-    kids: List[Kid]
-    parent: Parent

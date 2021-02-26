@@ -21,7 +21,7 @@ from user_management import (
     TokenData,
     Token,
 )
-from models.applications import Application
+from models.applications import Application, Kid, Parent
 
 env = EnvYAML()
 
@@ -71,9 +71,7 @@ async def overview_page():
 
 
 @app.post("/newapplication/")
-async def new_application(application: Application):
-    parent = application.parent
-    kids = application.kids
+async def new_application(parent: Parent, kids: List[Kid]):
     add_applications(parent, kids, db_conn)
 
 
