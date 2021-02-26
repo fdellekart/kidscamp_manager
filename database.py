@@ -48,11 +48,11 @@ def add_applications(parent: tuple, kids: List[Tuple], db_conn):
     cursor.execute(create_kid_query)
 
     parent_id = get_parent_id(db_conn)
-    parent = (parent_id,) + parent
+    parent = tuple([parent_id,].extend(parent))
 
     first_kid_id = get_kid_id(db_conn)
     kids = [
-        (first_kid_id + offset, parent_id) + kid
+        tuple([first_kid_id + offset, parent_id].extend(kid))
         for offset, kid in zip(range(len(kids)), kids)
     ]
 
