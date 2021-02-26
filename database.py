@@ -19,13 +19,13 @@ env = EnvYAML()
 def get_parent_id(db_conn):
     cursor = db_conn.cursor()
     cursor.execute("SELECT COUNT(*) FROM parents;")
-    return cursor.fetchall()[0][0]
+    return cursor.fetchall()[0][0] + 1
 
 
 def get_kid_id(db_conn):
     cursor = db_conn.cursor()
     cursor.execute("SELECT COUNT(*) FROM kids;")
-    return cursor.fetchall()[0][0]
+    return cursor.fetchall()[0][0] + 1
 
 
 def add_applications(parent: Parent, kids: List[Kid], db_conn):
