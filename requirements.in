@@ -1,0 +1,9 @@
+fastapi
+envyaml
+python-jose
+pydantic
+pandas
+passlib
+aiofiles
+python-multipart
+bcrypt
