@@ -10,6 +10,7 @@ from queries import (
     insert_parent_query,
     insert_kid_query,
 )
+from models.applications import Kid, Parent
 
 
 env = EnvYAML()
@@ -27,7 +28,7 @@ def get_kid_id(db_conn):
     return cursor.fetchall()[0][0]
 
 
-def add_applications(parent: tuple, kids: List[Tuple], db_conn):
+def add_applications(parent: Parent, kids: List[Kid], db_conn):
     """Add parent to parents table and kids to kids table
 
     :param parent: (parent_id: int,
@@ -47,17 +48,31 @@ def add_applications(parent: tuple, kids: List[Tuple], db_conn):
     cursor.execute(create_parent_query)
     cursor.execute(create_kid_query)
 
-    parent_id = get_parent_id(db_conn)
-    parent = tuple([parent_id,].extend(parent))
+    parent.id = get_parent_id(db_conn)
 
     first_kid_id = get_kid_id(db_conn)
-    kids = [
-        tuple([first_kid_id + offset, parent_id].extend(kid))
-        for offset, kid in zip(range(len(kids)), kids)
-    ]
+    for offset, kid in enumerate(kids):
+        kid.id = first_kid_id + offset
 
-    cursor.execute(insert_parent_query, parent)
-    cursor.executemany(insert_kid_query, kids)
+    parent_to_insert = (
+        parent.id,
+        parent.first_name,
+        parent.last_name,
+        parent.mail,
+        parent.telephone,
+    )
+
+    kid_to_insert = lambda kid: (
+        kid.id,
+        parent.id,
+        kid.first_name,
+        kid.last_name,
+        kid.birthday,
+    )
+    kids_to_insert = [kid_to_insert(kid) for kid in kids]
+
+    cursor.execute(insert_parent_query, parent_to_insert)
+    cursor.executemany(insert_kid_query, kids_to_insert)
     db_conn.commit()
 
 
