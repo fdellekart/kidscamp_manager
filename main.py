@@ -12,7 +12,7 @@ from jose import JWTError, jwt
 from pydantic import BaseModel
 
 
-from applications import add_applications, get_all_kids
+from database import add_applications, get_all_kids, get_all_parents
 from user_management import (
     get_user,
     authenticate_user,
@@ -86,6 +86,15 @@ async def all_kids(token: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(token, SECRET, algorithms=["HS256"])
         return get_all_kids(db_conn)
+    except JWTError:
+        raise credentials_exception
+
+
+@app.get("/allparents/")
+async def parent(token: str = Depends(oauth2_scheme)):
+    try:
+        payload = jwt.decode(token, SECRET, algorithms=["HS256"])
+        return get_all_parents(db_conn)
     except JWTError:
         raise credentials_exception
 
