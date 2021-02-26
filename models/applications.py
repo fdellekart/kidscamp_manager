@@ -13,6 +13,14 @@ class Kid(BaseModel):
     birthday: date
 
 
+class Parent(BaseModel):
+    id: int
+    first_name: str
+    last_name: str
+    mail: str
+    telephone: str
+
+
 class Application(BaseModel):
     kids: List[Kid]
-    parent: list
+    parent: Parent
