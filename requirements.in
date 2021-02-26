@@ -1,6 +1,9 @@
 fastapi
 envyaml
-jose
+python-jose
 pydantic
 pandas
 passlib
+aiofiles
+python-multipart
+bcrypt
