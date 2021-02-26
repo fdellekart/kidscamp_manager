@@ -6,15 +6,15 @@ from pydantic import BaseModel
 
 
 class Kid(BaseModel):
-    id: int
-    parent_id: int
+    id: int = 0
+    parent_id: int = 0
     first_name: str
     last_name: str
     birthday: date
 
 
 class Parent(BaseModel):
-    id: int
+    id: int = 0
     first_name: str
     last_name: str
     mail: str
