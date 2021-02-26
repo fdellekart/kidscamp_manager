@@ -21,6 +21,7 @@ from user_management import (
     TokenData,
     Token,
 )
+from models.applications import Application
 
 env = EnvYAML()
 
@@ -31,11 +32,6 @@ db_conn = sqlite3.connect("kidscamp.db")
 
 def fake_hash_password(password: str):
     return "fakehashed" + password
-
-
-class Application(BaseModel):
-    parent: list
-    kids: List[tuple]
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
