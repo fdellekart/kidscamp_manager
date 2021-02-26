@@ -3,7 +3,7 @@ create_parent_query = """
         parent_id INTEGER PRIMARY KEY,
         first_name TEXT NOT NULL,
         last_name TEXT NOT NULL,
-        e_mail TEXT NOT NULL,
+        mail TEXT NOT NULL,
         telephone TEXT
     )
     """
