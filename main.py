@@ -46,6 +46,16 @@ credentials_exception = HTTPException(
 )
 
 
+@app.on_event("startup")
+async def startup():
+    app.state.db_conn = sqlite3.connect("kidscamp.db")
+
+
+@app.on_event("shutdown")
+async def shutdown():
+    app.state.db_conn.close()
+
+
 @app.get("/", response_class=HTMLResponse)
 async def root():
     with open("frontend/index.html", "r") as f:
