@@ -27,8 +27,6 @@ env = EnvYAML()
 SECRET = env["secret"]
 EXPIRE_MINUTES = 5
 
-db_conn = sqlite3.connect("kidscamp.db")
-
 def fake_hash_password(password: str):
     return "fakehashed" + password
 
