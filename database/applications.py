@@ -1,31 +1,10 @@
-from typing import List, Tuple
+from typing import List
 
 
-from envyaml import EnvYAML
-
-
-from queries import (
-    create_kid_query,
-    create_parent_query,
-    insert_parent_query,
-    insert_kid_query,
-)
-from models.applications import Kid, Parent
-
-
-env = EnvYAML()
-
-
-def get_parent_id(db_conn):
-    cursor = db_conn.cursor()
-    cursor.execute("SELECT COUNT(*) FROM parents;")
-    return cursor.fetchall()[0][0] + 1
-
-
-def get_kid_id(db_conn):
-    cursor = db_conn.cursor()
-    cursor.execute("SELECT COUNT(*) FROM kids;")
-    return cursor.fetchall()[0][0] + 1
+from models.applications import Parent, Kid
+from .queries import create_parent_query, create_kid_query, insert_parent_query, insert_kid_query
+from .parents import get_parent_id
+from .kids import get_kid_id
 
 
 def add_applications(parent: Parent, kids: List[Kid], db_conn):
@@ -74,23 +53,3 @@ def add_applications(parent: Parent, kids: List[Kid], db_conn):
     cursor.execute(insert_parent_query, parent_to_insert)
     cursor.executemany(insert_kid_query, kids_to_insert)
     db_conn.commit()
-
-
-def get_all_kids(db_conn):
-    """Get all kids in kids table
-
-    :param db_conn: sqlite db connection
-    :return: list of tuples in form (kid_id: int,
-                                     parent: int (id in parents table),
-                                     first_name: str,
-                                     last_name: str)
-    """
-    cursor = db_conn.cursor()
-    cursor.execute("SELECT * FROM kids")
-    return cursor.fetchall()
-
-
-def get_all_parents(db_conn):
-    cursor = db_conn.cursor()
-    cursor.execute("SELECT * FROM parents")
-    return cursor.fetchall()
