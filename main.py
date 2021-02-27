@@ -21,6 +21,7 @@ from user_management import (
     Token,
 )
 from models.applications import Kid, Parent
+from exceptions import credentials_exception, unauthorized_exception
 
 env = EnvYAML()
 
@@ -38,12 +39,6 @@ app = FastAPI()
 app.mount("/pictures", StaticFiles(directory="frontend/pictures"), name="pictures")
 app.mount("/scripts", StaticFiles(directory="frontend/scripts"), name="scripts")
 app.mount("/style", StaticFiles(directory="frontend/style"), name="style")
-
-credentials_exception = HTTPException(
-    status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Could not validate credentials",
-    headers={"WWW-Authenticate": "Bearer"},
-)
 
 
 @app.on_event("startup")
@@ -129,11 +124,7 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        raise unauthorized_exception
     access_token_expires = timedelta(minutes=EXPIRE_MINUTES)
     access_token = create_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
