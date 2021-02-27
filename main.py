@@ -90,11 +90,6 @@ async def parent(token: str = Depends(oauth2_scheme)):
         raise credentials_exception
 
 
-def fake_decode_token(token):
-    user = get_user(token)
-    return user
-
-
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(token, SECRET, algorithms=["HS256"])
