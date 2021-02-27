@@ -8,4 +8,5 @@ class User(BaseModel):
 
 
 class UserInDB(User):
+    role: str
     hashed_password: str
