@@ -79,14 +79,14 @@ async def overview_page():
 
 @app.post("/newapplication/")
 async def new_application(parent: Parent, kids: List[Kid]):
-    add_applications(parent, kids, db_conn)
+    add_applications(parent, kids, app.state.db_conn)
 
 
 @app.get("/allkids/")
 async def all_kids(token: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(token, SECRET, algorithms=["HS256"])
-        return get_all_kids(db_conn)
+        return get_all_kids(app.state.db_conn)
     except JWTError:
         raise credentials_exception
 
@@ -95,7 +95,7 @@ async def all_kids(token: str = Depends(oauth2_scheme)):
 async def parent(token: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(token, SECRET, algorithms=["HS256"])
-        return get_all_parents(db_conn)
+        return get_all_parents(app.state.db_conn)
     except JWTError:
         raise credentials_exception
 
