@@ -1,6 +1,19 @@
+from passlib.context import CryptContext
+
+
 from .queries import get_user_query, insert_user_query
 from models.users import UserInDB
-from auth import get_password_hash
+
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
+
+
+def get_password_hash(password: str):
+    return pwd_context.hash(password)
 
 
 def get_user(username: str, db_conn):

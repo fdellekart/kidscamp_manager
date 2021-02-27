@@ -3,28 +3,17 @@ from typing import Optional
 
 
 from fastapi.security import OAuth2PasswordBearer
-from passlib.context import CryptContext
 from envyaml import EnvYAML
 from jose import jwt
 
 
-from database.users import get_user
+from database.users import get_user, verify_password
 
 
 env = EnvYAML()
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-
-def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
-
-
-def get_password_hash(password: str):
-    return pwd_context.hash(password)
 
 
 def authenticate_user(username: str, password: str):
