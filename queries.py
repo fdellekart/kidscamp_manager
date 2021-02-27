@@ -22,3 +22,16 @@ create_kid_query = """
     """
 
 insert_kid_query = "INSERT INTO kids VALUES(?,?,?,?,?)"
+
+create_user_query = """
+    CREATE TABLE IF NOT EXISTS users (
+        user_id INTEGER PRIMARY KEY,
+        username TEXT UNIQUE,
+        mail TEXT NOT NULL,
+        hashed_password TEXT NOT NULL
+    )
+    """
+
+insert_user_query = "INSERT INTO users VALUES(?, ?, ?, ?)"
+
+get_user_query = "SELECT * FROM users WHERE username = '?'"
