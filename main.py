@@ -22,6 +22,7 @@ from user_management import (
 )
 from models.applications import Kid, Parent
 from exceptions import credentials_exception, unauthorized_exception
+from views import applications
 
 env = EnvYAML()
 
@@ -46,6 +47,9 @@ async def shutdown():
     app.state.db_conn.close()
 
 
+app.include_router(applications.router)
+
+
 @app.get("/", response_class=HTMLResponse)
 async def root():
     with open("frontend/index.html", "r") as f:
@@ -65,11 +69,6 @@ async def overview_page():
     with open("frontend/overview.html", "r") as f:
         html_page = f.read()
     return html_page
-
-
-@app.post("/newapplication/")
-async def new_application(parent: Parent, kids: List[Kid]):
-    add_applications(parent, kids, app.state.db_conn)
 
 
 @app.get("/allkids/")
