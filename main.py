@@ -9,7 +9,6 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from envyaml import EnvYAML
 from jose import JWTError, jwt
-from pydantic import BaseModel
 
 
 from database import add_applications, get_all_kids, get_all_parents
@@ -21,6 +20,7 @@ from user_management import (
     TokenData,
     Token,
 )
+from models.applications import Kid, Parent
 
 env = EnvYAML()
 
@@ -31,11 +31,6 @@ db_conn = sqlite3.connect("kidscamp.db")
 
 def fake_hash_password(password: str):
     return "fakehashed" + password
-
-
-class Application(BaseModel):
-    parent: list
-    kids: List[tuple]
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
@@ -75,9 +70,7 @@ async def overview_page():
 
 
 @app.post("/newapplication/")
-async def new_application(application: Application):
-    parent = application.parent
-    kids = application.kids
+async def new_application(parent: Parent, kids: List[Kid]):
     add_applications(parent, kids, db_conn)
 
 
