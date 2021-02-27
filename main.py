@@ -36,11 +36,6 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
 
 app = FastAPI()
 
-app.mount("/pictures", StaticFiles(directory="frontend/pictures"), name="pictures")
-app.mount("/scripts", StaticFiles(directory="frontend/scripts"), name="scripts")
-app.mount("/style", StaticFiles(directory="frontend/style"), name="style")
-
-
 @app.on_event("startup")
 async def startup():
     app.state.db_conn = sqlite3.connect("kidscamp.db")
