@@ -1,10 +1,8 @@
 def get_parent_id(db_conn):
-    cursor = db_conn.cursor()
-    cursor.execute("SELECT COUNT(*) FROM parents;")
-    return cursor.fetchall()[0][0] + 1
+    result = db_conn.execute("SELECT COUNT(*) FROM parents;")
+    return result.fetchall()[0][0] + 1
 
 
 def get_all_parents(db_conn):
-    cursor = db_conn.cursor()
-    cursor.execute("SELECT * FROM parents")
-    return cursor.fetchall()
+    result = db_conn.execute("SELECT * FROM parents")
+    return result.fetchall()

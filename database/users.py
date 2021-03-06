@@ -17,22 +17,20 @@ def get_password_hash(password: str):
 
 
 def get_user(username: str, db_conn):
-    with db_conn.cursor() as cursor:
-        cursor.execute(get_user_query, username)
-        user = cursor.fetch()
+    result = db_conn.execute(get_user_query, (username,))
+    user = result.fetchone()
     if user:
-        return UserInDB(*user)
+        return UserInDB(user_id=user[0], username=user[1], mail=user[2], role=user[3], hashed_password=user[4])
 
 
 def get_user_id(db_conn):
-    cursor = db_conn.cursor()
-    cursor.execute("SELECT COUNT(*) FROM users;")
-    return cursor.fetchall()[0][0] + 1
+    result = db_conn.execute("SELECT COUNT(*) FROM users;")
+    return result.fetchall()[0][0] + 1
 
 
 def add_user(username: str, password:str, mail: str, role:str, db_conn):
     hashed_password = get_password_hash(password)
     user_id = get_user_id(db_conn)
     user_to_insert = (user_id, username, mail, role, hashed_password)
-    with db_conn.cursor() as cursor:
-        cursor.execute(insert_user_query, user_to_insert)
+    db_conn.execute(insert_user_query, user_to_insert)
+    db_conn.commit()
