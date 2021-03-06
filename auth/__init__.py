@@ -16,8 +16,8 @@ env = EnvYAML()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
 
 
-def authenticate_user(username: str, password: str):
-    user = get_user(username)
+def authenticate_user(username: str, password: str, db_conn):
+    user = get_user(username, db_conn)
     if not user:
         return False
     if not verify_password(password, user.hashed_password):
