@@ -25,4 +25,10 @@ jobs:
           username: ${{secrets.SSH_USERNAME}}
       # Runs a single command using the runners shell
           script: |
-            echo "success"
+            mkdir ~/app/
+            cd ~/app/
+            git clone git@github.com:fdellekart/kidscamp_manager.git
+            cd kidscamp_manager
+            docker build -t kidscamp_manager .
+            docker run -p 80:80 kidscamp_manager -d
+      
