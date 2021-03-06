@@ -3,7 +3,7 @@ from envyaml import EnvYAML
 from jose import jwt, JWTError
 
 
-from .auth import oauth2_scheme
+from auth import oauth2_scheme
 from exceptions import credentials_exception
 from models.auth import TokenData
 from models.users import User
