@@ -1,9 +1,18 @@
 import sqlite3
 
 
+from envyaml import EnvYAML
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+
+env = EnvYAML()
+
+engine = create_engine(
+    env["database_host"], connect_args={"check_same_thread": False}
+)
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
 def get_db_conn():
-    db_conn = sqlite3.connect("kidscamp.db")
-    try:
-        yield db_conn
-    finally:
-        db_conn.close()
+    return SessionLocal().connection().connection

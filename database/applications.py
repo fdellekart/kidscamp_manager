@@ -22,10 +22,8 @@ def add_applications(parent: Parent, kids: List[Kid], db_conn):
                                          birthday: str)
     :param db_conn: sqlite db connection
     """
-    cursor = db_conn.cursor()
-
-    cursor.execute(create_parent_query)
-    cursor.execute(create_kid_query)
+    db_conn.execute(create_parent_query)
+    db_conn.execute(create_kid_query)
 
     parent.id = get_parent_id(db_conn)
 
@@ -50,6 +48,6 @@ def add_applications(parent: Parent, kids: List[Kid], db_conn):
     )
     kids_to_insert = [kid_to_insert(kid) for kid in kids]
 
-    cursor.execute(insert_parent_query, parent_to_insert)
-    cursor.executemany(insert_kid_query, kids_to_insert)
+    db_conn.execute(insert_parent_query, parent_to_insert)
+    db_conn.executemany(insert_kid_query, kids_to_insert)
     db_conn.commit()

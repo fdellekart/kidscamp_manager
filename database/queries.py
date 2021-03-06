@@ -35,4 +35,4 @@ create_user_query = """
 
 insert_user_query = "INSERT INTO users VALUES(?, ?, ?, ?, ?)"
 
-get_user_query = "SELECT * FROM users WHERE username = '?'"
+get_user_query = "SELECT * FROM users WHERE username = ?"
