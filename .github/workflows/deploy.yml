@@ -28,5 +28,4 @@ jobs:
             cd ~/app/kidscamp_manager
             git pull
             docker build -t kidscamp_manager .
-            docker run -p 80:80 kidscamp_manager -d
-      
+            docker run -p 80:80 kidscamp_manager     
