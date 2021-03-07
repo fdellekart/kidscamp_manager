@@ -25,7 +25,13 @@ jobs:
           username: ${{secrets.SSH_USERNAME}}
       # Runs a single command using the runners shell
           script: |
+            docker kill $(docker ps -q)
             cd ~/app/kidscamp_manager
+            git checkout master
             git pull
-            docker build -t kidscamp_manager .
-            docker run -p 80:80 kidscamp_manager     
+            cd backend
+            docker build -t kidscamp_manager_back .
+            docker run -p 8000:8000 kidscamp_manager_back
+            cd ../frontend
+            docker build -t kidscamp_manager_front .
+            docker run -d -p 3000:80 kidscamp_manager_front
