@@ -13,7 +13,7 @@ USER node
 # Install requirements
 COPY --chown=node:node package.json .
 COPY --chown=node:node yarn.lock .
-RUN yarn install --production --non-interactive --audit
+RUN yarn install --non-interactive --audit
 
 # Copy all files (note .dockerignore)
 COPY --chown=node:node . .
