@@ -6,6 +6,7 @@ echo "*** Run entry-point ***"
 
 if [[ "$1" = "entry" ]]; then
     yarn start
+    echo "Start Frontend"
 
 elif [[ "$1" = "test" ]]; then
     # run test
