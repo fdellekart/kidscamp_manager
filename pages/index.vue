@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Anmeldung KidsCamp {{ currentYear }}</h1>
+    <h1 class="heading">Anmeldung KidsCamp {{ currentYear }}</h1>
     <div class="parent-container">
       <h3>Erziehungsberechtigter</h3>
       <form v-if="!isSaved" @submit.prevent="onSubmit">
@@ -80,6 +80,9 @@ export default {
   padding-top: 15px;
 }
 .parent-container {
+  margin-top: 5%;
+}
+.heading {
   margin-top: 5%;
 }
 .children-container {
