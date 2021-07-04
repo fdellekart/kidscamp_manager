@@ -1,5 +1,20 @@
-# kidscamp_manager
-System to manage KidsCamp applications!
+# kidscamp_application
 
+## Build Setup
 
-<img src="https://img.shields.io/docker/build/fdellekart/getting-started">
+```bash
+# install dependencies
+$ yarn install
+
+# serve with hot reload at localhost:3000
+$ yarn dev
+
+# build for production and launch server
+$ yarn build
+$ yarn start
+
+# generate static project
+$ yarn generate
+```
+
+For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
