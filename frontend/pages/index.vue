@@ -2,7 +2,7 @@
   <div class="container">
     <div>
       <Logo />
-      <h1 class="title">kidscamp_application</h1>
+      <h1 class="title">{{ thingy() }}</h1>
       <div class="links">
         <a
           href="https://nuxtjs.org/"
@@ -26,7 +26,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    thingy() {
+      return 'Stuff to print'
+    },
+  },
+}
 </script>
 
 <style>
