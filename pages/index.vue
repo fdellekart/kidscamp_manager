@@ -1,10 +1,17 @@
 <template>
   <div class="container">
-    <form @submit.prevent="onSubmit">
+    <h2>Erziehungsberechtigter</h2>
+    <form v-if="!isSaved" @submit.prevent="onSubmit">
       <AppControlInput v-model="parentData.firstName">Vorname</AppControlInput>
       <AppControlInput v-model="parentData.lastName">Nachname</AppControlInput>
-      <AppButton type="submit">Senden</AppButton>
+      <AppButton type="submit">Speichern</AppButton>
     </form>
+    <div v-else class="parent-row">
+      <p class="info">{{ parentData.firstName }} {{ parentData.lastName }}</p>
+      <button class="edit-button" @click="isSaved = false">
+        <i class="fas fa-edit"></i>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -21,14 +28,29 @@ export default {
         firstName: '',
         lastName: '',
       },
+      isSaved: false,
     }
   },
   methods: {
     onSubmit() {
       console.log(this.parentData)
+      this.isSaved = true
     },
   },
 }
 </script>
 
-<style></style>
+<style scoped>
+.parent-row {
+  display: flex;
+  flex-direction: row;
+}
+.edit-button {
+  background-color: white;
+  border: 0px;
+  margin-left: 10px;
+}
+.info {
+  padding-top: 15px;
+}
+</style>
