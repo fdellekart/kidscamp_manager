@@ -1,32 +1,27 @@
 <template>
   <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">{{ thingy() }}</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+    <form>
+      <AppControlInput v-model="parentData.firstName">Vorname</AppControlInput>
+      <AppControlInput v-model="parentData.lastName">Nachname</AppControlInput>
+    </form>
   </div>
 </template>
 
 <script>
+import AppControlInput from '@/components/UI/AppControlInput'
+
 export default {
+  components: {
+    AppControlInput,
+  },
+  data() {
+    return {
+      parentData: {
+        firstName: '',
+        lastName: '',
+      },
+    }
+  },
   methods: {
     thingy() {
       return 'Stuff to print'
