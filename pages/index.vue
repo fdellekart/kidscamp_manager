@@ -9,6 +9,9 @@
         <AppControlInput v-model="parentData.lastName"
           >Nachname</AppControlInput
         >
+        <p v-if="showParentWarning" class="warning">
+          Bitte Daten vollständig angeben!
+        </p>
         <AppButton type="submit">Speichern</AppButton>
       </form>
       <div v-else class="parent-row">
@@ -38,12 +41,20 @@ export default {
         lastName: '',
       },
       isSaved: false,
+      showParentWarning: false,
     }
   },
   methods: {
     onSubmit() {
-      console.log(this.parentData)
-      this.isSaved = true
+      const firstNameShort = this.parentData.firstName.length < 2
+      const lastNameShort = this.parentData.lastName.length < 2
+      if (firstNameShort || lastNameShort) {
+        this.showParentWarning = true
+      } else {
+        console.log(this.parentData)
+        this.isSaved = true
+        this.showParentWarning = false
+      }
     },
   },
 }
@@ -67,5 +78,9 @@ export default {
 }
 .children-container {
   margin-top: 5%;
+}
+.warning {
+  color: red;
+  font-weight: bold;
 }
 </style>
