@@ -29,9 +29,5 @@ jobs:
             cd ~/app/kidscamp_manager
             git checkout master
             git pull
-            cd backend
-            docker build -t kidscamp_manager_back .
-            cd ../frontend
             docker build -t kidscamp_manager_front .
-            docker run -d -p 8000:8000 kidscamp_manager_back
             docker run -d -p 3000:3000 kidscamp_manager_front entry
