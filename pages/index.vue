@@ -1,16 +1,25 @@
 <template>
   <div class="container">
-    <h2>Erziehungsberechtigter</h2>
-    <form v-if="!isSaved" @submit.prevent="onSubmit">
-      <AppControlInput v-model="parentData.firstName">Vorname</AppControlInput>
-      <AppControlInput v-model="parentData.lastName">Nachname</AppControlInput>
-      <AppButton type="submit">Speichern</AppButton>
-    </form>
-    <div v-else class="parent-row">
-      <p class="info">{{ parentData.firstName }} {{ parentData.lastName }}</p>
-      <button class="edit-button" @click="isSaved = false">
-        <i class="fas fa-edit"></i>
-      </button>
+    <div class="parent-container">
+      <h3>Erziehungsberechtigter</h3>
+      <form v-if="!isSaved" @submit.prevent="onSubmit">
+        <AppControlInput v-model="parentData.firstName"
+          >Vorname</AppControlInput
+        >
+        <AppControlInput v-model="parentData.lastName"
+          >Nachname</AppControlInput
+        >
+        <AppButton type="submit">Speichern</AppButton>
+      </form>
+      <div v-else class="parent-row">
+        <p class="info">{{ parentData.firstName }} {{ parentData.lastName }}</p>
+        <button class="edit-button" @click="isSaved = false">
+          <i class="fas fa-edit"></i>
+        </button>
+      </div>
+    </div>
+    <div class="children-container">
+      <h3>Kinder</h3>
     </div>
   </div>
 </template>
@@ -52,5 +61,11 @@ export default {
 }
 .info {
   padding-top: 15px;
+}
+.parent-container {
+  margin-top: 5%;
+}
+.children-container {
+  margin-top: 5%;
 }
 </style>
