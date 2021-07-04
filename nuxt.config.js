@@ -11,7 +11,12 @@ export default {
       { hid: 'description', name: 'description', content: '' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    script: [{ src: 'https://kit.fontawesome.com/f697b56d87.js', crossorigin: 'anonymous'}]
+    script: [
+      {
+        src: 'https://kit.fontawesome.com/f697b56d87.js',
+        crossorigin: 'anonymous',
+      },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
