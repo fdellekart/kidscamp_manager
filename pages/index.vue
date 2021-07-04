@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <h1>Anmeldung KidsCamp {{ currentYear }}</h1>
     <div class="parent-container">
       <h3>Erziehungsberechtigter</h3>
       <form v-if="!isSaved" @submit.prevent="onSubmit">
@@ -43,6 +44,11 @@ export default {
       isSaved: false,
       showParentWarning: false,
     }
+  },
+  computed: {
+    currentYear() {
+      return new Date().getFullYear()
+    },
   },
   methods: {
     onSubmit() {
