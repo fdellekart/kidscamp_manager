@@ -8,12 +8,12 @@
         :person="parentData"
         @save="onSaveParent($event)"
       />
-      <div v-else class="parent-row">
-        <p class="info">{{ parentData.firstName }} {{ parentData.lastName }}</p>
-        <button class="edit-button" @click="isParentSaved = false">
-          <i class="fas fa-edit"></i>
-        </button>
-      </div>
+      <AppPersonInfo
+        v-else
+        :first-name="parentData.firstName"
+        :last-name="parentData.lastName"
+        @toggle-edit="isParentSaved = false"
+      />
     </div>
     <div class="children-container">
       <h3>Kinder</h3>
@@ -23,10 +23,12 @@
 
 <script>
 import InputForm from '@/components/input/InputForm'
+import AppPersonInfo from '@/components/UI/AppPersonInfo'
 
 export default {
   components: {
     InputForm,
+    AppPersonInfo,
   },
   data() {
     return {
@@ -50,18 +52,6 @@ export default {
 </script>
 
 <style scoped>
-.parent-row {
-  display: flex;
-  flex-direction: row;
-}
-.edit-button {
-  background-color: white;
-  border: 0px;
-  margin-left: 10px;
-}
-.info {
-  padding-top: 15px;
-}
 .parent-container {
   margin-top: 5%;
 }
@@ -70,9 +60,5 @@ export default {
 }
 .children-container {
   margin-top: 5%;
-}
-.warning {
-  color: red;
-  font-weight: bold;
 }
 </style>
