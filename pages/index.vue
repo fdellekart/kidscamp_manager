@@ -23,6 +23,12 @@
         :is-child="true"
         @save="onSaveChild($event)"
       />
+      <AppPersonInfo
+        v-for="child in children"
+        v-bind:key="child.firstName + child.lastName"
+        :firstName="child.firstName"
+        :lastName="child.lastName"
+      />
     </div>
   </div>
 </template>
