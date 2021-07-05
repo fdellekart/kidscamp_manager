@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <h1 class="heading">Anmeldung KidsCamp {{ currentYear }}</h1>
+    <div class="separator"></div>
     <div class="parent-container">
       <h3>Erziehungsberechtigter</h3>
       <InputForm
@@ -15,6 +16,7 @@
         @toggle-edit="isParentSaved = false"
       />
     </div>
+    <div class="separator"></div>
     <div class="children-container">
       <h3>Kinder</h3>
       <InputForm
@@ -31,7 +33,9 @@
         :age="+child.age"
         @toggle-edit="onEditChild($event)"
       />
-      <AppButton @click="isAddingChild = true">Kind Hinzufügen</AppButton>
+      <AppButton class="add-button" @click="isAddingChild = true"
+        >Kind Hinzufügen</AppButton
+      >
     </div>
   </div>
 </template>
@@ -100,5 +104,13 @@ export default {
 }
 .children-container {
   margin-top: 5%;
+}
+.separator {
+  height: 2px;
+  background-color: darkgray;
+  margin-top: 5%;
+}
+.add-button {
+  margin-top: 3%;
 }
 </style>
