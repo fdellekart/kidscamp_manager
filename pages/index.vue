@@ -3,21 +3,14 @@
     <h1 class="heading">Anmeldung KidsCamp {{ currentYear }}</h1>
     <div class="parent-container">
       <h3>Erziehungsberechtigter</h3>
-      <form v-if="!isSaved" @submit.prevent="onSubmit">
-        <AppControlInput v-model="parentData.firstName"
-          >Vorname</AppControlInput
-        >
-        <AppControlInput v-model="parentData.lastName"
-          >Nachname</AppControlInput
-        >
-        <p v-if="showParentWarning" class="warning">
-          Bitte Daten vollständig angeben!
-        </p>
-        <AppButton type="submit">Speichern</AppButton>
-      </form>
+      <InputForm
+        v-if="!isParentSaved"
+        :person="parentData"
+        @save="onSaveParent($event)"
+      />
       <div v-else class="parent-row">
         <p class="info">{{ parentData.firstName }} {{ parentData.lastName }}</p>
-        <button class="edit-button" @click="isSaved = false">
+        <button class="edit-button" @click="isParentSaved = false">
           <i class="fas fa-edit"></i>
         </button>
       </div>
@@ -29,20 +22,16 @@
 </template>
 
 <script>
-import AppControlInput from '@/components/UI/AppControlInput'
+import InputForm from '@/components/input/InputForm'
 
 export default {
   components: {
-    AppControlInput,
+    InputForm,
   },
   data() {
     return {
-      parentData: {
-        firstName: '',
-        lastName: '',
-      },
-      isSaved: false,
-      showParentWarning: false,
+      parentData: null,
+      isParentSaved: false,
     }
   },
   computed: {
@@ -51,16 +40,10 @@ export default {
     },
   },
   methods: {
-    onSubmit() {
-      const firstNameShort = this.parentData.firstName.length < 2
-      const lastNameShort = this.parentData.lastName.length < 2
-      if (firstNameShort || lastNameShort) {
-        this.showParentWarning = true
-      } else {
-        console.log(this.parentData)
-        this.isSaved = true
-        this.showParentWarning = false
-      }
+    onSaveParent(parentData) {
+      this.parentData = parentData
+      console.log(this.parentData)
+      this.isParentSaved = true
     },
   },
 }
