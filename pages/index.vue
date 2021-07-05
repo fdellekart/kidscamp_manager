@@ -18,17 +18,18 @@
     <div class="children-container">
       <h3>Kinder</h3>
       <InputForm
-        v-if="children.length == 0 || isAddingChild"
+        v-if="children.length == 0 || isAddingChild || isEditingChild"
         :person="childToEdit"
         :is-child="true"
         @save="onSaveChild($event)"
       />
       <AppPersonInfo
         v-for="child in children"
-        :key="child.firstName + child.lastName"
+        :key="child.firstName + child.lastName + child.age"
         :first-name="child.firstName"
         :last-name="child.lastName"
         :age="+child.age"
+        @toggle-edit="onEditChild($event)"
       />
     </div>
   </div>
@@ -49,6 +50,8 @@ export default {
       isParentSaved: false,
       children: [],
       isAddingChild: false,
+      isEditingChild: false,
+      childToEditIndex: null,
       childToEdit: undefined,
     }
   },
@@ -64,8 +67,21 @@ export default {
       this.isParentSaved = true
     },
     onSaveChild(childData) {
-      this.children.push(childData)
+      if (this.isEditingChild) {
+        this.$set(this.children, this.childToEditIndex, childData)
+        this.isEditingChild = false
+      } else {
+        this.children.push(childData)
+      }
       console.log(childData)
+    },
+    onEditChild(childData) {
+      this.isEditingChild = true
+      this.childToEditIndex = this.children.findIndex(
+        (e) =>
+          e.firstName + e.lastName === childData.firstName + childData.lastName
+      )
+      this.childToEdit = childData
     },
   },
 }
