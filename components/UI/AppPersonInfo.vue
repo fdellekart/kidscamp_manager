@@ -4,7 +4,7 @@
       {{ personData.firstName }} {{ personData.lastName }}
       {{ ageToPrint }}
     </p>
-    <button class="edit-button" @click="$emit('toggle-edit')">
+    <button class="edit-button" @click="$emit('toggle-edit', personData)">
       <i class="fas fa-edit"></i>
     </button>
   </div>
