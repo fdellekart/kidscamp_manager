@@ -25,9 +25,10 @@
       />
       <AppPersonInfo
         v-for="child in children"
-        v-bind:key="child.firstName + child.lastName"
-        :firstName="child.firstName"
-        :lastName="child.lastName"
+        :key="child.firstName + child.lastName"
+        :first-name="child.firstName"
+        :last-name="child.lastName"
+        :age="+child.age"
       />
     </div>
   </div>
