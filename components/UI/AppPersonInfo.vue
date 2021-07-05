@@ -1,6 +1,9 @@
 <template>
   <div class="person-row">
-    <p class="info">{{ personData.firstName }} {{ personData.lastName }}</p>
+    <p class="info">
+      {{ personData.firstName }} {{ personData.lastName }}
+      {{ ageToPrint }}
+    </p>
     <button class="edit-button" @click="$emit('toggle-edit')">
       <i class="fas fa-edit"></i>
     </button>
@@ -32,6 +35,14 @@ export default {
         age: this.age,
       },
     }
+  },
+  computed: {
+    ageToPrint() {
+      if (this.personData.age > 0) {
+        return this.personData.age
+      }
+      return ''
+    },
   },
 }
 </script>
