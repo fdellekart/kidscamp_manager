@@ -31,6 +31,7 @@
         :age="+child.age"
         @toggle-edit="onEditChild($event)"
       />
+      <AppButton @click="isAddingChild = true">Kind Hinzufügen</AppButton>
     </div>
   </div>
 </template>
@@ -70,8 +71,11 @@ export default {
       if (this.isEditingChild) {
         this.$set(this.children, this.childToEditIndex, childData)
         this.isEditingChild = false
+        this.childToEdit = undefined
+        this.childToEditIndex = null
       } else {
         this.children.push(childData)
+        this.isAddingChild = false
       }
       console.log(childData)
     },
