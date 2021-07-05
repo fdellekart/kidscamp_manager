@@ -17,6 +17,12 @@
     </div>
     <div class="children-container">
       <h3>Kinder</h3>
+      <InputForm
+        v-if="children.length == 0 || isAddingChild"
+        :person="childToEdit"
+        :is-child="true"
+        @save="onSaveChild($event)"
+      />
     </div>
   </div>
 </template>
@@ -34,6 +40,9 @@ export default {
     return {
       parentData: null,
       isParentSaved: false,
+      children: [],
+      isAddingChild: false,
+      childToEdit: undefined,
     }
   },
   computed: {
@@ -46,6 +55,10 @@ export default {
       this.parentData = parentData
       console.log(this.parentData)
       this.isParentSaved = true
+    },
+    onSaveChild(childData) {
+      this.children.push(childData)
+      console.log(childData)
     },
   },
 }
