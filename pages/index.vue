@@ -33,7 +33,10 @@
         :age="+child.age"
         @toggle-edit="onEditChild($event)"
       />
-      <AppButton class="add-button" @click="isAddingChild = true"
+      <AppButton
+        v-if="children.length > 0"
+        class="add-button"
+        @click="isAddingChild = true"
         >Kind Hinzufügen</AppButton
       >
     </div>
