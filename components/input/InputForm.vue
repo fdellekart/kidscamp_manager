@@ -7,6 +7,9 @@
     >
     <p v-if="showWarning" class="warning">Bitte Daten vollständig angeben!</p>
     <AppButton type="submit">Speichern</AppButton>
+    <AppButton v-if="showCancelButton" @click="$emit('cancel')"
+      >Abbrechen</AppButton
+    >
   </form>
 </template>
 
@@ -18,6 +21,11 @@ export default {
       default: undefined,
     },
     isChild: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    showCancelButton: {
       type: Boolean,
       required: false,
       default: false,
