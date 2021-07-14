@@ -7,7 +7,11 @@
     <button class="edit-button" @click="$emit('toggle-edit', personData)">
       <i class="fas fa-edit"></i>
     </button>
-    <button class="edit-button" @click="$emit('delete', personData)">
+    <button
+      v-if="showDeleteIcon"
+      class="edit-button"
+      @click="$emit('delete', personData)"
+    >
       <i class="fas fa-trash"></i>
     </button>
   </div>
@@ -28,6 +32,11 @@ export default {
       type: Number,
       required: false,
       default: -1,
+    },
+    showDeleteIcon: {
+      type: Boolean,
+      required: false,
+      default: true,
     },
   },
   data() {
