@@ -37,7 +37,9 @@
         v-if="showChildInputForm"
         :person="childToEdit"
         :is-child="true"
+        :show-cancel-button="children.length > 0"
         @save="onSaveChild($event)"
+        @cancel="onCancelChild"
       />
     </div>
   </div>
@@ -103,6 +105,10 @@ export default {
           e.firstName + e.lastName === childData.firstName + childData.lastName
       )
       this.childToEdit = childData
+    },
+    onCancelChild() {
+      this.isEditingChild = false
+      this.isAddingChild = false
     },
   },
 }
