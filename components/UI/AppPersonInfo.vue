@@ -7,6 +7,9 @@
     <button class="edit-button" @click="$emit('toggle-edit', personData)">
       <i class="fas fa-edit"></i>
     </button>
+    <button class="edit-button" @click="$emit('delete', personData)">
+      <i class="fas fa-trash"></i>
+    </button>
   </div>
 </template>
 
