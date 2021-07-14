@@ -132,4 +132,7 @@ export default {
 .add-button {
   margin-top: 3%;
 }
+.container {
+  margin-bottom: 5%;
+}
 </style>
