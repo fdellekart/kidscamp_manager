@@ -19,12 +19,6 @@
     <div class="separator"></div>
     <div class="children-container">
       <h3>Kinder</h3>
-      <InputForm
-        v-if="children.length == 0 || isAddingChild || isEditingChild"
-        :person="childToEdit"
-        :is-child="true"
-        @save="onSaveChild($event)"
-      />
       <AppPersonInfo
         v-for="child in children"
         :key="child.firstName + child.lastName + child.age"
@@ -39,6 +33,12 @@
         @click="isAddingChild = true"
         >Kind Hinzufügen</AppButton
       >
+      <InputForm
+        v-if="children.length == 0 || isAddingChild || isEditingChild"
+        :person="childToEdit"
+        :is-child="true"
+        @save="onSaveChild($event)"
+      />
     </div>
   </div>
 </template>
