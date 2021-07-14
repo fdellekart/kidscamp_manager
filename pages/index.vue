@@ -28,13 +28,13 @@
         @toggle-edit="onEditChild($event)"
       />
       <AppButton
-        v-if="children.length > 0"
+        v-if="showNewChildButton"
         class="add-button"
         @click="isAddingChild = true"
         >Kind Hinzufügen</AppButton
       >
       <InputForm
-        v-if="children.length == 0 || isAddingChild || isEditingChild"
+        v-if="showChildInputForm"
         :person="childToEdit"
         :is-child="true"
         @save="onSaveChild($event)"
@@ -66,6 +66,16 @@ export default {
   computed: {
     currentYear() {
       return new Date().getFullYear()
+    },
+    showChildInputForm() {
+      return (
+        this.children.length === 0 || this.isAddingChild || this.isEditingChild
+      )
+    },
+    showNewChildButton() {
+      return (
+        this.children.length > 0 && !this.isAddingChild && !this.isEditingChild
+      )
     },
   },
   methods: {
