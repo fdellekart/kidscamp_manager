@@ -26,6 +26,7 @@
         :last-name="child.lastName"
         :age="+child.age"
         @toggle-edit="onEditChild($event)"
+        @delete="onDeleteChild($event)"
       />
       <AppButton
         v-if="showNewChildButton"
@@ -98,12 +99,15 @@ export default {
       }
       console.log(childData)
     },
-    onEditChild(childData) {
-      this.isEditingChild = true
-      this.childToEditIndex = this.children.findIndex(
+    getChildIndex(childData) {
+      return this.children.findIndex(
         (e) =>
           e.firstName + e.lastName === childData.firstName + childData.lastName
       )
+    },
+    onEditChild(childData) {
+      this.isEditingChild = true
+      this.childToEditIndex = this.getChildIndex(childData)
       this.childToEdit = childData
     },
     onCancelChild() {
@@ -111,6 +115,10 @@ export default {
       this.isAddingChild = false
       this.childToEditIndex = null
       this.childToEdit = undefined
+    },
+    onDeleteChild(childData) {
+      const index = this.getChildIndex(childData)
+      this.children.splice(index, 1)
     },
   },
 }
