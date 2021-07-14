@@ -109,6 +109,8 @@ export default {
     onCancelChild() {
       this.isEditingChild = false
       this.isAddingChild = false
+      this.childToEditIndex = null
+      this.childToEdit = undefined
     },
   },
 }
