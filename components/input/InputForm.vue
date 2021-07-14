@@ -6,6 +6,9 @@
       >Alter</AppControlInput
     >
     <p v-if="showWarning" class="warning">Bitte Daten vollständig angeben!</p>
+    <p v-if="showAgeNumericWarning" class="warning">
+      Bitte für das Alter eine Zahl angeben!
+    </p>
     <AppButton type="submit">Speichern</AppButton>
     <AppButton v-if="showCancelButton" @click="$emit('cancel')"
       >Abbrechen</AppButton
@@ -39,6 +42,7 @@ export default {
         age: this.person ? this.person.age : '',
       },
       showWarning: false,
+      showAgeNumericWarning: false,
     }
   },
   methods: {
@@ -49,7 +53,12 @@ export default {
         this.showWarning = true
         return
       }
+      if (this.isChild && isNaN(this.personData.age)) {
+        this.showAgeNumericWarning = true
+        return
+      }
       this.showWarning = false
+      this.showAgeNumericWarning = false
       this.$emit('save', this.personData)
     },
   },
