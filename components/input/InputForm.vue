@@ -2,7 +2,7 @@
   <form @submit.prevent="onSubmit">
     <AppControlInput v-model="personData.firstName">Vorname</AppControlInput>
     <AppControlInput v-model="personData.lastName">Nachname</AppControlInput>
-    <AppControlInput v-if="isChild" v-model="personData.age"
+    <AppControlInput v-if="showAge" v-model="personData.age"
       >Alter</AppControlInput
     >
     <p v-show="showWarning" class="warning">Bitte Daten vollständig angeben!</p>
@@ -23,7 +23,7 @@ export default {
       type: Object,
       default: undefined,
     },
-    isChild: {
+    showAge: {
       type: Boolean,
       required: false,
       default: false,
@@ -53,7 +53,7 @@ export default {
         this.showWarning = true
         return
       }
-      if (this.isChild && isNaN(this.personData.age)) {
+      if (this.showAge && isNaN(this.personData.age)) {
         this.showAgeNumericWarning = true
         return
       }
