@@ -5,8 +5,8 @@
     <AppControlInput v-if="isChild" v-model="personData.age"
       >Alter</AppControlInput
     >
-    <p v-if="showWarning" class="warning">Bitte Daten vollständig angeben!</p>
-    <p v-if="showAgeNumericWarning" class="warning">
+    <p v-show="showWarning" class="warning">Bitte Daten vollständig angeben!</p>
+    <p v-show="showAgeNumericWarning" class="warning">
       Bitte für das Alter eine Zahl angeben!
     </p>
     <AppButton type="submit">Speichern</AppButton>
