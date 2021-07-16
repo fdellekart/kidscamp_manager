@@ -5,6 +5,9 @@
     <AppControlInput v-if="showAge" v-model="personData.age"
       >Alter</AppControlInput
     >
+    <AppControlInput v-if="showMail" v-model="personData.mail"
+      >E-Mail Adresse</AppControlInput
+    >
     <p v-show="showWarning" class="warning">Bitte Daten vollständig angeben!</p>
     <p v-show="showAgeNumericWarning" class="warning">
       Bitte für das Alter eine Zahl angeben!
@@ -28,6 +31,11 @@ export default {
       required: false,
       default: false,
     },
+    showMail: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     showCancelButton: {
       type: Boolean,
       required: false,
@@ -40,6 +48,7 @@ export default {
         firstName: this.person ? this.person.firstName : '',
         lastName: this.person ? this.person.lastName : '',
         age: this.person ? this.person.age : '',
+        mail: this.person ? this.person.mail : '',
       },
       showWarning: false,
       showAgeNumericWarning: false,
