@@ -12,6 +12,7 @@
     <p v-show="showAgeNumericWarning" class="warning">
       Bitte für das Alter eine Zahl angeben!
     </p>
+    <p v-show="showMailWarning" class="warning">Bitte gültige Mail angeben!</p>
     <AppButton type="submit">Speichern</AppButton>
     <AppButton v-if="showCancelButton" @click="$emit('cancel')"
       >Abbrechen</AppButton
@@ -52,6 +53,7 @@ export default {
           },
       showWarning: false,
       showAgeNumericWarning: false,
+      showMailWarning: false,
     }
   },
   methods: {
@@ -66,9 +68,24 @@ export default {
         this.showAgeNumericWarning = true
         return
       }
+      if (!this.showAge && !this.isEmailValid(this.personData.mail)) {
+        this.showMailWarning = true
+        return
+      }
       this.showWarning = false
       this.showAgeNumericWarning = false
+      this.showMailWarning = false
       this.$emit('save', this.personData)
+    },
+    isEmailValid(mail) {
+      if (
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+          mail
+        )
+      ) {
+        return true
+      }
+      return false
     },
   },
 }
