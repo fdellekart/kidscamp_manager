@@ -45,6 +45,9 @@
         @cancel="onCancelChild"
       />
     </div>
+    <div class="submit-button-container">
+      <AppButton @click="onSend">Anmeldung absenden</AppButton>
+    </div>
   </div>
 </template>
 
@@ -122,6 +125,9 @@ export default {
       const index = this.getChildIndex(childData)
       this.children.splice(index, 1)
     },
+    onSend() {
+      console.log('Send requests')
+    },
   },
 }
 </script>
@@ -146,5 +152,8 @@ export default {
 }
 .container {
   margin-bottom: 5%;
+}
+.submit-button-container {
+  margin-top: 5%;
 }
 </style>
