@@ -20,10 +20,8 @@
 <script>
 export default {
   name: 'AdminAuthPage',
-  layout: 'admin',
   data() {
     return {
-      isLogin: true,
       email: '',
       password: '',
       showWarning: false,
@@ -33,7 +31,6 @@ export default {
     onSubmit() {
       this.$store
         .dispatch('authenticateUser', {
-          isLogin: this.isLogin,
           email: this.email,
           password: this.password,
         })
