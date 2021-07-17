@@ -2,7 +2,7 @@
   <div class="container">
     <h1 class="heading">Anmeldung KidsCamp {{ currentYear }}</h1>
     <div class="separator"></div>
-    <div class="parent-container">
+    <div v-if="!applicationFinished" class="parent-container">
       <h3>Erziehungsberechtigter</h3>
       <InputForm
         v-if="!isParentSaved"
@@ -18,8 +18,8 @@
         @toggle-edit="isParentSaved = false"
       />
     </div>
-    <div class="separator"></div>
-    <div class="children-container">
+    <div v-if="!applicationFinished" class="separator"></div>
+    <div v-if="!applicationFinished" class="children-container">
       <h3>Kinder</h3>
       <AppPersonInfo
         v-for="child in children"
@@ -45,9 +45,10 @@
         @cancel="onCancelChild"
       />
     </div>
-    <div class="submit-button-container">
+    <div v-if="!applicationFinished" class="submit-button-container">
       <AppButton @click="onSend">Anmeldung absenden</AppButton>
     </div>
+    <p v-if="applicationFinished">Vielen Dank für deine Anmeldung!</p>
   </div>
 </template>
 
@@ -69,6 +70,7 @@ export default {
       isEditingChild: false,
       childToEditIndex: null,
       childToEdit: undefined,
+      applicationFinished: false,
     }
   },
   computed: {
@@ -126,10 +128,14 @@ export default {
       this.children.splice(index, 1)
     },
     onSend() {
-      this.$axios.$post('/applications.json', {
-        parent: this.parentData,
-        children: this.children,
-      })
+      this.$axios
+        .$post('/applications.json', {
+          parent: this.parentData,
+          children: this.children,
+        })
+        .then(() => {
+          this.applicationFinished = true
+        })
     },
   },
 }
