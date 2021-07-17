@@ -27,6 +27,8 @@ export default {
       type: Object,
       default: undefined,
     },
+    // showAge == false implicitly asumes that showMail == true
+    // therefore it is only possible to choose between mail or age
     showAge: {
       type: Boolean,
       required: false,
