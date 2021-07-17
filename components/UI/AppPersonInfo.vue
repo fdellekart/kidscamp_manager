@@ -1,8 +1,8 @@
 <template>
   <div class="person-row">
     <p class="info">
-      {{ personData.firstName }} {{ personData.lastName }}
-      {{ ageToPrint }}
+      {{ personData.firstName }} {{ personData.lastName }} {{ ageToPrint }}
+      {{ personData.mail }}
     </p>
     <button class="edit-button" @click="$emit('toggle-edit', personData)">
       <i class="fas fa-edit"></i>
@@ -33,6 +33,11 @@ export default {
       required: false,
       default: -1,
     },
+    mail: {
+      type: String,
+      required: false,
+      default: '',
+    },
     showDeleteIcon: {
       type: Boolean,
       required: false,
@@ -45,6 +50,7 @@ export default {
         firstName: this.firstName,
         lastName: this.lastName,
         age: this.age,
+        mail: this.mail,
       },
     }
   },

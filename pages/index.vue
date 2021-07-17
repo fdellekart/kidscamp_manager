@@ -13,6 +13,7 @@
         v-else
         :first-name="parentData.firstName"
         :last-name="parentData.lastName"
+        :mail="parentData.mail"
         :show-delete-icon="false"
         @toggle-edit="isParentSaved = false"
       />
