@@ -3,8 +3,14 @@ import Cookie from 'js-cookie'
 
 const createStore = () => {
   return new Vuex.Store({
-    state: {},
-    mutations: {},
+    state: {
+      authToken: null,
+    },
+    mutations: {
+      setAuthToken(state, token) {
+        state.authToken = token
+      },
+    },
     actions: {
       authenticateUser(vuexContext, userData) {
         console.log('User Data:', userData)
