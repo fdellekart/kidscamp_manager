@@ -2,27 +2,16 @@
   <div class="admin-auth-page">
     <div class="auth-container">
       <form @submit.prevent="onSubmit">
-        <p
-          v-if="showWarning & isLogin"
-          class="unauthenticated-warn"
-          style="color: red"
-        >
+        <p v-if="showWarning" class="unauthenticated-warn" style="color: red">
           Login not Possible
         </p>
         <AppControlInput v-model="email" type="email"
-          >E-Mail Address</AppControlInput
+          >E-Mail Addresse</AppControlInput
         >
         <AppControlInput v-model="password" type="password"
-          >Password</AppControlInput
+          >Passwort</AppControlInput
         >
-        <AppButton type="submit">{{ isLogin ? 'Login' : 'Sign Up' }}</AppButton>
-        <AppButton
-          type="button"
-          btn-style="inverted"
-          style="margin-left: 10px"
-          @click="isLogin = !isLogin"
-          >Switch to {{ isLogin ? 'Signup' : 'Login' }}</AppButton
-        >
+        <AppButton type="submit">Einloggen</AppButton>
       </form>
     </div>
   </div>
