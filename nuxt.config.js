@@ -54,5 +54,7 @@ export default {
     axios: {
       browserBaseURL: process.env.FIREBASE_URL,
     },
+    authSignInURL: process.env.AUTH_URL,
+    authApiKey: process.env.AUTH_API_KEY
   },
 }
