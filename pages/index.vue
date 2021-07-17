@@ -126,7 +126,10 @@ export default {
       this.children.splice(index, 1)
     },
     onSend() {
-      console.log('Send requests')
+      this.$axios.$post('/applications.json', {
+        parent: this.parentData,
+        children: this.children,
+      })
     },
   },
 }
