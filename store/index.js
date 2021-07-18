@@ -102,6 +102,9 @@ const createStore = () => {
       isAuthenticated(state) {
         return state.authToken != null
       },
+      applications(state) {
+        return state.applications
+      },
     },
   })
 }
