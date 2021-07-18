@@ -10,6 +10,9 @@ const createStore = () => {
       setAuthToken(state, token) {
         state.authToken = token
       },
+      clearAuthToken(state) {
+        state.authToken = null
+      },
     },
     actions: {
       authenticateUser(vuexContext, userData) {
