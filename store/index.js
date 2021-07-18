@@ -22,10 +22,10 @@ const createStore = () => {
           })
           .then((res) => {
             vuexContext.commit('setAuthToken', res.data.idToken)
-            localStorage.setItem('authToken', res.data.idToken)
+            localStorage.setItem('jwt', res.data.idToken)
             Cookie.set('jwt', res.data.idToken)
             localStorage.setItem(
-              'authTokenExpiresIn',
+              'expirationDate',
               new Date().getTime() + +res.data.expiresIn * 1000
             )
             Cookie.set(
