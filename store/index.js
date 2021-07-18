@@ -23,6 +23,12 @@ const createStore = () => {
         this.$axios
           .$get('/applications.json?auth=' + vuexContext.state.authToken)
           .then((res) => vuexContext.commit('setApplications', res))
+          .catch((e) => {
+            if (e.request.status === 401) {
+              vuexContext.dispatch('clearAuthToken')
+              this.$router.push('/login')
+            }
+          })
       },
       authenticateUser(vuexContext, userData) {
         console.log('User Data:', userData)
