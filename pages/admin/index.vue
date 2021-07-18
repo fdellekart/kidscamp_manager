@@ -5,6 +5,6 @@
 <script>
 export default {
   name: 'AdminPage',
-  middleware: 'check-auth',
+  middleware: ['check-auth', 'auth'],
 }
 </script>
