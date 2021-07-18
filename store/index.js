@@ -5,6 +5,7 @@ const createStore = () => {
   return new Vuex.Store({
     state: {
       authToken: null,
+      applications: null,
     },
     mutations: {
       setAuthToken(state, token) {
@@ -13,8 +14,16 @@ const createStore = () => {
       clearAuthToken(state) {
         state.authToken = null
       },
+      setApplications(state, applications) {
+        state.applications = applications
+      },
     },
     actions: {
+      fetchApplications(vuexContext) {
+        this.$axios
+          .$get('/applications.json?auth=' + vuexContext.state.authToken)
+          .then((res) => vuexContext.commit('setApplications', res))
+      },
       authenticateUser(vuexContext, userData) {
         console.log('User Data:', userData)
         return this.$axios
