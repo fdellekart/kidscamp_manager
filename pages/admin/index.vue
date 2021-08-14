@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div><b-table :items="$store.getters.applicationsToDisplay"></b-table></div>
 </template>
 
 <script>

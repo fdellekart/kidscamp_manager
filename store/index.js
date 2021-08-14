@@ -5,7 +5,7 @@ const createStore = () => {
   return new Vuex.Store({
     state: {
       authToken: null,
-      applications: null,
+      applications: {},
     },
     mutations: {
       setAuthToken(state, token) {
@@ -104,6 +104,23 @@ const createStore = () => {
       },
       applications(state) {
         return state.applications
+      },
+      applicationsToDisplay(state) {
+        const applications = []
+        console.log('Anmeldungen:', state.applications)
+        for (const application in Object.values(state.applications)) {
+          for (const child in application.children) {
+            applications.push({
+              ...child,
+              parent:
+                application.parent.firstName +
+                ' ' +
+                application.parent.lastName,
+              mail: application.parent.mail,
+            })
+          }
+        }
+        return applications
       },
     },
   })
