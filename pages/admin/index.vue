@@ -1,49 +1,16 @@
 <template>
   <div>
-    <b-table
-      striped
-      hover
-      :items="$store.getters.applicationsToDisplay"
-      :fields="tableFields"
-    ></b-table>
+    <admin-table :applications="$store.getters.applicationsToDisplay" />
   </div>
 </template>
 
 <script>
+import AdminTable from '~/components/AdminTable'
+
 export default {
   name: 'AdminPage',
+  components: [AdminTable],
   middleware: ['check-auth', 'auth'],
-  data() {
-    return {
-      tableFields: [
-        {
-          key: 'firstName',
-          label: 'Vorname',
-          sortable: true,
-        },
-        {
-          key: 'lastName',
-          label: 'Nachname',
-          sortable: true,
-        },
-        {
-          key: 'age',
-          label: 'Alter',
-          sortable: true,
-        },
-        {
-          key: 'parent',
-          label: 'Erziehungsberechtigter',
-          sortable: true,
-        },
-        {
-          key: 'mail',
-          label: 'E-Mail',
-          sortable: true,
-        },
-      ],
-    }
-  },
   mounted() {
     this.$store.dispatch('fetchApplications')
   },
