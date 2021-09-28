@@ -1,5 +1,9 @@
 <template>
-  <b-table striped hover :items="applications" :fields="tableFields"></b-table>
+  <b-table striped hover :items="applications" :fields="tableFields">
+    <template #cell(actions)="data">
+      <i class="fas fa-trash-alt" @click="$emit('delete', data.item.id)"></i>
+    </template>
+  </b-table>
 </template>
 
 <script>
@@ -32,6 +36,10 @@ export default {
           key: 'mail',
           label: 'E-Mail',
           sortable: true,
+        },
+        {
+          key: 'actions',
+          label: '',
         },
       ],
     }
