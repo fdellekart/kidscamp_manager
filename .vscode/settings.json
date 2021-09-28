@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "C:\\Users\\f.dellekart\\Anaconda3\\envs\\campmanager\\python.exe",
-    "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    }
 }

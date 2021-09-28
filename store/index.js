@@ -31,7 +31,6 @@ const createStore = () => {
           })
       },
       authenticateUser(vuexContext, userData) {
-        console.log('User Data:', userData)
         return this.$axios
           .post(this.$config.authSignInURL + this.$config.authApiKey, {
             email: userData.email,
@@ -81,7 +80,6 @@ const createStore = () => {
           expirationDate = expirationCookie.split('=')[1]
         } else {
           token = localStorage.getItem('jwt')
-          console.log('Got token', token)
           if (!token) {
             return
           }
@@ -108,7 +106,6 @@ const createStore = () => {
       applicationsToDisplay(state) {
         return Object.keys(state.applications)
           .map((applicationId) => {
-            console.log('Application asdf: ', state.applications[applicationId])
             const children = state.applications[applicationId].children
             const parent = state.applications[applicationId].parent
             return children.map(function (child) {
