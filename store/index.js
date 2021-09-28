@@ -106,21 +106,23 @@ const createStore = () => {
         return state.applications
       },
       applicationsToDisplay(state) {
-        const applications = []
-        console.log('Anmeldungen:', state.applications)
-        for (const application in Object.values(state.applications)) {
-          for (const child in application.children) {
-            applications.push({
-              ...child,
-              parent:
-                application.parent.firstName +
-                ' ' +
-                application.parent.lastName,
-              mail: application.parent.mail,
+        return Object.keys(state.applications)
+          .map((applicationId) => {
+            console.log('Application asdf: ', state.applications[applicationId])
+            const children = state.applications[applicationId].children
+            const parent = state.applications[applicationId].parent
+            return children.map(function (child) {
+              return {
+                parent: parent.firstName + ' ' + parent.lastName,
+                mail: parent.mail,
+                firstName: child.firstName,
+                lastName: child.lastName,
+                age: child.age,
+                id: applicationId,
+              }
             })
-          }
-        }
-        return applications
+          })
+          .flat()
       },
     },
   })
