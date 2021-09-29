@@ -5,8 +5,8 @@
       @delete="handleDeletionClick"
     />
     <b-modal id="warn-delete" @ok="deleteApplication"
-      >Du bist dabei {{ applicationIdToDelete }} zu löschen. Bist du dir
-      sicher?</b-modal
+      >Du bist dabei die Anmeldung von {{ deleteModalText }} zu löschen. Bist du
+      dir sicher?</b-modal
     >
   </div>
 </template>
@@ -16,12 +16,22 @@ import AdminTable from '~/components/AdminTable'
 
 export default {
   name: 'AdminPage',
-  components: [AdminTable],
+  components: { AdminTable },
   middleware: ['check-auth', 'auth'],
   data() {
     return {
       applicationIdToDelete: null,
     }
+  },
+  computed: {
+    deleteModalText() {
+      if (!this.applicationIdToDelete) {
+        return ''
+      }
+      const child = this.$store.getters.applications[this.applicationIdToDelete]
+        .child
+      return child.firstName + ' ' + child.lastName
+    },
   },
   mounted() {
     this.$store.dispatch('fetchApplications')
