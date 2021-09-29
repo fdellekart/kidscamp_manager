@@ -1,6 +1,9 @@
 <template>
   <div>
-    <admin-table :applications="$store.getters.applicationsToDisplay" />
+    <admin-table
+      :applications="$store.getters.applicationsToDisplay"
+      @delete="deleteApplication"
+    />
   </div>
 </template>
 
@@ -13,6 +16,11 @@ export default {
   middleware: ['check-auth', 'auth'],
   mounted() {
     this.$store.dispatch('fetchApplications')
+  },
+  methods: {
+    deleteApplication(applicationId) {
+      this.$store.dispatch('deleteApplication', applicationId)
+    },
   },
 }
 </script>

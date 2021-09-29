@@ -1,4 +1,5 @@
 import Vuex from 'vuex'
+import Vue from 'vue'
 import Cookie from 'js-cookie'
 
 const createStore = () => {
@@ -17,8 +18,29 @@ const createStore = () => {
       setApplications(state, applications) {
         state.applications = applications
       },
+      deleteApplication(state, applicationId) {
+        Vue.delete(state.applications, applicationId)
+      },
     },
     actions: {
+      deleteApplication(vuexContext, applicationId) {
+        this.$axios
+          .$delete(
+            '/applications/' +
+              applicationId +
+              '.json?auth=' +
+              vuexContext.state.authToken
+          )
+          .then(() => {
+            vuexContext.commit('deleteApplication', applicationId)
+          })
+          .catch((e) => {
+            if (e.request.status === 401) {
+              vuexContext.dispatch('clearAuthToken')
+              this.$router.push('/login')
+            }
+          })
+      },
       fetchApplications(vuexContext) {
         this.$axios
           .$get('/applications.json?auth=' + vuexContext.state.authToken)
