@@ -91,7 +91,6 @@ export default {
   methods: {
     onSaveParent(parentData) {
       this.parentData = parentData
-      console.log(this.parentData)
       this.isParentSaved = true
     },
     onSaveChild(childData) {
@@ -104,7 +103,6 @@ export default {
         this.children.push(childData)
         this.isAddingChild = false
       }
-      console.log(childData)
     },
     getChildIndex(childData) {
       return this.children.findIndex(
@@ -128,14 +126,16 @@ export default {
       this.children.splice(index, 1)
     },
     onSend() {
-      this.$axios
-        .$post('/applications.json', {
-          parent: this.parentData,
-          children: this.children,
-        })
-        .then(() => {
-          this.applicationFinished = true
-        })
+      this.children.forEach((child) => {
+        this.$axios
+          .$post('/applications.json', {
+            parent: this.parentData,
+            child,
+          })
+          .then(() => {
+            this.applicationFinished = true
+          })
+      })
     },
   },
 }
