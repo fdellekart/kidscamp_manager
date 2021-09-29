@@ -104,22 +104,18 @@ const createStore = () => {
         return state.applications
       },
       applicationsToDisplay(state) {
-        return Object.keys(state.applications)
-          .map((applicationId) => {
-            const children = state.applications[applicationId].children
-            const parent = state.applications[applicationId].parent
-            return children.map(function (child) {
-              return {
-                parent: parent.firstName + ' ' + parent.lastName,
-                mail: parent.mail,
-                firstName: child.firstName,
-                lastName: child.lastName,
-                age: child.age,
-                id: applicationId,
-              }
-            })
-          })
-          .flat()
+        return Object.keys(state.applications).map((applicationId) => {
+          const application = state.applications[applicationId]
+          return {
+            parent:
+              application.parent.firstName + ' ' + application.parent.lastName,
+            mail: application.parent.mail,
+            firstName: application.child.firstName,
+            lastName: application.child.lastName,
+            age: application.child.age,
+            id: applicationId,
+          }
+        })
       },
     },
   })
