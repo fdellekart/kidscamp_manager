@@ -126,6 +126,9 @@ const createStore = () => {
         return state.applications
       },
       applicationsToDisplay(state) {
+        if (!state.applications) {
+          return []
+        }
         return Object.keys(state.applications).map((applicationId) => {
           const application = state.applications[applicationId]
           return {
