@@ -146,7 +146,7 @@ export default {
 <style scoped>
 .actions-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
 }
 .fas {
   padding: 4px;
