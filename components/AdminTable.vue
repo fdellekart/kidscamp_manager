@@ -1,5 +1,5 @@
 <template>
-  <b-table striped hover :items="applications" :fields="tableFields">
+  <b-table striped hover :items="applicationsToDisplay" :fields="tableFields">
     <template #cell(actions)="data">
       <div v-if="!isEditing(data.item.id)">
         <i class="fas fa-trash-alt" @click="$emit('delete', data.item.id)"></i>
@@ -56,7 +56,7 @@
 
 <script>
 export default {
-  props: { applications: { required: true, type: Array } },
+  props: { applications: { required: true, type: Object } },
   data() {
     return {
       rowIdToEdit: null,
@@ -92,6 +92,25 @@ export default {
         },
       ],
     }
+  },
+  computed: {
+    applicationsToDisplay() {
+      if (!this.applications) {
+        return []
+      }
+      return Object.keys(this.applications).map((applicationId) => {
+        const application = this.applications[applicationId]
+        return {
+          parent:
+            application.parent.firstName + ' ' + application.parent.lastName,
+          mail: application.parent.mail,
+          firstName: application.child.firstName,
+          lastName: application.child.lastName,
+          age: application.child.age,
+          id: applicationId,
+        }
+      })
+    },
   },
   methods: {
     isEditing(rowId) {

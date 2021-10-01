@@ -16,7 +16,7 @@ const createStore = () => {
         state.authToken = null
       },
       setApplications(state, applications) {
-        state.applications = applications
+        Vue.set(state, 'applications', applications)
       },
       deleteApplication(state, applicationId) {
         Vue.delete(state.applications, applicationId)
@@ -124,23 +124,6 @@ const createStore = () => {
       },
       applications(state) {
         return state.applications
-      },
-      applicationsToDisplay(state) {
-        if (!state.applications) {
-          return []
-        }
-        return Object.keys(state.applications).map((applicationId) => {
-          const application = state.applications[applicationId]
-          return {
-            parent:
-              application.parent.firstName + ' ' + application.parent.lastName,
-            mail: application.parent.mail,
-            firstName: application.child.firstName,
-            lastName: application.child.lastName,
-            age: application.child.age,
-            id: applicationId,
-          }
-        })
       },
     },
   })

@@ -1,7 +1,7 @@
 <template>
   <div>
     <admin-table
-      :applications="$store.getters.applicationsToDisplay"
+      :applications="$store.getters.applications"
       @delete="handleDeletionClick"
     />
     <b-modal
