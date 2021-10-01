@@ -4,7 +4,11 @@
       :applications="$store.getters.applicationsToDisplay"
       @delete="handleDeletionClick"
     />
-    <b-modal id="warn-delete" @ok="deleteApplication"
+    <b-modal
+      id="warn-delete"
+      ok-title="Ja, Löschen"
+      cancel-title="Abbrechen"
+      @ok="deleteApplication"
       >Du bist dabei die Anmeldung von {{ deleteModalText }} zu löschen. Bist du
       dir sicher?</b-modal
     >
