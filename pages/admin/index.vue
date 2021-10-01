@@ -1,5 +1,8 @@
 <template>
   <div>
+    <application-stats
+      :number-applications="Object.keys($store.getters.applications).length"
+    />
     <admin-table
       :applications="$store.getters.applications"
       @delete="handleDeletionClick"
@@ -19,10 +22,11 @@
 
 <script>
 import AdminTable from '~/components/AdminTable'
+import ApplicationStats from '~/components/ApplicationStats'
 
 export default {
   name: 'AdminPage',
-  components: { AdminTable },
+  components: { AdminTable, ApplicationStats },
   middleware: ['check-auth', 'auth'],
   data() {
     return {
