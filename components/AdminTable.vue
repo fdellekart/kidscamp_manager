@@ -1,15 +1,14 @@
 <template>
   <b-table striped hover :items="applicationsToDisplay" :fields="tableFields">
     <template #cell(actions)="data">
-      <div v-if="!isEditing(data.item.id)" id="actions-container">
+      <div v-if="!isEditing(data.item.id)" class="actions-container">
         <i class="fas fa-trash-alt" @click="$emit('delete', data.item.id)"></i>
         <i class="fas fa-edit" @click="handleEdit(data.item)"></i>
       </div>
-      <i
-        v-else
-        class="fas fa-check"
-        @click="handleEditComplete(data.item.id)"
-      ></i>
+      <div v-else class="actions-container">
+        <i class="fas fa-check" @click="handleEditComplete(data.item.id)"></i>
+        <i class="fas fa-times" @click="handleEditAbort()"></i>
+      </div>
     </template>
     <template #cell(firstName)="data">
       <b-form-input
@@ -117,7 +116,7 @@ export default {
       return this.rowToEdit.id === rowId
     },
     handleEdit(row) {
-      this.rowToEdit = row
+      this.rowToEdit = { ...row }
     },
     handleEditComplete(rowId) {
       this.$emit('update-application', {
@@ -137,12 +136,15 @@ export default {
       })
       this.rowToEdit = {}
     },
+    handleEditAbort() {
+      this.rowToEdit = {}
+    },
   },
 }
 </script>
 
 <style scoped>
-#actions-container {
+.actions-container {
   display: flex;
   flex-direction: row;
 }
