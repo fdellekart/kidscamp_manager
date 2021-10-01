@@ -131,6 +131,7 @@ export default {
           child: {
             firstName: this.rowToEdit.firstName,
             lastName: this.rowToEdit.lastName,
+            age: this.rowToEdit.age,
           },
         },
       })
