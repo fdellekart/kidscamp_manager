@@ -1,7 +1,7 @@
 <template>
   <b-table striped hover :items="applicationsToDisplay" :fields="tableFields">
     <template #cell(actions)="data">
-      <div v-if="!isEditing(data.item.id)">
+      <div v-if="!isEditing(data.item.id)" id="actions-container">
         <i class="fas fa-trash-alt" @click="$emit('delete', data.item.id)"></i>
         <i class="fas fa-edit" @click="handleEdit(data.item)"></i>
       </div>
@@ -140,3 +140,18 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+#actions-container {
+  display: flex;
+  flex-direction: row;
+}
+.fas {
+  padding: 4px;
+  margin: 2px;
+  border-radius: 3px;
+}
+.fas:hover {
+  background-color: gray;
+}
+</style>
