@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  props: ['applications'],
+  props: { applications: { required: true, type: Array } },
   data() {
     return {
       tableFields: [
