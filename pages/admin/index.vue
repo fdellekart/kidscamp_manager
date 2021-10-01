@@ -9,9 +9,10 @@
       id="warn-delete"
       ok-title="Ja, Löschen"
       cancel-title="Abbrechen"
+      ok-variant="danger"
       @ok="deleteApplication"
-      >Du bist dabei die Anmeldung von {{ deleteModalText }} zu löschen. Bist du
-      dir sicher?</b-modal
+      >Du bist dabei die Anmeldung von <b>{{ deleteModalText }}</b> zu löschen.
+      Bist du dir sicher?</b-modal
     >
   </div>
 </template>
