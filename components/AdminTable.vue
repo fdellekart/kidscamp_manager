@@ -1,7 +1,23 @@
 <template>
   <b-table striped hover :items="applications" :fields="tableFields">
     <template #cell(actions)="data">
-      <i class="fas fa-trash-alt" @click="$emit('delete', data.item.id)"></i>
+      <div v-if="!isEditing(data.item.id)">
+        <i class="fas fa-trash-alt" @click="$emit('delete', data.item.id)"></i>
+        <i class="fas fa-edit" @click="rowIdToEdit = data.item.id"></i>
+      </div>
+      <i
+        v-else
+        class="fas fa-check"
+        @click="handleUpdateComplete(data.item.id)"
+      ></i>
+    </template>
+    <template #cell(firstName)="data">
+      <b-form-input
+        v-if="isEditing(data.item.id)"
+        v-model="data.item.firstName"
+        :value="data.item.firstName"
+      ></b-form-input>
+      <span v-else>{{ data.item.firstName }}</span>
     </template>
   </b-table>
 </template>
@@ -11,6 +27,7 @@ export default {
   props: { applications: { required: true, type: Array } },
   data() {
     return {
+      rowIdToEdit: null,
       tableFields: [
         {
           key: 'firstName',
@@ -43,6 +60,15 @@ export default {
         },
       ],
     }
+  },
+  methods: {
+    isEditing(rowId) {
+      return this.rowIdToEdit === rowId
+    },
+    handleUpdateComplete(rowId) {
+      console.log('Updated: ', rowId)
+      this.rowIdToEdit = null
+    },
   },
 }
 </script>
