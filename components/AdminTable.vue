@@ -3,18 +3,18 @@
     <template #cell(actions)="data">
       <div v-if="!isEditing(data.item.id)">
         <i class="fas fa-trash-alt" @click="$emit('delete', data.item.id)"></i>
-        <i class="fas fa-edit" @click="rowIdToEdit = data.item.id"></i>
+        <i class="fas fa-edit" @click="handleEdit(data.item)"></i>
       </div>
       <i
         v-else
         class="fas fa-check"
-        @click="handleUpdateComplete(data.item.id)"
+        @click="handleEditComplete(data.item.id)"
       ></i>
     </template>
     <template #cell(firstName)="data">
       <b-form-input
         v-if="isEditing(data.item.id)"
-        v-model="data.item.firstName"
+        v-model="rowToEdit.firstName"
         :value="data.item.firstName"
       ></b-form-input>
       <span v-else>{{ data.item.firstName }}</span>
@@ -22,7 +22,7 @@
     <template #cell(lastName)="data">
       <b-form-input
         v-if="isEditing(data.item.id)"
-        v-model="data.item.lastName"
+        v-model="rowToEdit.lastName"
         :value="data.item.lastName"
       ></b-form-input>
       <span v-else>{{ data.item.lastName }}</span>
@@ -30,7 +30,7 @@
     <template #cell(age)="data">
       <b-form-input
         v-if="isEditing(data.item.id)"
-        v-model="data.item.age"
+        v-model="rowToEdit.age"
         :value="data.item.age"
       ></b-form-input>
       <span v-else>{{ data.item.age }}</span>
@@ -38,7 +38,7 @@
     <template #cell(parent)="data">
       <b-form-input
         v-if="isEditing(data.item.id)"
-        v-model="data.item.parent"
+        v-model="rowToEdit.parent"
         :value="data.item.parent"
       ></b-form-input>
       <span v-else>{{ data.item.parent }}</span>
@@ -46,7 +46,7 @@
     <template #cell(mail)="data">
       <b-form-input
         v-if="isEditing(data.item.id)"
-        v-model="data.item.mail"
+        v-model="rowToEdit.mail"
         :value="data.item.mail"
       ></b-form-input>
       <a v-else :href="'mailto:' + data.item.mail">{{ data.item.mail }}</a>
@@ -59,7 +59,7 @@ export default {
   props: { applications: { required: true, type: Object } },
   data() {
     return {
-      rowIdToEdit: null,
+      rowToEdit: {},
       tableFields: [
         {
           key: 'firstName',
@@ -114,11 +114,27 @@ export default {
   },
   methods: {
     isEditing(rowId) {
-      return this.rowIdToEdit === rowId
+      return this.rowToEdit.id === rowId
     },
-    handleUpdateComplete(rowId) {
-      console.log('Updated: ', rowId)
-      this.rowIdToEdit = null
+    handleEdit(row) {
+      this.rowToEdit = row
+    },
+    handleEditComplete(rowId) {
+      this.$emit('update-application', {
+        id: this.rowToEdit.id,
+        application: {
+          parent: {
+            firstName: this.rowToEdit.parent.split(' ')[0],
+            lastName: this.rowToEdit.parent.split(' ')[1],
+            mail: this.rowToEdit.mail,
+          },
+          child: {
+            firstName: this.rowToEdit.firstName,
+            lastName: this.rowToEdit.lastName,
+          },
+        },
+      })
+      this.rowToEdit = {}
     },
   },
 }

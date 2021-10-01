@@ -3,6 +3,7 @@
     <admin-table
       :applications="$store.getters.applications"
       @delete="handleDeletionClick"
+      @update-application="handleUpdate"
     />
     <b-modal
       id="warn-delete"
@@ -48,6 +49,9 @@ export default {
     deleteApplication() {
       this.$store.dispatch('deleteApplication', this.applicationIdToDelete)
       this.applicationIdToDelete = null
+    },
+    handleUpdate(data) {
+      this.$store.dispatch('updateApplication', data)
     },
   },
 }

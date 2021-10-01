@@ -21,6 +21,9 @@ const createStore = () => {
       deleteApplication(state, applicationId) {
         Vue.delete(state.applications, applicationId)
       },
+      updateApplication(state, data) {
+        Vue.set(state.applications, data.id, data.application)
+      },
     },
     actions: {
       deleteApplication(vuexContext, applicationId) {
@@ -33,6 +36,25 @@ const createStore = () => {
           )
           .then(() => {
             vuexContext.commit('deleteApplication', applicationId)
+          })
+          .catch((e) => {
+            if (e.request.status === 401) {
+              vuexContext.dispatch('clearAuthToken')
+              this.$router.push('/login')
+            }
+          })
+      },
+      updateApplication(vuexContext, data) {
+        this.$axios
+          .$put(
+            '/applications/' +
+              data.id +
+              '.json?auth=' +
+              vuexContext.state.authToken,
+            data.application
+          )
+          .then(() => {
+            vuexContext.commit('updateApplication', data)
           })
           .catch((e) => {
             if (e.request.status === 401) {
