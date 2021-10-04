@@ -1,56 +1,61 @@
 <template>
-  <b-table striped hover :items="applicationsToDisplay" :fields="tableFields">
-    <template #cell(actions)="data">
-      <div v-if="!isEditing(data.item.id)" class="actions-container">
-        <i class="fas fa-trash-alt" @click="$emit('delete', data.item.id)"></i>
-        <i class="fas fa-edit" @click="handleEdit(data.item)"></i>
-      </div>
-      <div v-else class="actions-container">
-        <i class="fas fa-check" @click="handleEditComplete(data.item.id)"></i>
-        <i class="fas fa-times" @click="handleEditAbort()"></i>
-      </div>
-    </template>
-    <template #cell(firstName)="data">
-      <b-form-input
-        v-if="isEditing(data.item.id)"
-        v-model="rowToEdit.firstName"
-        :value="data.item.firstName"
-      ></b-form-input>
-      <span v-else>{{ data.item.firstName }}</span>
-    </template>
-    <template #cell(lastName)="data">
-      <b-form-input
-        v-if="isEditing(data.item.id)"
-        v-model="rowToEdit.lastName"
-        :value="data.item.lastName"
-      ></b-form-input>
-      <span v-else>{{ data.item.lastName }}</span>
-    </template>
-    <template #cell(age)="data">
-      <b-form-input
-        v-if="isEditing(data.item.id)"
-        v-model="rowToEdit.age"
-        :value="data.item.age"
-      ></b-form-input>
-      <span v-else>{{ data.item.age }}</span>
-    </template>
-    <template #cell(parent)="data">
-      <b-form-input
-        v-if="isEditing(data.item.id)"
-        v-model="rowToEdit.parent"
-        :value="data.item.parent"
-      ></b-form-input>
-      <span v-else>{{ data.item.parent }}</span>
-    </template>
-    <template #cell(mail)="data">
-      <b-form-input
-        v-if="isEditing(data.item.id)"
-        v-model="rowToEdit.mail"
-        :value="data.item.mail"
-      ></b-form-input>
-      <a v-else :href="'mailto:' + data.item.mail">{{ data.item.mail }}</a>
-    </template>
-  </b-table>
+  <div>
+    <b-table striped hover :items="applicationsToDisplay" :fields="tableFields">
+      <template #cell(actions)="data">
+        <div v-if="!isEditing(data.item.id)" class="actions-container">
+          <i
+            class="fas fa-trash-alt"
+            @click="$emit('delete', data.item.id)"
+          ></i>
+          <i class="fas fa-edit" @click="handleEdit(data.item)"></i>
+        </div>
+        <div v-else class="actions-container">
+          <i class="fas fa-check" @click="handleEditComplete(data.item.id)"></i>
+          <i class="fas fa-times" @click="handleEditAbort()"></i>
+        </div>
+      </template>
+      <template #cell(firstName)="data">
+        <b-form-input
+          v-if="isEditing(data.item.id)"
+          v-model="rowToEdit.firstName"
+          :value="data.item.firstName"
+        ></b-form-input>
+        <span v-else>{{ data.item.firstName }}</span>
+      </template>
+      <template #cell(lastName)="data">
+        <b-form-input
+          v-if="isEditing(data.item.id)"
+          v-model="rowToEdit.lastName"
+          :value="data.item.lastName"
+        ></b-form-input>
+        <span v-else>{{ data.item.lastName }}</span>
+      </template>
+      <template #cell(age)="data">
+        <b-form-input
+          v-if="isEditing(data.item.id)"
+          v-model="rowToEdit.age"
+          :value="data.item.age"
+        ></b-form-input>
+        <span v-else>{{ data.item.age }}</span>
+      </template>
+      <template #cell(parent)="data">
+        <b-form-input
+          v-if="isEditing(data.item.id)"
+          v-model="rowToEdit.parent"
+          :value="data.item.parent"
+        ></b-form-input>
+        <span v-else>{{ data.item.parent }}</span>
+      </template>
+      <template #cell(mail)="data">
+        <b-form-input
+          v-if="isEditing(data.item.id)"
+          v-model="rowToEdit.mail"
+          :value="data.item.mail"
+        ></b-form-input>
+        <a v-else :href="'mailto:' + data.item.mail">{{ data.item.mail }}</a>
+      </template>
+    </b-table>
+  </div>
 </template>
 
 <script>
