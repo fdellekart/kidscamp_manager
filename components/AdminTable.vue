@@ -4,14 +4,39 @@
       <template #cell(actions)="data">
         <div v-if="!isEditing(data.item.id)" class="actions-container">
           <i
+            :id="'button-delete-' + data.item.id"
             class="fas fa-trash-alt"
             @click="$emit('delete', data.item.id)"
           ></i>
-          <i class="fas fa-edit" @click="handleEdit(data.item)"></i>
+          <b-tooltip :target="'button-delete-' + data.item.id"
+            >Löschen</b-tooltip
+          >
+          <i
+            :id="'button-edit-' + data.item.id"
+            class="fas fa-edit"
+            @click="handleEdit(data.item)"
+          ></i>
+          <b-tooltip :target="'button-edit-' + data.item.id"
+            >Bearbeiten</b-tooltip
+          >
         </div>
         <div v-else class="actions-container">
-          <i class="fas fa-check" @click="handleEditComplete(data.item.id)"></i>
-          <i class="fas fa-times" @click="handleEditAbort()"></i>
+          <i
+            :id="'button-edit-complete-' + data.item.id"
+            class="fas fa-check"
+            @click="handleEditComplete(data.item.id)"
+          ></i>
+          <b-tooltip :target="'button-edit-complete-' + data.item.id"
+            >Speichern</b-tooltip
+          >
+          <i
+            :id="'button-edit-abort-' + data.item.id"
+            class="fas fa-times"
+            @click="handleEditAbort()"
+          ></i>
+          <b-tooltip :target="'button-edit-abort-' + data.item.id"
+            >Abbrechen</b-tooltip
+          >
         </div>
       </template>
       <template #cell(firstName)="data">
