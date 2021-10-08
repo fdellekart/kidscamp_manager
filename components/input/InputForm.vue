@@ -12,6 +12,10 @@
     <p v-show="showAgeNumericWarning" class="warning">
       Bitte für das Alter eine Zahl angeben!
     </p>
+    <p v-show="showAgeOutOfBoundsWarning" class="warning">
+      Eine Teilnahme ist nur für Kinder zwischen 8 und 14 Jahren möglich. Bitte
+      gib das Alter deines Kindes zu Beginn der Lagerwoche an.
+    </p>
     <p v-show="showMailWarning" class="warning">Bitte gültige Mail angeben!</p>
     <AppButton type="submit">Speichern</AppButton>
     <AppButton v-if="showCancelButton" @click="$emit('cancel')"
@@ -56,6 +60,7 @@ export default {
       showWarning: false,
       showAgeNumericWarning: false,
       showMailWarning: false,
+      showAgeOutOfBoundsWarning: false,
     }
   },
   methods: {
@@ -68,6 +73,13 @@ export default {
       }
       if (this.showAge && isNaN(this.personData.age)) {
         this.showAgeNumericWarning = true
+        return
+      }
+      if (
+        this.showAge &&
+        (this.personData.age < 8 || this.personData.age > 14)
+      ) {
+        this.showAgeOutOfBoundsWarning = true
         return
       }
       if (!this.showAge && !this.isEmailValid(this.personData.mail)) {
