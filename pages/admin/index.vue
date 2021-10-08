@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <application-stats
-      :number-applications="Object.keys($store.getters.applications).length"
-    />
+  <div class="container">
+    <div class="stats-container">
+      <application-stats
+        :number-applications="Object.keys($store.getters.applications).length"
+      />
+    </div>
     <admin-table
       :applications="$store.getters.applications"
       @delete="handleDeletionClick"
@@ -61,3 +63,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.stats-container {
+  margin: 10%;
+}
+</style>

@@ -8,6 +8,7 @@
           chart: { type: 'bar', toolbar: { show: false }, height: '100%' },
           xaxis: { categories: Object.keys(ageHistogram) },
           yaxis: { show: false },
+          title: { text: 'Aufteilung über Alter' },
         }"
       ></Apexchart>
     </div>
