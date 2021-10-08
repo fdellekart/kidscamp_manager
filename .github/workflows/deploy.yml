@@ -30,4 +30,4 @@ jobs:
             git checkout master
             git pull
             docker build -t kidscamp_manager_front .
-            docker run -d -p 3000:3000 kidscamp_manager_front entry
+            docker run -d -p 3000:3000 --env-file /.env kidscamp_manager_front entry
