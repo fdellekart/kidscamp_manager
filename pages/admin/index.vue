@@ -29,6 +29,7 @@ import ApplicationStats from '~/components/ApplicationStats'
 export default {
   name: 'AdminPage',
   components: { AdminTable, ApplicationStats },
+  layout: 'admin',
   middleware: ['check-auth', 'auth'],
   data() {
     return {
