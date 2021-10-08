@@ -78,9 +78,4 @@ html {
 .logo-container {
   background-image: url('~assets/logo.gif');
 }
-the-header {
-  top: 0;
-  left: 0;
-  margin-bottom: 0;
-}
 </style>

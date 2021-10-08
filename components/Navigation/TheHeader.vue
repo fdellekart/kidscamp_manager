@@ -1,10 +1,13 @@
 <template>
   <div class="header-container">
-    <header class="the-header">
-      <div class="logo">
-        <img class="logo-image" src="~/assets/logo.gif" alt="" />
-      </div>
-    </header>
+    <div class="logo">
+      <img class="logo-image" src="~/assets/logo.gif" alt="" />
+    </div>
+    <div class="spacer"></div>
+    <div class="nav-item">
+      <nuxt-link to="/">Anmeldeformular</nuxt-link>
+      <i class="fas fa-arrow-right"></i>
+    </div>
   </div>
 </template>
 
@@ -19,18 +22,10 @@ export default {
   height: 100px;
   margin: 20px;
   margin-bottom: 0;
-}
-.the-header {
-  width: 100%;
-  position: fixed;
-  height: 100px;
+  position: sticky;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  z-index: 100;
-  box-sizing: border-box;
-  padding: 0 20px;
   flex-direction: row;
+  align-items: center;
 }
 .logo {
   margin: 0 10px;
@@ -40,5 +35,29 @@ export default {
 }
 .logo-image {
   height: 100%;
+}
+.spacer {
+  flex: 1;
+}
+.nav-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.nav-item a {
+  font-size: 20px;
+  color: black;
+  font-weight: bold;
+}
+.nav-item a:hover {
+  font-size: 20px;
+  color: darkgray;
+  font-weight: bold;
+}
+i {
+  margin: 5px;
+}
+.nav-item:hover {
+  color: darkgray;
 }
 </style>
