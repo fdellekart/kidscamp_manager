@@ -20,11 +20,13 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.5",
+    "apexcharts": "^3.28.3",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.8.3",
     "js-cookie": "^2.2.1",
-    "nuxt": "^2.14.12"
+    "nuxt": "^2.14.12",
+    "vue-apexcharts": "^1.6.2"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^5.0.0",
