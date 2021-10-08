@@ -9,6 +9,7 @@
           xaxis: { categories: Object.keys(ageHistogram) },
           yaxis: { show: false },
           title: { text: 'Aufteilung über Alter' },
+          colors: ['#fdcc2d'],
         }"
       ></Apexchart>
     </div>
