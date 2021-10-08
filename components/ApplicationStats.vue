@@ -44,9 +44,8 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
-  margin: 15px;
   width: 100%;
-  height: 150px;
+  height: 300px;
 }
 .chart-container {
   height: 100%;
