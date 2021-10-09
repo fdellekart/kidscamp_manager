@@ -21,6 +21,14 @@ COPY --chown=node:node . .
 # set app serving to permissive / assigned
 ENV NUXT_HOST=0.0.0.0
 
+ARG FIREBASE_URL
+ARG AUTH_URL
+ARG AUTH_API_KEY
+
+ENV FIREBASE_URL ${FIREBASE_URL}
+ENV AUTH_URL ${AUTH_URL}
+ENV AUTH_API_KEY ${AUTH_API_KEY}
+
 # expect the commit hash to be passed at build-time
 ARG CI_COMMIT_SHORT_SHA
 # add it to the image to pass it to the container at runtime
