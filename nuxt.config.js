@@ -23,7 +23,10 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: '~plugins/core-components.js', mode: 'client' }],
+  plugins: [
+    { src: '~plugins/core-components.js' },
+    { src: '~plugins/apex-charts.js', mode: 'client' },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
