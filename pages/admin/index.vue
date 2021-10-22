@@ -41,8 +41,8 @@ export default {
       if (!this.applicationIdToDelete) {
         return ''
       }
-      const child = this.$store.getters.applications[this.applicationIdToDelete]
-        .child
+      const child =
+        this.$store.getters.applications[this.applicationIdToDelete].child
       return child.firstName + ' ' + child.lastName
     },
   },

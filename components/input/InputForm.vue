@@ -1,12 +1,16 @@
 <template>
   <form @submit.prevent="onSubmit">
-    <AppControlInput v-model="personData.firstName">Vorname</AppControlInput>
-    <AppControlInput v-model="personData.lastName">Nachname</AppControlInput>
-    <AppControlInput v-if="showAge" v-model="personData.age"
-      >Alter</AppControlInput
+    <app-control-input v-model="personData.firstName"
+      >Vorname</app-control-input
     >
-    <AppControlInput v-if="!showAge" v-model="personData.mail"
-      >E-Mail Adresse</AppControlInput
+    <app-control-input v-model="personData.lastName"
+      >Nachname</app-control-input
+    >
+    <app-control-input v-if="showAge" v-model="personData.age"
+      >Alter</app-control-input
+    >
+    <app-control-input v-if="!showAge" v-model="personData.mail"
+      >E-Mail Adresse</app-control-input
     >
     <p v-show="showWarning" class="warning">Bitte Daten vollständig angeben!</p>
     <p v-show="showAgeNumericWarning" class="warning">

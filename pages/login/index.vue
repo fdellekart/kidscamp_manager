@@ -5,13 +5,13 @@
         <p v-if="showWarning" class="unauthenticated-warn" style="color: red">
           Login not Possible
         </p>
-        <AppControlInput v-model="email" type="email"
-          >E-Mail Addresse</AppControlInput
+        <app-control-input v-model="email" type="email"
+          >E-Mail Addresse</app-control-input
         >
-        <AppControlInput v-model="password" type="password"
-          >Passwort</AppControlInput
+        <app-control-input v-model="password" type="password"
+          >Passwort</app-control-input
         >
-        <AppButton type="submit">Einloggen</AppButton>
+        <app-button type="submit">Einloggen</app-button>
       </form>
     </div>
   </div>
@@ -36,7 +36,6 @@ export default {
         })
         .then(() => this.$router.push('/admin'))
         .catch((e) => {
-          console.log(e)
           this.showWarning = true
         })
     },

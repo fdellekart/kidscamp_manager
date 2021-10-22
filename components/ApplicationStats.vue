@@ -2,7 +2,7 @@
   <div class="container">
     <span>Aktuell {{ numberApplications }} Anmeldungen</span>
     <div class="chart-container">
-      <Apexchart
+      <apex-chart
         :series="[{ name: 'Anmeldungen', data: Object.values(ageHistogram) }]"
         :options="{
           chart: { type: 'bar', toolbar: { show: false }, height: '100%' },
@@ -11,7 +11,7 @@
           title: { text: 'Aufteilung über Alter' },
           colors: ['#fdcc2d'],
         }"
-      ></Apexchart>
+      ></apex-chart>
     </div>
   </div>
 </template>

@@ -8,7 +8,7 @@ import AppControlInput from '@/components/UI/AppControlInput'
 export default () => {
   Vue.component('AppButton', AppButton)
   Vue.component('AppControlInput', AppControlInput)
-  Vue.component('Apexchart', VueApexCharts)
+  Vue.component('ApexChart', VueApexCharts)
 
   Vue.use(VueApexCharts)
   Vue.use(BootstrapVue)

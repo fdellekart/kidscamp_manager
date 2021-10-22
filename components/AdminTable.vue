@@ -1,6 +1,12 @@
 <template>
   <div>
-    <b-table striped hover :items="applicationsToDisplay" :fields="tableFields">
+    <b-table
+      striped
+      hover
+      :items="applicationsToDisplay"
+      :fields="tableFields"
+      role="applications-table"
+    >
       <template #cell(actions)="data">
         <div v-if="!isEditing(data.item.id)" class="actions-container">
           <i
@@ -21,11 +27,13 @@
           >
         </div>
         <div v-else class="actions-container">
-          <i
-            :id="'button-edit-complete-' + data.item.id"
-            class="fas fa-check"
-            @click="handleEditComplete(data.item.id)"
-          ></i>
+          <button type="submit">
+            <i
+              :id="'button-edit-complete-' + data.item.id"
+              class="fas fa-check"
+              @click="handleEditComplete(data.item.id)"
+            ></i>
+          </button>
           <b-tooltip :target="'button-edit-complete-' + data.item.id"
             >Speichern</b-tooltip
           >

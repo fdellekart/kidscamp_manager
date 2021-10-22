@@ -3,7 +3,7 @@
     <h1 class="heading">Anmeldung KidsCamp {{ currentYear }}</h1>
     <div class="separator"></div>
     <div v-if="!applicationFinished" class="parent-container">
-      <h3>Erziehungsberechtigter</h3>
+      <h2>Erziehungsberechtigter</h2>
       <InputForm
         v-if="!isParentSaved"
         :person="parentData"
@@ -20,7 +20,7 @@
     </div>
     <div v-if="!applicationFinished" class="separator"></div>
     <div v-if="!applicationFinished" class="children-container">
-      <h3>Kinder</h3>
+      <h2>Kinder</h2>
       <AppPersonInfo
         v-for="child in children"
         :key="child.firstName + child.lastName + child.age"

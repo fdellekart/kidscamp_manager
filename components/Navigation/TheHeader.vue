@@ -1,7 +1,7 @@
 <template>
   <div class="header-container">
     <div class="logo">
-      <img class="logo-image" src="~/assets/logo.gif" alt="" />
+      <img class="logo-image" src="~/assets/logo.gif" alt="Logo" />
     </div>
     <div class="spacer"></div>
     <div class="nav-item">
