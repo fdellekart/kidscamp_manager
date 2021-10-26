@@ -45,6 +45,9 @@
         @cancel="onCancelChild"
       />
     </div>
+    <p v-if="showParentWarning" class="warning">
+      Bitte Erziehungsberechtigten angeben und speichern.
+    </p>
     <div v-if="!applicationFinished" class="submit-button-container">
       <AppButton @click="onSend">Anmeldung absenden</AppButton>
     </div>
@@ -71,6 +74,7 @@ export default {
       childToEditIndex: null,
       childToEdit: undefined,
       applicationFinished: false,
+      showParentWarning: false,
     }
   },
   computed: {
@@ -126,6 +130,11 @@ export default {
       this.children.splice(index, 1)
     },
     onSend() {
+      if (!this.isParentSaved) {
+        this.showParentWarning = true
+        return
+      }
+      this.showParentWarning = false
       this.children.forEach((child) => {
         const newApplicationKey = this.$fire.database
           .ref()
@@ -171,5 +180,10 @@ export default {
 }
 .submit-button-container {
   margin-top: 5%;
+}
+.warning {
+  margin-top: 10px;
+  color: red;
+  font-weight: bold;
 }
 </style>
