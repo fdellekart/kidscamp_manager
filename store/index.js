@@ -29,7 +29,7 @@ const createStore = () => {
       deleteApplication(vuexContext, applicationId) {
         this.$axios
           .$delete(
-            '/applications/' +
+            '/api/applications/' +
               applicationId +
               '.json?auth=' +
               vuexContext.state.authToken
@@ -47,7 +47,7 @@ const createStore = () => {
       updateApplication(vuexContext, data) {
         this.$axios
           .$put(
-            '/applications/' +
+            '/api/applications/' +
               data.id +
               '.json?auth=' +
               vuexContext.state.authToken,
@@ -65,7 +65,7 @@ const createStore = () => {
       },
       fetchApplications(vuexContext) {
         this.$axios
-          .$get('/applications.json?auth=' + vuexContext.state.authToken)
+          .$get('/api/applications.json?auth=' + vuexContext.state.authToken)
           .then((res) => vuexContext.commit('setApplications', res))
           .catch((e) => {
             if (e.request.status === 401) {
@@ -76,7 +76,7 @@ const createStore = () => {
       },
       authenticateUser(vuexContext, userData) {
         return this.$axios
-          .post(this.$config.authSignInURL + this.$config.authApiKey, {
+          .post(this.$config.authSignInURL, {
             email: userData.email,
             password: userData.password,
             returnSecureToken: true,

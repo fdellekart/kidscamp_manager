@@ -128,7 +128,7 @@ export default {
     onSend() {
       this.children.forEach((child) => {
         this.$axios
-          .$post('/applications.json', {
+          .$post('/api/applications.json', {
             parent: this.parentData,
             child,
           })

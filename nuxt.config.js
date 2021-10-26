@@ -49,16 +49,19 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'localhost:4000', // used as a fallback if no runtime config is provided
+    proxy: true,
+  },
+  proxy: {
+    '/api/': {
+      target: process.env.FIREBASE_URL,
+      pathRewrite: { '^/api/': '' },
+    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 
   publicRuntimeConfig: {
-    axios: {
-      browserBaseURL: process.env.FIREBASE_URL,
-    },
     authSignInURL: process.env.AUTH_URL,
     authApiKey: process.env.AUTH_API_KEY,
   },
