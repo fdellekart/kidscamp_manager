@@ -20,6 +20,7 @@
 <script>
 export default {
   name: 'AdminAuthPage',
+  middleware: 'auth',
   data() {
     return {
       email: '',
@@ -29,14 +30,13 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$store
-        .dispatch('authenticateUser', {
-          email: this.email,
-          password: this.password,
-        })
-        .then(() => this.$router.push('/admin'))
+      this.$fire.auth
+        .signInWithEmailAndPassword(this.email, this.password)
         .catch((e) => {
           this.showWarning = true
+        })
+        .then((user) => {
+          this.$router.push('/admin')
         })
     },
   },
