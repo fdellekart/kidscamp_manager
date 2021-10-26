@@ -5,10 +5,14 @@ import Cookie from 'js-cookie'
 const createStore = () => {
   return new Vuex.Store({
     state: {
+      user: null,
       authToken: null,
       applications: {},
     },
     mutations: {
+      setUser(state, user) {
+        state.user = user
+      },
       setAuthToken(state, token) {
         state.authToken = token
       },
@@ -26,6 +30,14 @@ const createStore = () => {
       },
     },
     actions: {
+      onAuthStateChangedAction(vuexContext, { authUser, claims }) {
+        if (!authUser) {
+          vuexContext.commit('setUser', null)
+          this.$router.push('/login')
+        } else {
+          vuexContext.commit('setUser', authUser)
+        }
+      },
       deleteApplication(vuexContext, applicationId) {
         this.$axios
           .$delete(
@@ -146,6 +158,9 @@ const createStore = () => {
       },
       applications(state) {
         return state.applications
+      },
+      user(state) {
+        return state.user
       },
     },
   })

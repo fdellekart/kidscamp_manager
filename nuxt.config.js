@@ -45,6 +45,31 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: 'AIzaSyAc1Q1pdYvZnH9DuornwaZrrOb5WLs80PI',
+          authDomain: 'camp-manager-a5d22.firebaseapp.com',
+          databaseURL:
+            'https://camp-manager-a5d22-default-rtdb.europe-west1.firebasedatabase.app',
+          projectId: 'camp-manager-a5d22',
+          storageBucket: 'camp-manager-a5d22.appspot.com',
+          messagingSenderId: '621343721303',
+          appId: '1:621343721303:web:4918c50d99629b4aae2012',
+        },
+        services: {
+          auth: {
+            persistence: 'local', // default
+            initialize: {
+              onAuthStateChangedAction: 'onAuthStateChangedAction',
+              subscribeManually: false,
+            },
+            ssr: false, // default
+          },
+        },
+      },
+    ],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
