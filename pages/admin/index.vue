@@ -30,7 +30,7 @@ export default {
   name: 'AdminPage',
   components: { AdminTable, ApplicationStats },
   layout: 'admin',
-  middleware: ['check-auth', 'auth'],
+  middleware: ['auth'],
   data() {
     return {
       applicationIdToDelete: null,
