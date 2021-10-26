@@ -67,6 +67,7 @@ export default {
             },
             ssr: false, // default
           },
+          database: true,
         },
       },
     ],

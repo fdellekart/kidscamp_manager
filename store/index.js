@@ -76,15 +76,10 @@ const createStore = () => {
           })
       },
       fetchApplications(vuexContext) {
-        this.$axios
-          .$get('/api/applications.json?auth=' + vuexContext.state.authToken)
-          .then((res) => vuexContext.commit('setApplications', res))
-          .catch((e) => {
-            if (e.request.status === 401) {
-              vuexContext.dispatch('clearAuthToken')
-              this.$router.push('/login')
-            }
-          })
+        const applicationsRef = this.$fire.database.ref('applications')
+        applicationsRef.on('value', (snapshot) => {
+          vuexContext.commit('setApplications', snapshot.val())
+        })
       },
       authenticateUser(vuexContext, userData) {
         return this.$axios
