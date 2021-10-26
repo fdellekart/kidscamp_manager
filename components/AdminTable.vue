@@ -27,13 +27,11 @@
           >
         </div>
         <div v-else class="actions-container">
-          <button type="submit">
-            <i
-              :id="'button-edit-complete-' + data.item.id"
-              class="fas fa-check"
-              @click="handleEditComplete(data.item.id)"
-            ></i>
-          </button>
+          <i
+            :id="'button-edit-complete-' + data.item.id"
+            class="fas fa-check"
+            @click="handleEditComplete(data.item.id)"
+          ></i>
           <b-tooltip :target="'button-edit-complete-' + data.item.id"
             >Speichern</b-tooltip
           >

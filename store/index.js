@@ -44,18 +44,15 @@ const createStore = () => {
             vuexContext.commit('deleteApplication', applicationId)
           })
           .catch((e) => {
-            this.$router.push('/login')
+            console.log('Error:', e)
           })
       },
       updateApplication(vuexContext, data) {
-        this.$axios
-          .$put(
-            '/api/applications/' +
-              data.id +
-              '.json?auth=' +
-              vuexContext.state.authToken,
-            data.application
-          )
+        const updates = {}
+        updates['/applications/' + data.id] = data.application
+        this.$fire.database
+          .ref()
+          .update(updates)
           .then(() => {
             vuexContext.commit('updateApplication', data)
           })
