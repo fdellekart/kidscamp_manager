@@ -56,6 +56,10 @@ export default {
       target: process.env.FIREBASE_URL,
       pathRewrite: { '^/api/': '' },
     },
+    '/auth/': {
+      target: process.env.AUTH_URL,
+      pathRewrite: { '^/auth/': '' },
+    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

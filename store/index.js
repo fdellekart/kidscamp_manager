@@ -76,7 +76,7 @@ const createStore = () => {
       },
       authenticateUser(vuexContext, userData) {
         return this.$axios
-          .post(this.$config.authSignInURL, {
+          .post('/auth/', {
             email: userData.email,
             password: userData.password,
             returnSecureToken: true,
