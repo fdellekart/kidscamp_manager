@@ -127,11 +127,18 @@ export default {
     },
     onSend() {
       this.children.forEach((child) => {
-        this.$axios
-          .$post('/api/applications.json', {
-            parent: this.parentData,
-            child,
-          })
+        const newApplicationKey = this.$fire.database
+          .ref()
+          .child('applications')
+          .push().key
+        const updates = {}
+        updates['/applications/' + newApplicationKey] = {
+          parent: this.parentData,
+          child,
+        }
+        this.$fire.database
+          .ref()
+          .update(updates)
           .then(() => {
             this.applicationFinished = true
           })
