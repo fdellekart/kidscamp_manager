@@ -3,6 +3,7 @@
     <div class="stats-container">
       <application-stats
         :number-applications="Object.keys($store.getters.applications).length"
+        @download-excel="handleExcelDownload"
       />
     </div>
     <admin-table
@@ -60,6 +61,16 @@ export default {
     },
     handleUpdate(data) {
       this.$store.dispatch('updateApplication', data)
+    },
+    handleExcelDownload() {
+      this.$axios
+        .post(
+          '/api/downloads/applications/excel',
+          this.$store.getters.applications
+        )
+        .then((res) => {
+          console.log('Response:', res)
+        })
     },
   },
 }

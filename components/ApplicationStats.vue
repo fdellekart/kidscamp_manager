@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <span>Aktuell {{ numberApplications }} Anmeldungen</span>
+    <div class="stats-header">
+      <span>Aktuell {{ numberApplications }} Anmeldungen</span>
+      <b-button id="download-button" @click="$emit('download-excel')"
+        >Excel Herunterladen</b-button
+      >
+    </div>
     <div class="chart-container">
       <apex-chart
         :series="[{ name: 'Anmeldungen', data: Object.values(ageHistogram) }]"
@@ -50,8 +55,15 @@ export default {
 .chart-container {
   height: 100%;
 }
+.stats-header {
+  display: flex;
+  flex-direction: row;
+}
 span {
   font-size: 30px;
   font-weight: bold;
+}
+#download-button {
+  margin-left: 30px;
 }
 </style>
