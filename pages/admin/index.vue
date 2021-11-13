@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import FileSaver from 'file-saver'
 import AdminTable from '~/components/AdminTable'
 import ApplicationStats from '~/components/ApplicationStats'
 
@@ -66,10 +67,11 @@ export default {
       this.$axios
         .post(
           '/api/downloads/applications/excel',
-          this.$store.getters.applications
+          this.$store.getters.applications,
+          { responseType: 'blob' }
         )
         .then((res) => {
-          console.log('Response:', res)
+          FileSaver.saveAs(res.data, 'Anmeldungen.xlsx')
         })
     },
   },
