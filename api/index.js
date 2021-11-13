@@ -6,6 +6,8 @@ const app = express()
 // Require API routes
 const users = require('./routes/download')
 
+app.use(express.json())
+
 // Import API Routes
 app.use(users)
 

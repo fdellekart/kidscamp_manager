@@ -20,4 +20,8 @@ router.get('/users/:id', function (req, res, next) {
   }
 })
 
+router.post('/downloads/applications/excel', function (req, res, next) {
+  res.send(req.body)
+})
+
 module.exports = router

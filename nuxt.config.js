@@ -75,19 +75,7 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
-    proxy: true,
-  },
-  proxy: {
-    '/api/': {
-      target: process.env.FIREBASE_URL,
-      pathRewrite: { '^/api/': '' },
-    },
-    '/auth/': {
-      target: process.env.AUTH_URL,
-      pathRewrite: { '^/auth/': '' },
-    },
-  },
+  axios: {},
 
   serverMiddleware: {
     '/api': '~/api',
