@@ -27,6 +27,7 @@ jobs:
           script: |
             docker kill $(docker ps -q)
             cd ~/app/kidscamp_manager
+            git status
             git config --global user.email "florian.dellekart@hotmail.de"
             git config --global user.name "Florian Dellekart"
             git config pull.rebase false
