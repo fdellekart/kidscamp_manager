@@ -86,8 +86,6 @@ export default {
   build: {},
 
   publicRuntimeConfig: {
-    authSignInURL: process.env.AUTH_URL,
-    authApiKey: process.env.AUTH_API_KEY,
     axios: {
       browserBaseUrl: process.env.API_URL_BROWSER,
     },
