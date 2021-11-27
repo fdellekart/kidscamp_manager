@@ -53,7 +53,34 @@
     <div v-if="!applicationFinished" class="submit-button-container">
       <AppButton @click="onSend">Anmeldung absenden</AppButton>
     </div>
-    <p v-if="applicationFinished">Vielen Dank für deine Anmeldung!</p>
+    <h2 v-if="applicationFinished" class="thank-text">
+      Vielen Dank für deine Anmeldung!
+    </h2>
+    <p v-if="applicationFinished">
+      Ein E-Mail wurde als Bestätigung an <b>{{ parentData.mail }}</b> versandt.
+      <br />
+      <br />
+      Solltest du keine Mail erhalten haben, setze dich bitte über
+      <a href="https://www.kidscamp.at/contact"> unsere Website </a> mit uns in
+      Kontakt.
+      <br />
+      <br />
+      Für den Fall, dass das Mail nicht in deinem Posteingang landet,
+      <b>kontrolliere bitte auch den Spam Ordner</b>.
+      <br />
+      <br />
+      Um die Zeit bis zum Camp zu überbrücken und um dann auf jeden Fall Top
+      vorbereitet zu sein, könnt ihr euch in der Zwischenzeit die
+      <a href="https://www.kidscamp.at/camp-tipps">Packliste und Tipps</a>
+      ansehen.
+      <br />
+      <br />
+      Liebe Grüße und bis dann,<br />
+      <br />
+      <i class="fas fa-campground"></i>
+      <b>Das gesamte KidsCamp Team</b>
+      <i class="fas fa-campground"></i>
+    </p>
   </div>
 </template>
 
@@ -69,7 +96,7 @@ export default {
   layout: 'application',
   data() {
     return {
-      parentData: null,
+      parentData: { firstName: null, lastName: null, mail: null },
       isParentSaved: false,
       children: [],
       isAddingChild: false,
@@ -193,6 +220,14 @@ export default {
   font-weight: bold;
 }
 #main-heading {
+  text-align: center;
+}
+.thank-text {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+p {
   text-align: center;
 }
 </style>
