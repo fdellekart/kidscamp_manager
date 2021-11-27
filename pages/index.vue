@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <h1 class="heading">Anmeldung KidsCamp {{ currentYear }}</h1>
+    <h1 id="main-heading" class="heading">
+      Anmeldung KidsCamp {{ currentYear }}
+    </h1>
     <div class="separator"></div>
     <div v-if="!applicationFinished" class="parent-container">
       <h2>Erziehungsberechtigter</h2>
@@ -185,5 +187,8 @@ export default {
   margin-top: 10px;
   color: red;
   font-weight: bold;
+}
+#main-heading {
+  text-align: center;
 }
 </style>
