@@ -29,6 +29,7 @@ jobs:
             cd ~/app/kidscamp_manager
             git config --global user.email "florian.dellekart@hotmail.de"
             git config --global user.name "Florian Dellekart"
+            git config pull.rebase false
             git checkout master
             git pull
             docker build -t kidscamp_manager_front --build-arg FIREBASE_URL=${{secrets.FIREBASE_URL}} --build-arg AUTH_URL={{secrets.AUT_URL}} --build-arg AUTH_API_KEY={{secrets.AUTH_API_KEY}} --build-arg API_URL_BROWSER={{secrets.API_URL_BROWSER}} .
