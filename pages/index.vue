@@ -155,6 +155,9 @@ export default {
             this.applicationFinished = true
           })
       })
+      this.$axios.post('api/application/confirm', {
+        mail: this.parentData.mail,
+      })
     },
   },
 }

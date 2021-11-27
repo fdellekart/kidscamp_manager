@@ -4,12 +4,14 @@ const express = require('express')
 const app = express()
 
 // Require API routes
-const users = require('./routes/download')
+const download = require('./routes/download')
+const confirmation = require('./routes/confirmation')
 
 app.use(express.json())
 
 // Import API Routes
-app.use(users)
+app.use(download)
+app.use(confirmation)
 
 // Export express app
 module.exports = app
