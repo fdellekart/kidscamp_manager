@@ -2,8 +2,8 @@
   <div class="container">
     <div class="stats-header">
       <span>Aktuell {{ numberApplications }} Anmeldungen</span>
-      <b-button id="download-button" @click="$emit('download-excel')"
-        >Excel Herunterladen</b-button
+      <app-button id="download-button" @click="$emit('download-excel')"
+        >Excel Herunterladen</app-button
       >
     </div>
     <div class="chart-container">
@@ -22,7 +22,9 @@
 </template>
 
 <script>
+import AppButton from './UI/AppButton.vue'
 export default {
+  components: { AppButton },
   props: {
     numberApplications: {
       type: Number,
