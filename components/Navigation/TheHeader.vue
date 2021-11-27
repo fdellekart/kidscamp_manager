@@ -4,8 +4,12 @@
       <img class="logo-image" src="~/assets/logo.gif" alt="Logo" />
     </div>
     <div class="spacer"></div>
-    <div class="nav-item">
+    <div v-show="showLinkToForm" class="nav-item">
       <nuxt-link to="/">Anmeldeformular</nuxt-link>
+      <i class="fas fa-arrow-right"></i>
+    </div>
+    <div v-show="showLinkToHomePage" class="nav-item">
+      <a href="https://www.kidscamp.at">Zurück zur Homepage</a>
       <i class="fas fa-arrow-right"></i>
     </div>
   </div>
@@ -14,6 +18,18 @@
 <script>
 export default {
   name: 'TheHeader',
+  props: {
+    showLinkToForm: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
+    showLinkToHomePage: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
 }
 </script>
 
