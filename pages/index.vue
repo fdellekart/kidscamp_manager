@@ -66,6 +66,7 @@ export default {
     InputForm,
     AppPersonInfo,
   },
+  layout: 'application',
   data() {
     return {
       parentData: null,
