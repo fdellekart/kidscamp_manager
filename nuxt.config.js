@@ -44,7 +44,6 @@ export default {
     'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/proxy',
     '@nuxt/http',
     [
       '@nuxtjs/firebase',
@@ -75,7 +74,9 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseUrl: 'http://localhost:3000',
+  },
 
   serverMiddleware: {
     '/api': '~/api',
@@ -87,5 +88,13 @@ export default {
   publicRuntimeConfig: {
     authSignInURL: process.env.AUTH_URL,
     authApiKey: process.env.AUTH_API_KEY,
+    axios: {
+      browserBaseUrl: process.env.API_URL_BROWSER,
+    },
+  },
+  privateRuntimeConfig: {
+    axios: {
+      baseUrl: process.env.API_URL_BROWSER,
+    },
   },
 }

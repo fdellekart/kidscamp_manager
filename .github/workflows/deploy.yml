@@ -29,5 +29,5 @@ jobs:
             cd ~/app/kidscamp_manager
             git checkout master
             git pull
-            docker build -t kidscamp_manager_front --build-arg FIREBASE_URL=${{secrets.FIREBASE_URL}} --build-arg AUTH_URL={{secrets.AUT_URL}} --build-arg AUTH_API_KEY={{secrets.AUTH_API_KEY}} .
+            docker build -t kidscamp_manager_front --build-arg FIREBASE_URL=${{secrets.FIREBASE_URL}} --build-arg AUTH_URL={{secrets.AUT_URL}} --build-arg AUTH_API_KEY={{secrets.AUTH_API_KEY}} --build-arg API_URL_BROWSER={{secrets.API_URL_BROWSER}} .
             docker run -d -p 3000:3000 kidscamp_manager_front entry
