@@ -19,11 +19,13 @@ export default {
 <style scoped>
 .button {
   font: inherit;
-  background-color: black;
+  background-color: rgb(253, 204, 45);
   color: white;
   padding: 5px;
   cursor: pointer;
-  border: 1px solid black;
+  border: 1px solid rgb(253, 204, 45);
+  border-radius: 10px;
+  font-weight: bold;
 }
 
 .button:hover,
