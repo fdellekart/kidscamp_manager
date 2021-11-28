@@ -184,6 +184,8 @@ export default {
       })
       this.$axios.post('api/application/confirm', {
         mail: this.parentData.mail,
+        firstName: this.parentData.firstName,
+        children: this.children,
       })
     },
   },
