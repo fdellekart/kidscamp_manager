@@ -66,7 +66,12 @@ const createStore = () => {
       fetchApplications(vuexContext) {
         const applicationsRef = this.$fire.database.ref('applications')
         applicationsRef.on('value', (snapshot) => {
-          vuexContext.commit('setApplications', snapshot.val())
+          const val = snapshot.val()
+          if (!val) {
+            vuexContext.commit('setApplications', {})
+          } else {
+            vuexContext.commit('setApplications', val)
+          }
         })
       },
     },
