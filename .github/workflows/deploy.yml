@@ -32,5 +32,5 @@ jobs:
             cd ~/app/kidscamp_manager
             git checkout master
             git pull
-            docker build -t kidscamp_manager_front --build-arg API_URL_BROWSER=${{secrets.API_URL_BROWSER}} .
+            docker build -t kidscamp_manager_front --build-arg API_URL_BROWSER=${{secrets.API_URL_BROWSER}} --build-arg CONFIRMATION_MAIL=${{secrets.CONFIRMATION_MAIL}} --build-arg CONFIRMATION_MAIL_PASSWORD=${{secrets.CONFIRMATION_MAIL_PASSWORD}} .
             docker run -d -p 3000:3000 kidscamp_manager_front entry
