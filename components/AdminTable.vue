@@ -168,6 +168,7 @@ export default {
       this.$emit('update-application', {
         id: this.rowToEdit.id,
         application: {
+          created: this.applications[this.rowToEdit.id].created,
           parent: {
             firstName: this.rowToEdit.parent.split(' ')[0],
             lastName: this.rowToEdit.parent.split(' ')[1],
