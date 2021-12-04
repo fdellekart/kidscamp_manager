@@ -28,9 +28,7 @@ const ulFromChildren = function (children) {
 }
 
 const mailTemplate = fs
-  .readFileSync(
-    '/home/florian/Documents/KidsCamp/kidscamp_manager/api/confirmation-mail-template.html'
-  )
+  .readFileSync('./api/confirmation-mail-template.html')
   .toString()
 
 const transporter = nodemailer.createTransport({
@@ -38,8 +36,8 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true, // true for 465, false for other ports
   auth: {
-    user: process.env.CONFIRMATION_MAIL, // generated ethereal user
-    pass: process.env.CONFIRMATION_MAIL_PASSWORD, // generated ethereal password
+    user: process.env.CONFIRMATION_MAIL,
+    pass: process.env.CONFIRMATION_MAIL_PASSWORD,
   },
   tls: {
     rejectUnauthorized: false,
