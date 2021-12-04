@@ -45,6 +45,9 @@
           >
         </div>
       </template>
+      <template #cell(created)="data">
+        <span>{{ data.item.created }}</span>
+      </template>
       <template #cell(firstName)="data">
         <b-form-input
           v-if="isEditing(data.item.id)"
@@ -97,6 +100,11 @@ export default {
       rowToEdit: {},
       tableFields: [
         {
+          key: 'created',
+          label: 'Datum',
+          sortable: true,
+        },
+        {
           key: 'firstName',
           label: 'Vorname',
           sortable: true,
@@ -135,6 +143,7 @@ export default {
       }
       return Object.keys(this.applications).map((applicationId) => {
         const application = this.applications[applicationId]
+        const date = new Date(application.created)
         return {
           parent:
             application.parent.firstName + ' ' + application.parent.lastName,
@@ -142,6 +151,7 @@ export default {
           firstName: application.child.firstName,
           lastName: application.child.lastName,
           age: application.child.age,
+          created: date.toLocaleDateString('de'),
           id: applicationId,
         }
       })
