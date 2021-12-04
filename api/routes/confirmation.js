@@ -56,6 +56,7 @@ router.post('/application/confirm', function (req, res, next) {
       html: format(mailTemplate, {
         name: req.body.firstName,
         children: ulFromChildren(req.body.children),
+        amount: req.body.children.length * 50,
       }), // html body
     })
     .then((x) => console.log(x))
