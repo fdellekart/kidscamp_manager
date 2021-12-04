@@ -174,6 +174,7 @@ export default {
         updates['/applications/' + newApplicationKey] = {
           parent: this.parentData,
           child,
+          created: new Date().toISOString(),
         }
         this.$fire.database
           .ref()
