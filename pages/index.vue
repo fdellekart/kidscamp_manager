@@ -166,28 +166,23 @@ export default {
       }
       this.showParentWarning = false
       this.children.forEach((child) => {
-        const newApplicationKey = this.$fire.database
-          .ref()
-          .child('applications')
-          .push().key
-        const updates = {}
-        updates['/applications/' + newApplicationKey] = {
-          parent: this.parentData,
-          child,
-          created: new Date().toISOString(),
-        }
-        this.$fire.database
-          .ref()
-          .update(updates)
+        this.$axios
+          .post('api/application/add', { child, parent: this.parentData })
+          .catch(this.handleApplicationError)
+        this.$axios
+          .post('api/application/confirm', {
+            mail: this.parentData.mail,
+            firstName: this.parentData.firstName,
+            children: this.children,
+          })
           .then(() => {
             this.applicationFinished = true
           })
+          .catch(this.handleApplicationError)
       })
-      this.$axios.post('api/application/confirm', {
-        mail: this.parentData.mail,
-        firstName: this.parentData.firstName,
-        children: this.children,
-      })
+    },
+    handleApplicationError(e) {
+      console.log('Error:', e)
     },
   },
 }
