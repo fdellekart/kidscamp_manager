@@ -169,17 +169,17 @@ export default {
         this.$axios
           .post('api/application/add', { child, parent: this.parentData })
           .catch(this.handleApplicationError)
-        this.$axios
-          .post('api/application/confirm', {
-            mail: this.parentData.mail,
-            firstName: this.parentData.firstName,
-            children: this.children,
-          })
-          .then(() => {
-            this.applicationFinished = true
-          })
-          .catch(this.handleApplicationError)
       })
+      this.$axios
+        .post('api/application/confirm', {
+          mail: this.parentData.mail,
+          firstName: this.parentData.firstName,
+          children: this.children,
+        })
+        .then(() => {
+          this.applicationFinished = true
+        })
+        .catch(this.handleApplicationError)
     },
     handleApplicationError(e) {
       console.log('Error:', e)
