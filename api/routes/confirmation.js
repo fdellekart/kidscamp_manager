@@ -4,6 +4,15 @@ const nodemailer = require('nodemailer')
 
 const router = Router()
 
+const getAmountInfo = function (nChildren) {
+  if (nChildren === 1) {
+    return '50€'
+  } else {
+    const amount = nChildren * 50
+    return String(amount) + '€ (50€ pro Kind)'
+  }
+}
+
 const format = function (text, args) {
   let newText = text
   for (const attr in args) {
@@ -54,12 +63,21 @@ router.post('/application/confirm', function (req, res, next) {
       html: format(mailTemplate, {
         name: req.body.firstName,
         children: ulFromChildren(req.body.children),
-        amount: req.body.children.length * 50,
+        amount: getAmountInfo(req.body.children.length),
       }), // html body
     })
-    .then((x) => console.log(x))
-    .catch((e) => console.log('Error:', e))
-  res.sendStatus(200)
+    .then((x) => {
+      res.statusCode = 200
+      res.send({
+        message: 'Successfully sent confirmation mail!',
+        children: req.body.children,
+        smtpResponse: x,
+      })
+    })
+    .catch((e) => {
+      res.statusCode = 500
+      res.send(e)
+    })
 })
 
 module.exports = router

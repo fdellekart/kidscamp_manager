@@ -19,12 +19,17 @@ router.post('/application/add', function (req, res, next) {
     .database()
     .ref()
     .update(updates)
-    .then((s) => {
-      res.write(s)
-      res.sendStatus(200)
+    .then(() => {
+      res.statusCode = 200
+      res.send({
+        message: 'Successfully added application!',
+        child: req.body.child,
+        parent: req.body.parent,
+      })
     })
-    .catch(() => {
-      res.sendStatus(500)
+    .catch((e) => {
+      res.statusCode = 500
+      res.send(e)
     })
 })
 
