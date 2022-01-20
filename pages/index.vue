@@ -107,6 +107,11 @@ export default {
       showParentWarning: false,
     }
   },
+  head() {
+    return {
+      title: 'Anmeldung KidsCamp 2022',
+    }
+  },
   computed: {
     currentYear() {
       return new Date().getFullYear()
