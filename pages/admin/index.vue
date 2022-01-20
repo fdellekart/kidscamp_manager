@@ -38,6 +38,9 @@ export default {
       applicationIdToDelete: null,
     }
   },
+  head() {
+    return { title: 'KidsCamp Anmeldungen' }
+  },
   computed: {
     deleteModalText() {
       if (!this.applicationIdToDelete) {
