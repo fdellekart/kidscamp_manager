@@ -33,6 +33,9 @@ jobs:
             git checkout master
             git pull
             docker build -t kidscamp_manager_front \
+              --build-arg FIREBASE_URL=${{secrets.FIREBASE_URL}} \
+              --build-arg AUTH_URL=${{secrets.AUTH_URL}} \
+              --build-arg AUTH_API_KEY=${{secrets.AUTH_API_KEY}} \
               --build-arg API_URL_BROWSER=${{secrets.API_URL_BROWSER}} \
               --build-arg CONFIRMATION_MAIL=${{secrets.CONFIRMATION_MAIL}} \
               --build-arg CONFIRMATION_MAIL_PASSWORD=${{secrets.CONFIRMATION_MAIL_PASSWORD}} \
