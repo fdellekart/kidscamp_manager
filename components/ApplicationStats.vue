@@ -52,7 +52,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 300px;
+  height: 325px;
 }
 .chart-container {
   height: 100%;
