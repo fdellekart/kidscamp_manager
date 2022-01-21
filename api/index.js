@@ -12,7 +12,9 @@ const firebaseConfig = {
 }
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig)
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig)
+}
 
 firebase // Authenticate for firebase
   .auth()
@@ -23,6 +25,7 @@ firebase // Authenticate for firebase
   .then((user) => {
     console.log('Logged into firbase successfully!')
   })
+  .catch((e) => console.log(e))
 
 // Create express instance
 const app = express()
