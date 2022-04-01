@@ -69,6 +69,10 @@ export default {
   },
   methods: {
     onSubmit() {
+      if (!this.personData.firstName || !this.personData.lastName) {
+        this.showWarning = true
+        return
+      }
       const isFirstNameShort = this.personData.firstName.length < 2
       const isLastNameShort = this.personData.lastName.length < 2
       if (isFirstNameShort || isLastNameShort) {

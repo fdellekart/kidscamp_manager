@@ -23,29 +23,17 @@
     <div v-if="!applicationFinished" class="separator"></div>
     <div v-if="!applicationFinished" class="children-container">
       <h2>Kinder</h2>
-      <AppPersonInfo
-        v-for="child in children"
-        :key="child.firstName + child.lastName + child.age"
-        :first-name="child.firstName"
-        :last-name="child.lastName"
-        :age="+child.age"
-        @toggle-edit="onEditChild($event)"
+      <child-input-and-display
+        v-for="idx in Object.keys(children)"
+        :key="idx"
+        :idx="idx"
+        style="width: 100%"
         @delete="onDeleteChild($event)"
+        @save="onSaveChild($event)"
       />
-      <AppButton
-        v-if="showNewChildButton"
-        class="add-button"
-        @click="isAddingChild = true"
+      <AppButton class="add-button" @click="onAddChild"
         >Kind Hinzufügen</AppButton
       >
-      <InputForm
-        v-if="showChildInputForm"
-        :person="childToEdit"
-        :show-age="true"
-        :show-cancel-button="children.length > 0"
-        @save="onSaveChild($event)"
-        @cancel="onCancelChild"
-      />
     </div>
     <p v-if="showParentWarning" class="warning">
       Bitte Erziehungsberechtigten angeben und speichern.
@@ -85,20 +73,23 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import InputForm from '@/components/input/InputForm'
 import AppPersonInfo from '@/components/UI/AppPersonInfo'
+import ChildInputAndDisplay from '@/components/input/ChildInputAndDisplay'
 
 export default {
   components: {
     InputForm,
     AppPersonInfo,
+    ChildInputAndDisplay,
   },
   layout: 'application',
   data() {
     return {
       parentData: { firstName: null, lastName: null, mail: null },
       isParentSaved: false,
-      children: [],
+      children: { child_0: { firstName: null, lastName: null, age: null } },
       isAddingChild: false,
       isEditingChild: false,
       childToEditIndex: null,
@@ -121,27 +112,14 @@ export default {
         this.children.length === 0 || this.isAddingChild || this.isEditingChild
       )
     },
-    showNewChildButton() {
-      return (
-        this.children.length > 0 && !this.isAddingChild && !this.isEditingChild
-      )
-    },
   },
   methods: {
     onSaveParent(parentData) {
       this.parentData = parentData
       this.isParentSaved = true
     },
-    onSaveChild(childData) {
-      if (this.isEditingChild) {
-        this.$set(this.children, this.childToEditIndex, childData)
-        this.isEditingChild = false
-        this.childToEdit = undefined
-        this.childToEditIndex = null
-      } else {
-        this.children.push(childData)
-        this.isAddingChild = false
-      }
+    onSaveChild({ idx, child }) {
+      Vue.set(this.children, idx, child)
     },
     getChildIndex(childData) {
       return this.children.findIndex(
@@ -160,9 +138,8 @@ export default {
       this.childToEditIndex = null
       this.childToEdit = undefined
     },
-    onDeleteChild(childData) {
-      const index = this.getChildIndex(childData)
-      this.children.splice(index, 1)
+    onDeleteChild(childIdx) {
+      Vue.delete(this.children, childIdx)
     },
     onSend() {
       if (!this.isParentSaved) {
@@ -170,7 +147,7 @@ export default {
         return
       }
       this.showParentWarning = false
-      this.children.forEach((child) => {
+      Object.values(this.children).forEach((child) => {
         this.$axios
           .post('api/application/add', { child, parent: this.parentData })
           .catch(this.handleApplicationError)
@@ -179,7 +156,7 @@ export default {
         .post('api/application/confirm', {
           mail: this.parentData.mail,
           firstName: this.parentData.firstName,
-          children: this.children,
+          children: Object.values(this.children),
         })
         .then(() => {
           this.applicationFinished = true
@@ -188,6 +165,22 @@ export default {
     },
     handleApplicationError(e) {
       console.log('Error:', e)
+    },
+    onAddChild() {
+      let newKey
+      if (Object.keys(this.children).length === 0) {
+        newKey = 'child_0'
+      } else {
+        const indexes = Object.keys(this.children).map((x) => +x.split('_')[1])
+        const maxIdx = indexes.reduce((x, y) => (x > y ? x : y))
+        const newIdx = maxIdx + 1
+        newKey = 'child_' + newIdx
+      }
+      Vue.set(this.children, newKey, {
+        firstName: null,
+        lastName: null,
+        age: null,
+      })
     },
   },
 }
