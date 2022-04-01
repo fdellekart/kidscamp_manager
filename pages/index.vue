@@ -146,8 +146,11 @@ export default {
         this.showParentWarning = true
         return
       }
+      const children = Object.values(this.children).filter(
+        (x) => (x.firstName !== null) & (x.lastName !== null) & (x.age !== null)
+      )
       this.showParentWarning = false
-      Object.values(this.children).forEach((child) => {
+      children.forEach((child) => {
         this.$axios
           .post('api/application/add', { child, parent: this.parentData })
           .catch(this.handleApplicationError)
@@ -156,7 +159,7 @@ export default {
         .post('api/application/confirm', {
           mail: this.parentData.mail,
           firstName: this.parentData.firstName,
-          children: Object.values(this.children),
+          children,
         })
         .then(() => {
           this.applicationFinished = true
