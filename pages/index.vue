@@ -38,6 +38,10 @@
     <p v-if="showParentWarning" class="warning">
       Bitte Erziehungsberechtigten angeben und speichern.
     </p>
+    <p v-if="showChildrenEmptyWarning" class="warning">
+      Bitte Kinder angeben und speichern.
+    </p>
+
     <div v-if="!applicationFinished" class="submit-button-container">
       <AppButton @click="onSend">Anmeldung absenden</AppButton>
     </div>
@@ -96,6 +100,7 @@ export default {
       childToEdit: undefined,
       applicationFinished: false,
       showParentWarning: false,
+      showChildrenEmptyWarning: false,
     }
   },
   head() {
@@ -149,6 +154,10 @@ export default {
       const children = Object.values(this.children).filter(
         (x) => (x.firstName !== null) & (x.lastName !== null) & (x.age !== null)
       )
+      if (children.length === 0) {
+        this.showChildrenEmptyWarning = true
+        return
+      }
       this.showParentWarning = false
       children.forEach((child) => {
         this.$axios
