@@ -41,6 +41,20 @@
     <p v-if="showChildrenEmptyWarning" class="warning">
       Bitte Kinder angeben und speichern.
     </p>
+    <div v-if="!applicationFinished" class="agreecheckboxwithtext">
+      <input v-model="isAgreeing" class="agreecheckbox" type="checkbox" />
+      <p class="agreetext" :style="agreeTextStyle">
+        Ich bin einverstanden, dass die angegebenen Daten vom "Verein zur
+        Durchführung von Kinderferienlagern - KIDSCAMP" gespeichert werden und
+        dass ich per Mail Informationen zum Lager erhalte.
+      </p>
+    </div>
+    <p v-if="!applicationFinished" class="datainfo">
+      Bei Unklarheiten bezüglich Speicherung und Löschung der angegebenen Daten
+      kontaktiere uns bitte über unsere Website oder per Mail. Die Informationen
+      dienen der Planung und Erreichbarkeit und werden keinesfalls an Dritte
+      weitergegeben.
+    </p>
 
     <div v-if="!applicationFinished" class="submit-button-container">
       <AppButton @click="onSend">Anmeldung absenden</AppButton>
@@ -101,6 +115,8 @@ export default {
       applicationFinished: false,
       showParentWarning: false,
       showChildrenEmptyWarning: false,
+      isAgreeing: false,
+      highlightAgreement: false,
     }
   },
   head() {
@@ -116,6 +132,13 @@ export default {
       return (
         this.children.length === 0 || this.isAddingChild || this.isEditingChild
       )
+    },
+    agreeTextStyle() {
+      if (this.highlightAgreement) {
+        return { color: 'red', 'font-weight': 'bold' }
+      } else {
+        return {}
+      }
     },
   },
   methods: {
@@ -159,6 +182,11 @@ export default {
         return
       }
       this.showParentWarning = false
+      this.showChildrenEmptyWarning = false
+      if (!this.isAgreeing) {
+        this.highlightAgreement = true
+        return
+      }
       children.forEach((child) => {
         this.$axios
           .post('api/application/add', { child, parent: this.parentData })
@@ -237,5 +265,20 @@ export default {
 }
 p {
   text-align: center;
+}
+.agreecheckboxwithtext {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+}
+.agreecheckbox {
+  margin: 20px;
+}
+.agreetext {
+  margin-top: 15px;
+  text-align: left;
+}
+.datainfo {
+  text-align: left;
 }
 </style>
