@@ -23,6 +23,7 @@
     "@nuxtjs/axios": "^5.12.5",
     "@nuxtjs/firebase": "^7.6.1",
     "@nuxtjs/proxy": "^2.1.0",
+    "@nuxtjs/recaptcha": "^1.0.4",
     "apexcharts": "^3.28.3",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",

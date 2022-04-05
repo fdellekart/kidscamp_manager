@@ -50,6 +50,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxt/http',
+    '@nuxtjs/recaptcha',
     [
       '@nuxtjs/firebase',
       {
@@ -76,6 +77,8 @@ export default {
       },
     ],
   ],
+
+  recaptcha: {},
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
