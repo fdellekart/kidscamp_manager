@@ -55,7 +55,10 @@
       dienen der Planung und Erreichbarkeit und werden keinesfalls an Dritte
       weitergegeben.
     </p>
-
+    <p v-if="showCaptchaWarning & !applicationFinished" class="warning">
+      Bitte verifiziere, dass du kein Roboter bist.
+    </p>
+    <recaptcha v-if="!applicationFinished" />
     <div v-if="!applicationFinished" class="submit-button-container">
       <AppButton @click="onSend">Anmeldung absenden</AppButton>
     </div>
@@ -117,6 +120,7 @@ export default {
       showChildrenEmptyWarning: false,
       isAgreeing: false,
       highlightAgreement: false,
+      showCaptchaWarning: false,
     }
   },
   head() {
@@ -169,39 +173,72 @@ export default {
     onDeleteChild(childIdx) {
       Vue.delete(this.children, childIdx)
     },
-    onSend() {
-      if (!this.isParentSaved) {
-        this.showParentWarning = true
-        return
-      }
+    async onSend() {
       const children = Object.values(this.children).filter(
         (x) => (x.firstName !== null) & (x.lastName !== null) & (x.age !== null)
       )
-      if (children.length === 0) {
-        this.showChildrenEmptyWarning = true
+
+      if (!this.verifyInputs(children)) {
         return
       }
-      this.showParentWarning = false
-      this.showChildrenEmptyWarning = false
-      if (!this.isAgreeing) {
-        this.highlightAgreement = true
+
+      const token = await this.getRecaptchaToken()
+
+      if (!token) {
+        this.showCaptchaWarning = true
         return
       }
+
       children.forEach((child) => {
         this.$axios
-          .post('api/application/add', { child, parent: this.parentData })
+          .post('api/application/add', {
+            child,
+            parent: this.parentData,
+            token,
+          })
           .catch(this.handleApplicationError)
       })
+
       this.$axios
         .post('api/application/confirm', {
           mail: this.parentData.mail,
           firstName: this.parentData.firstName,
           children,
+          token,
         })
         .then(() => {
           this.applicationFinished = true
         })
         .catch(this.handleApplicationError)
+
+      await this.$recaptcha.reset()
+    },
+    async getRecaptchaToken() {
+      try {
+        const token = await this.$recaptcha.getResponse()
+        return token
+      } catch (error) {
+        return false
+      }
+    },
+    verifyInputs(children) {
+      if (!this.isParentSaved) {
+        this.showParentWarning = true
+        return false
+      }
+      this.showParentWarning = false
+
+      if (children.length === 0) {
+        this.showChildrenEmptyWarning = true
+        return false
+      }
+      this.showChildrenEmptyWarning = false
+
+      if (!this.isAgreeing) {
+        this.highlightAgreement = true
+        return false
+      }
+      return true
     },
     handleApplicationError(e) {
       console.log('Error:', e)

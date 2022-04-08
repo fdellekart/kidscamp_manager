@@ -78,7 +78,11 @@ export default {
     ],
   ],
 
-  recaptcha: {},
+  recaptcha: {
+    siteKey: process.env.RECAPTCHA_SITE_KEY,
+    version: 2,
+    language: 'de-AT',
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
