@@ -80,6 +80,13 @@ router.post('/application/confirm', function (req, res, next) {
         spareAmount: getSpareAmountInfo(req.body.children.length),
         siblingsInfo: getSiblingsInfo(req.body.children.length),
       }), // html body
+      attachments: [
+        {
+          // file on disk as an attachment
+          filename: 'AnmeldeFormular.pdf',
+          path: './api/Anmeldung_2021_1Kind.pdf', // stream this file
+        },
+      ],
     })
     .then((x) => {
       res.statusCode = 200
