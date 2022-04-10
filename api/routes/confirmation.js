@@ -13,6 +13,19 @@ const getAmountInfo = function (nChildren) {
   }
 }
 
+const getSiblingsInfo = function (nChildren) {
+  if (nChildren > 1) {
+    return 'Falls die angemeldeten Kinder Geschwister sind, kann ab dem zweiten Kind ein Geschwisterrabatt von 10€ abgezogen werden.'
+  } else {
+    return ''
+  }
+}
+
+const getSpareAmountInfo = function (nChildren) {
+  const amount = nChildren * 100
+  return String(amount) + '€'
+}
+
 const format = function (text, args) {
   let newText = text
   for (const attr in args) {
@@ -64,6 +77,8 @@ router.post('/application/confirm', function (req, res, next) {
         name: req.body.firstName,
         children: ulFromChildren(req.body.children),
         amount: getAmountInfo(req.body.children.length),
+        spareAmount: getSpareAmountInfo(req.body.children.length),
+        siblingsInfo: getSiblingsInfo(req.body.children.length),
       }), // html body
     })
     .then((x) => {
