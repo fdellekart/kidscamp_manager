@@ -41,14 +41,12 @@
     <p v-if="showChildrenEmptyWarning" class="warning">
       Bitte Kinder angeben und speichern.
     </p>
-    <div v-if="!applicationFinished" class="agreecheckboxwithtext">
-      <input v-model="isAgreeing" class="agreecheckbox" type="checkbox" />
-      <p class="agreetext" :style="agreeTextStyle">
-        Ich bin einverstanden, dass die angegebenen Daten vom "Verein zur
-        Durchführung von Kinderferienlagern - KIDSCAMP" gespeichert werden und
-        dass ich per Mail Informationen zum Lager erhalte.
-      </p>
-    </div>
+    <p v-if="!applicationFinished" class="agreetext" :style="agreeTextStyle">
+      Mit dem Absenden der Anmeldung erkläre ich mich einverstanden, dass die
+      angegebenen Daten vom "Verein zur Durchführung von Kinderferienlagern -
+      KIDSCAMP" gespeichert werden und dass ich per Mail Informationen zum Lager
+      erhalte.
+    </p>
     <p v-if="!applicationFinished" class="datainfo">
       Bei Unklarheiten bezüglich Speicherung und Löschung der angegebenen Daten
       kontaktiere uns bitte über unsere Website oder per Mail. Die Informationen
@@ -118,8 +116,6 @@ export default {
       applicationFinished: false,
       showParentWarning: false,
       showChildrenEmptyWarning: false,
-      isAgreeing: false,
-      highlightAgreement: false,
       showCaptchaWarning: false,
     }
   },
@@ -234,10 +230,6 @@ export default {
       }
       this.showChildrenEmptyWarning = false
 
-      if (!this.isAgreeing) {
-        this.highlightAgreement = true
-        return false
-      }
       return true
     },
     handleApplicationError(e) {
