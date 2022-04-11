@@ -6,7 +6,10 @@
     <app-control-input v-model="personData.lastName"
       >Nachname</app-control-input
     >
-    <app-control-input v-if="showAge" v-model="personData.age"
+    <app-control-input
+      v-if="showAge"
+      v-model="personData.age"
+      :show-child-age-placeholder="true"
       >Alter</app-control-input
     >
     <app-control-input v-if="!showAge" v-model="personData.mail"

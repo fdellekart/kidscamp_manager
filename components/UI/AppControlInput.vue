@@ -5,6 +5,11 @@
       v-if="controlType === 'input'"
       v-bind="$attrs"
       :value="value"
+      :placeholder="
+        showChildAgePlaceholder
+          ? 'Bitte gib das Alter zu Beginn der Lagerwoche an.'
+          : ''
+      "
       @input="$emit('input', $event.target.value)"
     />
     <textarea
@@ -27,6 +32,10 @@ export default {
     value: {
       type: String,
       default: '',
+    },
+    showChildAgePlaceholder: {
+      type: Boolean,
+      default: false,
     },
   },
 }
