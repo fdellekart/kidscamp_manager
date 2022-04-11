@@ -49,6 +49,14 @@ const ulFromChildren = function (children) {
   return '<ul>' + strings.join('\n') + '</ul>'
 }
 
+const applicationAttachementFile = function (nChildren) {
+  if (nChildren < 4) {
+    return './api/Anmeldung_2022_pdf_' + String(nChildren) + 'Kinder.pdf'
+  } else {
+    return './api/Anmeldung_2022_pdf_3Kinder.pdf'
+  }
+}
+
 const mailTemplate = fs
   .readFileSync('./api/confirmation-mail-template.html')
   .toString()
@@ -82,9 +90,16 @@ router.post('/application/confirm', function (req, res, next) {
       }), // html body
       attachments: [
         {
-          // file on disk as an attachment
-          filename: 'AnmeldeFormular.pdf',
-          path: './api/Anmeldung_2021_1Kind.pdf', // stream this file
+          filename: 'Anmeldeformular_KidsCamp2022.pdf',
+          path: applicationAttachementFile(req.body.children.lenght),
+        },
+        {
+          filename: 'Medikamentengabe_KidsCamp2022.pdf',
+          path: './api/Medikamentengabe_2022.pdf',
+        },
+        {
+          filename: 'Medikamentengabe_ARZT.pdf',
+          path: './api/Medikamentengabe-ARZT.pdf',
         },
       ],
     })
