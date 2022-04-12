@@ -233,7 +233,9 @@ export default {
       return true
     },
     handleApplicationError(e) {
-      console.log('Error:', e)
+      this.$nuxt.error(
+        'Ooops! Da ist etwas schief gelaufen. Bitte kontaktiere uns über unsere Website oder per Mail.'
+      )
     },
     onAddChild() {
       let newKey
