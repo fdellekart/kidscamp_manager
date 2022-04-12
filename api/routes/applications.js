@@ -15,41 +15,45 @@ router.post('/application/add', function (req, res, next) {
     })
     .then((captchaResponse) => {
       if (captchaResponse.data.success) {
-        successFullCaptchaCallback(req, res)
+        const applications = req.body.children.map((child) => {
+          return { parent: req.body.parent, child }
+        })
+        successFullCaptchaCallback(applications, res)
       } else {
         unsuccessfulCaptchaCallback(req, res)
       }
     })
 })
 
-function successFullCaptchaCallback(req, res) {
-  const newApplicationKey = firebase
-    .database()
-    .ref()
-    .child('applications')
-    .push().key
+function successFullCaptchaCallback(applications, res) {
+  let returnValue
   const updates = {}
-  updates['/applications/' + newApplicationKey] = {
-    parent: req.body.parent,
-    child: req.body.child,
-    created: new Date().toISOString(),
-  }
+  applications.forEach((application) => {
+    const newApplicationKey = firebase
+      .database()
+      .ref()
+      .child('applications')
+      .push().key
+
+    updates['/applications/' + newApplicationKey] = {
+      parent: application.parent,
+      child: application.child,
+      created: new Date().toISOString(),
+    }
+  })
   firebase
     .database()
     .ref()
     .update(updates)
     .then(() => {
-      res.statusCode = 200
-      res.send({
-        message: 'Successfully added application!',
-        child: req.body.child,
-        parent: req.body.parent,
-      })
+      res.status = 200
+      res.send({ message: 'Successfully added applications!' })
     })
     .catch((e) => {
-      res.statusCode = 500
-      res.send(e)
+      res.status = 500
+      res.send({ error: e })
     })
+  return returnValue
 }
 
 function unsuccessfulCaptchaCallback(req, res) {

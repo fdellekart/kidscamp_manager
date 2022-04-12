@@ -185,15 +185,13 @@ export default {
         return
       }
 
-      children.forEach((child) => {
-        this.$axios
-          .post('api/application/add', {
-            child,
-            parent: this.parentData,
-            token,
-          })
-          .catch(this.handleApplicationError)
-      })
+      this.$axios
+        .post('api/application/add', {
+          children: Object.values(this.children),
+          parent: this.parentData,
+          token,
+        })
+        .catch(this.handleApplicationError)
 
       this.$axios
         .post('api/application/confirm', {
