@@ -91,7 +91,7 @@ router.post('/application/confirm', function (req, res, next) {
       attachments: [
         {
           filename: 'Anmeldeformular_KidsCamp2022.pdf',
-          path: applicationAttachementFile(req.body.children.lenght),
+          path: applicationAttachementFile(req.body.children.length),
         },
         {
           filename: 'Medikamentengabe_KidsCamp2022.pdf',
