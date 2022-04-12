@@ -74,7 +74,10 @@ export default {
           { responseType: 'blob' }
         )
         .then((res) => {
-          FileSaver.saveAs(res.data, 'Anmeldungen.xlsx')
+          FileSaver.saveAs(
+            res.data,
+            'Anmeldungen_' + new Date().toISOString().slice(0, 16) + '.xlsx'
+          )
         })
     },
   },
