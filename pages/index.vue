@@ -121,7 +121,7 @@ export default {
   },
   head() {
     return {
-      title: 'Anmeldung KidsCamp 2022',
+      title: 'Anmeldung KidsCamp 2023',
     }
   },
   computed: {
