@@ -147,6 +147,7 @@ export default {
       this.isParentSaved = true
     },
     onSaveChild({ idx, child }) {
+      child.age = child.age.trim()
       Vue.set(this.children, idx, child)
     },
     getChildIndex(childData) {
