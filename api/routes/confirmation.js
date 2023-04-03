@@ -101,6 +101,10 @@ router.post('/application/confirm', function (req, res, next) {
           filename: 'Medikamentengabe_ARZT.pdf',
           path: './api/Medikamentengabe-ARZT.pdf',
         },
+        {
+          filename: 'Packliste_KidsCamp.pdf',
+          path: './api/Packliste_KidsCamp.pdf',
+        },
       ],
     })
     .then((x) => {
