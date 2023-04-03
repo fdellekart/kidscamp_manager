@@ -51,9 +51,9 @@ const ulFromChildren = function (children) {
 
 const applicationAttachementFile = function (nChildren) {
   if (nChildren < 4) {
-    return './api/Anmeldung_2022_pdf_' + String(nChildren) + 'Kinder.pdf'
+    return './api/Anmeldung_2023_pdf_' + String(nChildren) + 'Kinder.pdf'
   } else {
-    return './api/Anmeldung_2022_pdf_3Kinder.pdf'
+    return './api/Anmeldung_2023_pdf_3Kinder.pdf'
   }
 }
 
@@ -90,12 +90,12 @@ router.post('/application/confirm', function (req, res, next) {
       }), // html body
       attachments: [
         {
-          filename: 'Anmeldeformular_KidsCamp2022.pdf',
+          filename: 'Anmeldeformular_KidsCamp2023.pdf',
           path: applicationAttachementFile(req.body.children.length),
         },
         {
-          filename: 'Medikamentengabe_KidsCamp2022.pdf',
-          path: './api/Medikamentengabe_2022.pdf',
+          filename: 'Medikamentengabe_KidsCamp2023.pdf',
+          path: './api/Medikamentengabe_2023.pdf',
         },
         {
           filename: 'Medikamentengabe_ARZT.pdf',
