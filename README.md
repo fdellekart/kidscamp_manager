@@ -1,4 +1,7 @@
-# kidscamp_application
+# KidsCamp Application Manager
+
+A web app to apply for a summer camp for children with admin section for viewing applications and exporting them.
+Backend using firebase.
 
 ## Build Setup
 
