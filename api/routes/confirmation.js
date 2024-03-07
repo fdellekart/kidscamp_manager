@@ -22,7 +22,7 @@ const getSiblingsInfo = function (nChildren) {
 }
 
 const getSpareAmountInfo = function (nChildren) {
-  const amount = nChildren * 100
+  const amount = nChildren * 120
   return String(amount) + '€'
 }
 
