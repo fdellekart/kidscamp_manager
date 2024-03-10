@@ -45,7 +45,10 @@
       Mit dem Absenden der Anmeldung erkläre ich mich einverstanden, dass die
       angegebenen Daten vom "Verein zur Durchführung von Kinderferienlagern -
       KIDSCAMP" gespeichert werden und dass ich per Mail Informationen zum Lager
-      erhalte.
+      erhalte. Außerdem akzeptiere ich die
+      <a href="https://www.kidscamp.at/teilnahmebedingungen"
+        >Teilnahmebedingungen</a
+      >.
     </p>
     <p v-if="!applicationFinished" class="datainfo">
       Bei Unklarheiten bezüglich Speicherung und Löschung der angegebenen Daten
