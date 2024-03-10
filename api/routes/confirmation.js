@@ -6,10 +6,10 @@ const router = Router()
 
 const getAmountInfo = function (nChildren) {
   if (nChildren === 1) {
-    return '50€'
+    return '100€'
   } else {
-    const amount = nChildren * 50
-    return String(amount) + '€ (50€ pro Kind)'
+    const amount = nChildren * 100
+    return String(amount) + '€ (100€ pro Kind)'
   }
 }
 
@@ -22,7 +22,7 @@ const getSiblingsInfo = function (nChildren) {
 }
 
 const getSpareAmountInfo = function (nChildren) {
-  const amount = nChildren * 120
+  const amount = nChildren * 70
   return String(amount) + '€'
 }
 
