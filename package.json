@@ -19,7 +19,7 @@
     }
   },
   "engines": {
-    "node": "14.17.6"
+    "node": "^22.0.0"
   },
   "dependencies": {
     "@nuxt/http": "^0.6.4",
