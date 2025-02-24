@@ -88,6 +88,7 @@ router.post('/application/confirm', function (req, res, next) {
         spareAmount: getSpareAmountInfo(req.body.children.length),
         siblingsInfo: getSiblingsInfo(req.body.children.length),
       }), // html body
+      replyTo: 'kontakt@kidscamp.at',
       attachments: [
         {
           filename: 'Anmeldeformular_KidsCamp2024.pdf',
