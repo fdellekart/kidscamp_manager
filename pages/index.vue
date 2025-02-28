@@ -124,7 +124,7 @@ export default {
   },
   head() {
     return {
-      title: 'Anmeldung KidsCamp 2024',
+      title: 'Anmeldung KidsCamp 2025',
     }
   },
   computed: {
