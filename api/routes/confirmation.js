@@ -22,7 +22,7 @@ const getSiblingsInfo = function (nChildren) {
 }
 
 const getSpareAmountInfo = function (nChildren) {
-  const amount = nChildren * 70
+  const amount = nChildren * 100
   return String(amount) + '€'
 }
 
@@ -51,9 +51,9 @@ const ulFromChildren = function (children) {
 
 const applicationAttachementFile = function (nChildren) {
   if (nChildren < 4) {
-    return './api/Anmeldung_2025_pdf_' + String(nChildren) + 'Kinder.pdf'
+    return './api/Anmeldung_2026_pdf_' + String(nChildren) + 'Kinder.pdf'
   } else {
-    return './api/Anmeldung_2025_pdf_3Kinder.pdf'
+    return './api/Anmeldung_2026_pdf_3Kinder.pdf'
   }
 }
 
@@ -91,12 +91,12 @@ router.post('/application/confirm', function (req, res, next) {
       replyTo: 'kontakt@kidscamp.at',
       attachments: [
         {
-          filename: 'Anmeldeformular_KidsCamp2025.pdf',
+          filename: 'Anmeldeformular_KidsCamp2026.pdf',
           path: applicationAttachementFile(req.body.children.length),
         },
         {
-          filename: 'Medikamentengabe_KidsCamp2025.pdf',
-          path: './api/Medikamentengabe_2025.pdf',
+          filename: 'Medikamentengabe_KidsCamp2026.pdf',
+          path: './api/Medikamentengabe_2026.pdf',
         },
         {
           filename: 'Medikamentengabe_ARZT.pdf',
