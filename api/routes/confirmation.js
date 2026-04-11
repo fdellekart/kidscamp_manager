@@ -51,9 +51,9 @@ const ulFromChildren = function (children) {
 
 const applicationAttachementFile = function (nChildren) {
   if (nChildren < 4) {
-    return './api/Anmeldung_2026_pdf_' + String(nChildren) + 'Kinder.pdf'
+    return './api/Anmeldung_2026_' + String(nChildren) + 'Kinder.pdf'
   } else {
-    return './api/Anmeldung_2026_pdf_3Kinder.pdf'
+    return './api/Anmeldung_2026_3Kinder.pdf'
   }
 }
 
