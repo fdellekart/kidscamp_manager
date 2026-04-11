@@ -62,9 +62,9 @@ const mailTemplate = fs
   .toString()
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.kidscamp.at',
-  port: 465,
-  secure: true, // true for 465, false for other ports
+  host: 'smtp.office365.com',
+  port: 587,
+  secure: false, // true for 465, false for other ports
   auth: {
     user: process.env.CONFIRMATION_MAIL,
     pass: process.env.CONFIRMATION_MAIL_PASSWORD,
