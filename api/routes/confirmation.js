@@ -15,7 +15,7 @@ const getAmountInfo = function (nChildren) {
 
 const getSiblingsInfo = function (nChildren) {
   if (nChildren > 1) {
-    return 'Falls die angemeldeten Kinder Geschwister sind, kann ab dem zweiten Kind ein Geschwisterrabatt von 10€ abgezogen werden.'
+    return 'Falls die angemeldeten Kinder Geschwister sind, kann ein Geschwisterrabatt von 10€ pro Kind abgezogen werden.'
   } else {
     return ''
   }
